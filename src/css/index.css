@@ -1,0 +1,7 @@
+/* index.css */
+html{
+    height: 100%;
+}
+
+/* utils.css */
+@import "./utils.css"
