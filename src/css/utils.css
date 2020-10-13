@@ -62,3 +62,9 @@
 .bb-solid-black{ border-bottom: 1px solid #000; }
 .bl-solid-black{ border-left: 1px solid #000; }
 .br-solid-black{ border-right: 1px solid #000; }
+
+.to-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
