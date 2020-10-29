@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./tasksScreen.css">
+    <link rel="stylesheet" href="./tasksPrint.css">
     <link rel="icon" href="./icon.png" type="image/png">
     <title>Gestor de tareas</title>
 </head>
@@ -50,11 +51,17 @@
         </div>
 
         <div class="add-task">
-            asdasd
+            <span>TAREA</span> 
+            <form action="procesar_formulario" method="POST">                
+                <input class="text-input" type="text" name="tarea">
+                <button class= "AddtaskButton" type="submit">AÑADIR TAREA</button>
+            </form>           
         </div>
 
         <div class="delete-tasks">
-            asdasd
+            <form action="procesar_formulario" method="POST">                
+                <button class="DeletetaskButton" type="submit">ELIMINAR TAREAS COMPLETADAS</button>
+            </form>
         </div>
     </div>
 </body>

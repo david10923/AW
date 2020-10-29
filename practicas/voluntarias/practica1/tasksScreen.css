@@ -79,9 +79,7 @@ body{
 }
 
 
-
-
-/*.content .task-list .task .label{
+.content .task-list .task .label{
     padding: 5px;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -104,4 +102,39 @@ body{
 }
 .content .task-list .task.pending-task .task-info .labels{
     display :flex;
-}*/
+}
+.content .add-task{
+    display:flex;
+    justify-content: space-around;
+    background-color: rgb(206, 112, 65);
+    width: 622px;
+    height: 45px;
+    align-items: center;
+}
+
+.add-task form{/*esto es para que el tamaño del form se ajuste al div que si no queda pocho*/
+    width: 85%;
+}
+.add-task span{
+    padding-left: 10px;
+}
+
+input.text-input{
+    height: 30px;
+    width: 75%;
+}
+
+button.AddtaskButton{
+    background-color:rgb(101, 164, 216);
+    padding:5px;
+}
+
+.content .delete-tasks{   
+    margin-top: 5px;
+} 
+
+.content .delete-tasks button.DeletetaskButton{
+    padding:13px 8px;
+    background-color:rgb(101, 164, 216);
+    width: 100%;
+}
