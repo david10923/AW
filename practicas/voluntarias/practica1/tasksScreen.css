@@ -77,7 +77,10 @@ body{
     display: flex;
     flex-wrap: wrap;
 }
-
+.btn{
+    border-radius: 5px;
+    border: 1px solid #000;
+}
 
 .content .task-list .task .label{
     padding: 5px;
@@ -99,12 +102,15 @@ body{
 }
 .content .task-list .task.task-done{
     background-color: rgba(24, 169, 154, 0.2);
+    text-decoration: line-through;
+    color: rgb(0, 95, 86);
 }
 .content .task-list .task.pending-task .task-info .labels{
-    display :flex;
+    display: flex;
+    flex-wrap: wrap;
 }
 .content .add-task{
-    display:flex;
+    display: flex;
     justify-content: space-around;
     background-color: rgb(206, 112, 65);
     width: 622px;
@@ -115,15 +121,17 @@ body{
 .add-task form{/*esto es para que el tamaño del form se ajuste al div que si no queda pocho*/
     width: 85%;
 }
-.add-task span{
+.add-task .title{
     padding-left: 10px;
 }
 
-input.text-input{
-    height: 30px;
+input.text-input,
+input.text-input:focus{
+    height: 20px;
     width: 75%;
+    border-radius: 5px;
+    border: 1px solid #000;
 }
-
 button.AddtaskButton{
     background-color:rgb(101, 164, 216);
     padding:5px;

@@ -31,16 +31,20 @@
                     <div class="labels">
                         <span class="label">CONCIERTO</span>
                         <span class="label">CONCIERTO</span>
+                        
+                        <span class="label">OTRA ETIQUETA</span>
                     </div>
                 </div>
-                <button class="delete-task">Marcar finalizada</button>
+                <button class="btn delete-task">Marcar finalizada</button>
             </div>
             <div class="task pending-task">
                 <div class="task-info">
                     <span class="name-task">COMPRAR ENTRADAS</span>
-                    <span class="label">CONCIERTO</span>
+                    <div class="labels">
+                        <span class="label">CONCIERTO</span>
+                    </div>
                 </div>
-                <button class="delete-task">Marcar finalizada</button>
+                <button class="btn delete-task">Marcar finalizada</button>
             </div>
             
             <div class="task task-done">
@@ -51,16 +55,16 @@
         </div>
 
         <div class="add-task">
-            <span>TAREA</span> 
-            <form action="procesar_formulario" method="POST">                
+            <span class="title">TAREA</span> 
+            <form action="#" method="POST">                
                 <input class="text-input" type="text" name="tarea">
-                <button class= "AddtaskButton" type="submit">AÑADIR TAREA</button>
-            </form>           
+                <button class= "btn AddtaskButton" type="submit">AÑADIR TAREA</button>
+            </form>
         </div>
 
         <div class="delete-tasks">
-            <form action="procesar_formulario" method="POST">                
-                <button class="DeletetaskButton" type="submit">ELIMINAR TAREAS COMPLETADAS</button>
+            <form action="#" method="POST">                
+                <button class="btn DeletetaskButton" type="submit">ELIMINAR TAREAS COMPLETADAS</button>
             </form>
         </div>
     </div>
