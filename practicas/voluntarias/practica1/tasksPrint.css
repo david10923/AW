@@ -1,0 +1,69 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-size:12px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+#header{
+    margin: 15px;
+}
+.content{
+    margin-left: 15px;
+}
+.task{
+    margin-bottom: 10px;
+}
+ul li{
+    margin-left: 15px;
+}
+#header .logininfo,
+.btn, .add-task, .delete-tasks{
+    display: none;
+}
+#header .title{
+    font-size: 18px;
+}
+.task-info .name-task,
+.task.task-done .deleted-task{
+    font-weight: bold;
+    text-transform: lowercase;
+}
+#header .title{
+    text-transform: lowercase;
+}
+#header .title::first-letter{
+    text-transform: uppercase;
+}
+.task.task-done .deleted-task::first-letter,
+.task-info .name-task::first-letter{
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.task-info .name-task::after{
+    content: ":";
+}
+.task-info{
+    display: flex;
+    align-items: center ;
+}
+.label{
+    margin: 0px 10px;
+    text-transform: lowercase;
+}
+.label::after{
+    content: ")";
+}
+.label::before{
+    content: "(";
+}
+li .task.task-done .deleted-task{
+    text-decoration: line-through;
+}
+li.done{
+    margin-left: 30px;
+}
+#header .title, .task.task-done .deleted-task{
+    display: inline-block;
+}
