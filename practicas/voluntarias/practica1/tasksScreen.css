@@ -83,14 +83,7 @@ body{
 }
 .task.task-done .deleted-task{
     text-transform: uppercase;
-    display:inline-block;
-    /* text-decoration: line-through; */
-    /* text-decoration-line: inherit; */
     padding-left: 20px;
-}
-.task.pending-task .task-info .name-task::first-letter,
-.task.task-done .deleted-task::first-letter{
-    font-size: 23px;
 }
 
 .content .task-list .task.pending-task .task-info .labels{
