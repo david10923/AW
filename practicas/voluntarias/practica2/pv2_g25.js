@@ -26,9 +26,9 @@ function findByTag(tasks, tag){
 
 // EJERCICIO 3
 function findByTags(tasks, tagsParam){
-    return tasks.filter(task => task.tags);
+    return tasks.filter(task => task.tags.length > 0 && task.tags.filter(tag => tagsParam.includes(tag)));
 }
-//console.log('FUNCION 3: ', findByTags(listaTareas, ["personal", "practica"]));
+//console.log('FUNCION 3: ', findByTags(listaTareas, ["personal", "practica", "look"]));
 
 
 // EJERCICIO 4
@@ -42,13 +42,16 @@ function countDone(tasks){
 function createTask(texto){
     let obj = {
         text: '',
+        done: false,
         tags: []
     };
-    // sacar todos los tags en una funcion y meterlos a un array , (es una linea en JS)
-    // /(@[A-Za-z])\w+/
-    
 
-    return obj;
+    var fullTags    = texto.split(" ").filter(word => /@(.+)/.test(word)); // Para un texto completo: /@(.[^ \n\r]+)/
+    var newTags     = fullTags.map(tag => tag.replace('@', ''));
+    var taskName    = texto.split(" ").filter(word => word !== '' && fullTags.includes(word) === false).join(" ");
+
+    return { text: taskName, tags: newTags };
 }
-//console.log('FUNCION 5: ', createTask("Ir al médico @personal @salud"));
-//console.log('FUNCION 5: ', createTask("@AW         @practica Preparar práctica AW"));
+// console.log('FUNCION 5: ', createTask("Ir al médico @personal @salud"));
+// console.log('FUNCION 5: ', createTask("@AW         @practica Preparar práctica AW"));
+// console.log('FUNCION 5: ', createTask("Ir a @deporte entrenar"));
