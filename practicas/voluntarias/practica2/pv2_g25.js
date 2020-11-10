@@ -52,7 +52,7 @@ function createTask(texto){
 
     return { text: taskName, tags: newTags };
 }
-// console.log('FUNCION 5: ', createTask("Ir al médico @personal @salud"));
-// console.log('FUNCION 5: ', createTask("@AW         @practica Preparar práctica AW"));
-// console.log('FUNCION 5: ', createTask("Ir a @deporte entrenar"));
-// console.log('FUNCION 5: ', createTask("@label Ir @another a @deporte entrenar"));
+//console.log('FUNCION 5: ', createTask("Ir al médico @personal @salud"));
+//console.log('FUNCION 5: ', createTask("@AW         @practica Preparar práctica AW"));
+//console.log('FUNCION 5: ', createTask("Ir a @deporte entrenar"));
+//console.log('FUNCION 5: ', createTask("@label Ir @another a @deporte entrenar"));
