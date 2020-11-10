@@ -40,12 +40,6 @@ function countDone(tasks){
 
 // EJERCICIO 5
 function createTask(texto){
-    let obj = {
-        text: '',
-        done: false,
-        tags: []
-    };
-
     var fullTags    = texto.split(" ").filter(word => /@(.+)/.test(word)); // Para un texto completo: /@(.[^ \n\r]+)/
     var newTags     = fullTags.map(tag => tag.replace('@', ''));
     var taskName    = texto.split(" ").filter(word => word !== '' && fullTags.includes(word) === false).join(" ");
