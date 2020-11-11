@@ -1,15 +1,42 @@
-*{
+/* *{
     padding:0;
     margin:0;
+} */
+
+body{
+    font-family: 'Roboto', sans-serif;
 }
 
 /* FORMULARIOS */
 .form-title{
     display: block;
     margin-bottom: 5px;
+    cursor: auto;
 }
-input{
+input.form-field{
     width: 100%;
+    display: block;
     height: 20px;
     margin-bottom: 10px;
+}
+
+/* ELEMENTOS */
+.btn{
+    color: #fff;
+    background-color: #808080;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    padding: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.btn.btn-primary{
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn.btn-primary:hover{
+    background-color: #005ec2;
+    border-color: #005ec2;
 }
