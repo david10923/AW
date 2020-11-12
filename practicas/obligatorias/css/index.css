@@ -71,3 +71,7 @@ header #header{
     margin: 0 5px;
     /* width: 75%; */ /*pq con form width 100% y este a 75% mete mas ancho a toda la pagina*/
 }
+
+.content .search .form-control{
+    width: auto;
+}

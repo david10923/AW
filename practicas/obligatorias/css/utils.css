@@ -1,4 +1,12 @@
 /* FORMULARIOS */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #292828;
+    font-size: 14px;
+    color: #fff;
+}
+
 .form-title{
     display: block;
     margin-bottom: 5px;
@@ -13,6 +21,7 @@ input.form-field{
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
 .form-control{
     width: 50%;
 }
