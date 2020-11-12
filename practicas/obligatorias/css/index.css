@@ -1,42 +1,73 @@
-/* *{
-    padding:0;
-    margin:0;
-} */
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
 
 body{
-    font-family: 'Roboto', sans-serif;
-}
-
-/* FORMULARIOS */
-.form-title{
-    display: block;
-    margin-bottom: 5px;
-    cursor: auto;
-}
-input.form-field{
-    width: 100%;
-    display: block;
-    height: 20px;
-    margin-bottom: 10px;
-}
-
-/* ELEMENTOS */
-.btn{
+    font-family: 'Poppins', sans-serif;
+    background-color: #292828;
+    font-size: 14px;
     color: #fff;
-    background-color: #808080;
-    border-radius: 2px;
-    border: 1px solid transparent;
-    padding: 5px;
-    cursor: pointer;
-    display: inline-block;
+}
+
+header #header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 10px;
+}
+
+#header .logo{
+    width: 150px;
+}
+
+#header .header-element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#header .header-element.menu button{
+    margin: 5px;
+    width: 100%;
+}
+
+#header .header-element .profile-img{
+    border-radius: 50%;
+    width: 70px;
+}
+
+#header .header-element.profile-info{
+    padding-right: 20px;
+}
+
+#header .header-element .username{
     text-align: center;
-    vertical-align: middle;
+    color: #fff;
+    margin: 2px;
 }
-.btn.btn-primary{
-    background-color: #007bff;
-    border-color: #007bff;
+
+.content{
+    padding-top: 150px;
+    /* margin: 5px; */
 }
-.btn.btn-primary:hover{
-    background-color: #005ec2;
-    border-color: #005ec2;
+
+.content .search form{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 5px;
+    /* width: 100%; */
+}
+.content .search form input.form-field{
+    margin: 0 5px;
+    /* width: 75%; */ /*pq con form width 100% y este a 75% mete mas ancho a toda la pagina*/
 }

@@ -3,10 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/credentials.css">
+    <link rel="stylesheet" href="../css/utils.css">
+    <link rel="icon" href="../resources/images/logo_64.png">
+    <title>Crear cuenta</title>
 </head>
 <body>
-    
+    <header>
+        <div id="header">
+            <img src="../resources/images/logo_512.png" alt="404" class="logo">
+        </div>
+    </header>
+
+    <div class="registro">
+        <form action="#" method="POST" class="form-control">
+            <span class="form-title">Correo electrónico *</span>
+            <input type="email" class="form-field" autocomplete="off" placeholder="Introduce tu correo electónico...">
+            <span class="form-title">Contraseña *</span>
+            <input type="password" class="form-field" autocomplete="off" placeholder="Introduce tu contraseña...">
+            <span class="form-title">Confirmar contraseña *</span>
+            <input type="password" class="form-field" autocomplete="off" placeholder="Confirma tu contraseña...">
+            <span class="form-title">Nombre para mostrar *</span>
+            <input type="text" class="form-field" autocomplete="off" placeholder=" Introduce un nombre valido...">
+            <span class="form-title">Imagen de perfil</span>
+            <input type="file" class="form-field" autocomplete="off">
+            <div class="btns-form_login">
+                <button class="btn btn-primary">Iniciar sesión</button>
+                <button class="btn btn-primary">Crear cuenta</button>
+            </div>    
+        </form>
+    </div>
 </body>
 </html>

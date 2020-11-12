@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="../css/index.css">
-    <link rel="stylesheet" media="screen" href="../css/login.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="../css/utils.css">
+    <link rel="stylesheet" media="screen" href="../css/credentials.css">
+    <link rel="icon" href="../resources/images/logo_64.png">
     <title>Iniciar sesión</title>
 </head>
 <body>
@@ -16,17 +18,16 @@
     </header>
 
     <div class="registro">
-        <form action="#" method="POST">
+        <form action="#" method="POST" class="form-control">
             <span class="form-title">Correo electrónico *</span>
-            <input type="text" class="form-field">
+            <input type="email" class="form-field" autocomplete="off" placeholder="Introduce tu correo electónico...">
             <span class="form-title">Contraseña *</span>
-            <input type="password" class="form-field">
+            <input type="password" class="form-field" autocomplete="off" placeholder="Introduce tu contraseña...">
             <div class="btns-form_login">
                 <button class="btn btn-primary">Iniciar sesión</button>
                 <button class="btn btn-primary">Crear cuenta</button>
             </div>    
         </form>
-    
     </div>
 </body>
 </html>

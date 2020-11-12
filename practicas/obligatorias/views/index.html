@@ -3,18 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="../css/index.css">
-    <title>404</title>
+    <link rel="stylesheet" media="screen" href="../css/utils.css">
+    <link rel="icon" href="../resources/images/logo_64.png">
+    <title>index</title>
 </head>
 <body>
     <header>
         <div id="header">
-            <span>404</span>
+            <div class="header-element menu">
+                <button class="btn btn-primary">Preguntas</button>
+                <button class="btn btn-primary">Sin responder</button>
+                <button class="btn btn-primary">Usuarios</button>
+            </div>
+            <img src="../resources/images/logo_512.png" alt="404" class="logo">
+            <div class="header-element profile-info">
+                <img src="../resources/images/default.png" alt="Perfil" class="profile-img">
+                <span class="username">SHAM</span>
+                <button class="btn btn-primary">Cerrar Sesion</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="search">
+            <form action="#" method="POST" class="form-control">
+                <button class="btn btn-search">Buscar</button>
+                <input type="text" class="form-field" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
+            </form>
         </div>
 
+      
 
-    </header>
+    </div>
     
 </body>
 </html>
