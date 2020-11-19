@@ -22,7 +22,8 @@ header #header{
     position: fixed;
     top: 0;
     left: 0;
-    padding: 0 10px;
+    padding: 0 10px;   
+    background-color: #131313;
 }
 
 #header .logo{

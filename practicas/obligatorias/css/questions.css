@@ -6,6 +6,10 @@
     flex-direction: column;    
 }
 
+.questions-content .title{
+    font-size: 16px;
+}
+
 .questions-content .control-panel{
     display: flex;
     justify-content: space-between;
