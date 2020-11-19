@@ -1,0 +1,27 @@
+
+
+.questions-content .viewed,
+.questions-content .votes{
+    display: block;
+    height: 18px;
+    border-radius: 3px;
+    padding: 2px 5px;  
+}
+
+.questions-content .viewed{
+    background-color: rgb(106, 115, 122);
+}
+
+.questions-content .votes{
+    background-color: rgb(219, 144, 46);
+}
+
+/* lo mismo que en questiosn labels */
+.questions-content .questions .labels .label{
+    font-size: 10px;
+    font-weight: bold;
+    color: #35495e;
+    background-color: #66b0ff;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
