@@ -1,3 +1,5 @@
+/* @import url('../css/utils.css'); */
+
 *{
     padding: 0;
     margin: 0;
@@ -6,13 +8,28 @@ html{
     width: 100%;
     height: 100%;
 }
-
 body{
     font-family: 'Poppins', sans-serif;
     background-color: #292828;
     font-size: 14px;
     color: #fff;
 }
+
+/* Barra de busqueda para tener la lupa pegada al input */
+.icon-find{
+    width: 20px;
+    background-color: #fff;
+    padding: 2px 5px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+input.find-field{
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+}
+/****/
 
 header #header{
     display: flex;
