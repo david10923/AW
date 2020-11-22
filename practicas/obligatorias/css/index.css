@@ -31,20 +31,29 @@ input.find-field{
 }
 /****/
 
-header #header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+header{
+    background-color: #131313;
+    padding-bottom: 10px;
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
+}
+
+header #header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0; */
     padding: 0 10px;   
-    background-color: #131313;
+    /* background-color: #131313; */
 }
 
 #header .logo{
-    width: 150px;
+    width: 130px;
 }
 
 #header .header-element{
@@ -73,23 +82,31 @@ header #header{
     margin: 2px;
 }
 
-.content{
-    padding-top: 150px;
-    /* margin: 5px; */
+.content-body{
+    padding-top: 180px;
 }
 
-.content .search form{
+.content-search .search form{
     display: flex;
     align-items: center;
     justify-content: left;
     padding: 5px;
     /* width: 100%; */
 }
-.content .search form input.form-field{
+.content-search .search form input.form-field{
     margin: 0 5px;
     /* width: 75%; */ /*pq con form width 100% y este a 75% mete mas ancho a toda la pagina*/
 }
 
-.content .search .form-control{
+.content-search .search .form-control{
     width: auto;
 }
+
+/* PARA LOS VOTOS DE LAS PREGUNTAS */
+.like,
+.dislike{
+    cursor: pointer;
+    margin: 0 5px;
+}
+.like{ color: #0c8f00; }
+.dislike{ color: #990000; }

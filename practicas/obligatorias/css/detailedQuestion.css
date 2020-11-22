@@ -1,22 +1,66 @@
 
-/* 
-INFORMACION RELATIVA A LA PREGUNTA */
+/* INFORMACION RELATIVA A LA PREGUNTA */
+.question-asked,
+.answers,
+.user-answer{
+    width: 75%;
+    margin: 20px auto;
+}
+
+.reply{
+    margin-left: 25px;
+}
+
+.question-asked .title,
+.answers .title,
+.user-answer .title{
+    font-size: 22px;
+}
+
+.question-asked .question-body,
+.answers .reply .answer-body{
+    font-size: 12px;
+}
+
+.question-asked .user-info,
+.answers .reply .user-info{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.question-asked .user-info .user-profile,
+.answers .reply .user-info .user-profile{
+    width: auto; /* width para sobreescribir el widh de la clase de questions.css */
+}
+.question-asked .user-info .user-profile .date,
+.question-asked .user-info .user-profile .username-ask,
+.answers .reply .user-info .user-profile .date,
+.answers .reply .user-info .user-profile .username-ask{
+    color: #fff;
+}
+
+
 
 .questions-content .viewed,
 .questions-content .votes, 
-.reply .reply-info .votes{
+.reply .reply-info .votes,
+.question-asked .viewed,
+.question-asked .votes,
+.answers .reply .votes{
     display: block;
-    height: 18px;
+    /* height: 18px; */
     border-radius: 3px;
     padding: 2px 5px;  
 }
 
-.questions-content .viewed{
+.questions-content .viewed,
+.question-asked .viewed{
     background-color: rgb(106, 115, 122);
 }
 
 .questions-content .votes, 
-.reply .reply-info .votes{
+.reply .reply-info .votes,
+.question-asked .votes,
+.answers .reply .votes{
     background-color: rgb(219, 144, 46);
 }
 

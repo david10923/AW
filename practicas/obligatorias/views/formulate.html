@@ -27,36 +27,37 @@
                 <button class="btn btn-primary">Cerrar Sesion</button>
             </div>
         </div>
+        <div class="content-search">
+            <div class="search">
+                <form action="#" method="POST" class="form-control">
+                    <button class="btn btn-search ml-10">Buscar</button>
+                    <input type="text" class="form-field" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
+                </form>
+            </div>
+        </div>  
     </header>
 
-    <div class="content">
-        <div class="search">
-            <form action="#" method="POST" class="form-control">
-                <button class="btn btn-search">Buscar</button>
-                <input type="text" class="form-field" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
-            </form>
-        </div>
-    </div>  
+    <div class="content-body">
+        <div class="main-question">
+            <span class="title">Formular una pregunta</span>
+            <div class="question-info">
+                <form action="#" method="POST">
+                    <span class="form-title mt-15 mb-0">Titulo</span>
+                    <span class="form-title explanation">Sé especifico e imagina que estás haciendo la pregunta a otra persona</span>
+                    <input type="text" class="form-field" placeholder="¿Cuál es tu pregunta sobre programación de aplicaciones web">
+                    
+                    <span class="form-title mt-15 mb-0">Cuerpo</span>
+                    <span class="form-title explanation">Incluye toda la información que alguien necesitaría para responder a tu pregunta</span>
+                    <textarea class="form-field" placeholder="Escribe aqui tu respuesta detallada"></textarea>
     
-    <div class="main-question">
-        <span class="title">Formular una pregunta</span>
-        <div class="question-info">
-            <form action="#" method="POST">
-                <span class="form-title mt-15 mb-0">Titulo</span>
-                <span class="form-title explanation">Sé especifico e imagina que estás haciendo la pregunta a otra persona</span>
-                <input type="text" class="form-field" placeholder="¿Cuál es tu pregunta sobre programación de aplicaciones web">
-                
-                <span class="form-title mt-15 mb-0">Cuerpo</span>
-                <span class="form-title explanation">Incluye toda la información que alguien necesitaría para responder a tu pregunta</span>
-                <textarea class="form-field" placeholder="Escribe aqui tu respuesta detallada"></textarea>
-
-                <span class="form-title mt-15 mb-0">Etiquetas</span>
-                <span class="form-title explanation">Añade hasta 5 etiquetas para describir sobre qué trata tu pregunta</span>          
-                <input type="text" class="form-field" placeholder="Por ejemplo: @node@express" pattern="^@[a-zA-Z0-9^ ]{5}">
-                <div class="btns-question_actions">
-                    <button type="submit" class="btn btn-primary mt-15">Publica tu pregunta</button>
-                </div>
-            </form>
+                    <span class="form-title mt-15 mb-0">Etiquetas</span>
+                    <span class="form-title explanation">Añade hasta 5 etiquetas para describir sobre qué trata tu pregunta</span>          
+                    <input type="text" class="form-field" placeholder="Por ejemplo: @node@express" pattern="^@[a-zA-Z0-9^ ]{5}">
+                    <div class="btns-question_actions">
+                        <button type="submit" class="btn btn-primary mt-15">Publica tu pregunta</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     

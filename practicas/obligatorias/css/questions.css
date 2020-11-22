@@ -46,10 +46,12 @@
 .questions-content .questions .question .question-info .description{
     font-size: 13px;
 }
-.questions-content .questions .question .question-info .labels{
+.questions-content .questions .question .question-info .labels,
+.question-asked .labels{
     margin-top: 5px;
 }
-.questions-content .questions .question .question-info .labels .label{
+.questions-content .questions .question .question-info .labels .label,
+.question-asked .labels .label{
     font-size: 10px;
     font-weight: bold;
     color: #35495e;
@@ -60,23 +62,31 @@
 
 
 /* QUESTION USER */
-.questions-content .questions .question .question-user{
+.questions-content .questions .question .question-user,
+.question-asked .user-info .user-profile,
+.answers .reply .user-info .user-profile{
     width: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.questions-content .questions .question .question-user .date{
+.questions-content .questions .question .question-user .date,
+.question-asked .user-info .user-profile .date,
+.answers .reply .user-info .date{
     color: #000;
     font-size: 12px;
 }
-.questions-content .questions .question .question-user .user-img{
+.questions-content .questions .question .question-user .user-img,
+.question-asked .user-info .user-profile .user-img,
+.answers .reply .user-info .user-img{
     width: 50px;
     border-radius: 50%;
     margin: 5px 0;
 }
-.questions-content .questions .question .question-user .username-ask{
+.questions-content .questions .question .question-user .username-ask,
+.question-asked .user-info .user-profile .username-ask,
+.answers .reply .user-info .username-ask{
     color: #0f26a9;
     font-weight: bold;
 }
