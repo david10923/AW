@@ -1,0 +1,41 @@
+
+
+.content-info{
+    display: flex;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+    justify-content: center;
+} 
+
+.content-info .logo-name{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    padding: 20px;
+    margin: 10px;
+}
+
+.content-info .logo-name .profile-img{
+    border-radius: 50%;
+    width: 70px;
+}
+
+
+/* ESTADISTICAS */
+.content-info .stats{
+    display: flex;
+    
+}
+
+.content-info .medals{
+    display: flex;
+}
+
+.content-info .stats .stats-title, 
+.content-info .medals .medals-title{
+    background-color: #66b0ff;
+    display: block;
+}
