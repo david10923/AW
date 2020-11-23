@@ -11,7 +11,7 @@
     <link rel="stylesheet" media="screen" href="../css/index.css"> 
     <link rel="stylesheet" media="screen" href="../css/profile.css"> 
     <link rel="icon" href="../resources/images/logo_64.png">
-    <title>Profile | 404</title>
+    <title>Profile | 404AW</title>
 </head>
 <body>
 
@@ -41,15 +41,20 @@
     
     <div class="content-body">
         <div class="content-info mt-20">
-            <div class="logo-name">
-                <img src="../resources/images/default.png" alt="Imagen del usuario" class="profile-img">
-                <span class="name">SFG</span>
-                <span class="member-date">Miembro desde el 1-10-2020</span>
+            <!-- uso este div pero ver: poner content-info como flex no-wrap para qe salte de linea automaticamente y ahorrarnos este div >
+            <div class="first-row">
+                <div class="user-info">
+                    <img src="../resources/images/default.png" alt="Imagen del usuario" class="profile-img">
+                    <span class="name">SFG</span>
+                    <span class="member-date">Miembro desde el 1-10-2020</span>
+                </div>
+    
+                <div class="stats">
+                    <span class="stats-title">ESTADISTICAS</span>
+                    <span>Reputacion</span>
+                </div> 
             </div>
-            <div class="stats">
-                <span class="stats-title">ESRTADISTICAS</span>
-                <span>Reputacion</span>
-            </div> 
+
             <div class="medals">
                 <span class="medals-title">MEDALLAS</span>
                 <div class="bronze">
@@ -60,6 +65,46 @@
                 </div>
                 <div class="gold">
                     <span>ORO</span>
+                </div>
+            </div-->
+
+            <div class="first-row">
+                <div class="user-info">
+                    <img src="../resources/images/default.png" alt="profile image" class="profile-img">
+                    <span class="username">SHAM</span>
+                    <span class="date">Miembro desde 1-10-2020</span>
+                </div>
+                
+                <div class="stats">
+                    <span class="ds-b profile-header">ESTADISTICAS</span>
+                    <div class="stats-info">
+                        <div class="questions">
+                            <span class="key">Preguntas</span>
+                            <span class="value">30</span>
+                        </div>
+                        <div class="rep">
+                            <span class="key">Reputación</span>
+                            <span class="value">278</span>
+                        </div>
+                        <div class="answers">
+                            <span class="key">Respuestas</span>
+                            <span class="value">10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="medals mt-20">
+                <span class="profile-header ds-b">MEDALLAS</span>
+                <div class="bronze-medals">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, amet?
+                </div>
+
+                <div class="silver-medals">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, amet?
+                </div>
+
+                <div class="gold-medals">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, amet?
                 </div>
             </div>
         </div>

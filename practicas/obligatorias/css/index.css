@@ -53,7 +53,7 @@ header #header{
 }
 
 #header .logo{
-    width: 130px;
+    width: 110px;
 }
 
 #header .header-element{
@@ -69,7 +69,7 @@ header #header{
 
 #header .header-element .profile-img{
     border-radius: 50%;
-    width: 70px;
+    width: 50px;
 }
 
 #header .header-element.profile-info{
