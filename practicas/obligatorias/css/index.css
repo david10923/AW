@@ -102,11 +102,8 @@ header #header{
     width: auto;
 }
 
-/* PARA LOS VOTOS DE LAS PREGUNTAS */
-.like,
-.dislike{
-    cursor: pointer;
-    margin: 0 5px;
+/* PARA DARLE UN EFECTO SOMBRA A TODAS LAS IMAGENES */
+.profile-img,
+.user-img{
+    box-shadow: 0px 0px 7px 0px #fff;
 }
-.like{ color: #0c8f00; }
-.dislike{ color: #990000; }

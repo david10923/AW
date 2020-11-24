@@ -96,3 +96,24 @@ textarea.form-field:focus,
 .ds-b{ display: block; }
 .ds-i{ display: inline; }
 .ds-ib{ display: inline-block; }
+
+/* MEDALLAS */
+.medal{
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+.medal.bronze,.bronze{ background-color: #CD7F32; }
+.medal.silve,.silver{ background-color: #C0C0C0; }
+.medal.gold,.gold{ background-color: #FFD700; }
+
+/* PARA LOS VOTOS DE LAS PREGUNTAS */
+.like,
+.dislike{
+    cursor: pointer;
+    margin: 0 5px;
+}
+.like{ color: #0c8f00; }
+.dislike{ color: #990000; }
