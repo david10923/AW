@@ -11,7 +11,7 @@ class DAOTasks{
                 callback(new Error("Error de conexión a la base de datos"));
             }
             else{                
-                connection.query("", [], (err,array) =>{
+                connection.query("SELECT t.user,t.text, tg.tag,t.done FROM task t LEFT JOIN tag tg ON t.id = tg.taskId WHERE t.user ='?'", [email], (err,array) =>{
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     }

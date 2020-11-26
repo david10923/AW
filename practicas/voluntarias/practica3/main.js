@@ -23,13 +23,7 @@ daoUser.getUserImageName("usuario@ucm.es", cb_isUserCorrect);
 
 
 // esta funcion te devuelve un array, si queremos sacar cada una de los atributos habrá que iterarlo o usar alguna funcion de orden superior
-daoTask.getAlltasks("usuario@ucm.es");
-
-
-
-
-
-
+daoTask.getAlltasks("usuario@ucm.es", cb_isUserCorrect);
 
 function cb_isUserCorrect(err, result){
     if (err){
