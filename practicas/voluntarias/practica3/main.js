@@ -21,6 +21,16 @@ let daoTask = new DAOTasks(pool);
 daoUser.isUserCorrect("usuario@ucm.es", "mipass", cb_isUserCorrect);
 daoUser.getUserImageName("usuario@ucm.es", cb_isUserCorrect);
 
+
+// esta funcion te devuelve un array, si queremos sacar cada una de los atributos habrá que iterarlo o usar alguna funcion de orden superior
+daoTask.getAlltasks("usuario@ucm.es");
+
+
+
+
+
+
+
 function cb_isUserCorrect(err, result){
     if (err){
         console.log(err.message);

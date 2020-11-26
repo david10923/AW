@@ -6,6 +6,28 @@ class DAOTasks{
     }
 
     getAlltasks(email,callback){
+        this.pool.getConnection( (error,connection) => {
+            if(error){
+                callback(new Error("Error de conexión a la base de datos"));
+            }
+            else{                
+                connection.query("", [], (err,array) =>{
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }
+                    else{
+                        if(array.lenght){
+                            callback(null,result);
+                        }
+                        else{
+                            callback(null,false);// el usuario no tiene tareas
+                        }
+                    }
+                })
+
+            }
+        }
+        );
         
     }
 
