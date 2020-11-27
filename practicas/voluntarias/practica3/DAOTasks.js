@@ -5,41 +5,44 @@ class DAOTasks{
         this.pool = pool;
     }
 
-    getAlltasks(email,callback){
-        this.pool.getConnection( (error,connection) => {
+    getAlltasks(email, callback){
+        this.pool.getConnection((error, connection) => {
             if(error){
                 callback(new Error("Error de conexión a la base de datos"));
             }
-            else{                
-                connection.query("SELECT t.user,t.text, tg.tag,t.done FROM task t LEFT JOIN tag tg ON t.id = tg.taskId WHERE t.user ='?'", [email], (err,array) =>{
+            else{               
+                var queryStr = `SELECT t.id, t.text, tg.tag, t.done FROM task t LEFT JOIN tag tg ON t.id=tg.taskId WHERE t.user=?`;
+                connection.query(queryStr, [ email ], (error, array) =>{
+                    connection.release(); // devolver al pool la conexión
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     }
                     else{
-                        if(array.lenght){
-                            callback(null,result);
+                        if(array.length){
+                            // Formateamos la salida
+                            console.log('RAW OUTPUT: ', array);
+                            var resultado = [];
+
+                            callback(null, resultado);
                         }
                         else{
-                            callback(null,false);// el usuario no tiene tareas
+                            callback(null, false); // el usuario no tiene tareas
                         }
                     }
-                })
-
+                });
             }
-        }
-        );
-        
+        });
     }
 
-    insertTask(email,task,callback){
-
-    }
-
-    markTaskDone(idTask,callback){
+    insertTask(email, task, callback){
 
     }
 
-    deleteCompleted(email,callback){
+    markTaskDone(idTask, callback){
+
+    }
+
+    deleteCompleted(email, callback){
 
     }
 }

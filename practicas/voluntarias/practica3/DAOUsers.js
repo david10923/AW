@@ -36,6 +36,7 @@ class DAOUsers{
             }
             else{
                 connection.query("SELECT img as imageName FROM user WHERE email = ?", [ email ], function(error, result){
+                    connection.release(); // devolver al pool la conexión
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
