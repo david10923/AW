@@ -64,6 +64,21 @@ class DAOTasks{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
+                // check if user exists
+                /*var queryStr = 'SELECT COUNT(email) FROM user WHERE email=?';
+                connection.query(queryStr, [ email ], function(error, info){
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }else{
+                        if(info > 0){
+                            //hacer lo que hay debajo
+                            console.log(info);
+                        } else{
+                            callback(new Error("No existe el usuario"));
+                        }
+                    }
+                });*/
+
                 var queryStr = 'INSERT INTO task(user, text, done) VALUES (?, ?, ?)';
                 connection.query(queryStr, [ email, task.text, task.done ], function(error, resultTask){
                     if(error){

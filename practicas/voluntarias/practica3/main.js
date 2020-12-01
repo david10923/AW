@@ -51,15 +51,13 @@ let daoTask = new DAOTasks(pool);
 //     }
 // });
 
-
-// daoTask.insertTask("usuario+1@ucm.es", { text:"Poner la mesa", done:false, tags:['Mesa','Comida'] }, function(error){
+// daoTask.insertTask("usuario+1111@ucm.es", { text:"Poner la mesa", done:false, tags:['Mesa','Comida'] }, function(error){
 //     if(error){
 //         console.log(error.message);
 //     }else{
 //         console.log(`Tarea insertada`);
 //     }
 // });
-
 
 // daoTask.markTaskDone(9, function(error){
 //     if(error){
@@ -69,8 +67,6 @@ let daoTask = new DAOTasks(pool);
 //         console.log(`Tarea actualizada`);
 //     }
 // });
-
-
 
 // daoTask.deleteCompleted("usuario+2@ucm.es", (error)=>{
 //     if(error){
@@ -84,9 +80,6 @@ let daoTask = new DAOTasks(pool);
 
     
 // Tenemos puesto en nuestra base de datos un delete cascade en el id en la tabla task
-
 // SELECT id FROM task WHERE user='usuario@ucm.es'
-
-// Hacer tantos => DELETE FORM Tag WHERE taskId = id;  como tareas tenga el usuario
-
-// Posteriormente hacer =>    DELETE FROM task WHERE user ='usuario@ucm.es';
+// Hacer tantos => DELETE FORM Tag WHERE taskId=id;  como tareas tenga el usuario
+// Posteriormente hacer =>    DELETE FROM task WHERE user='usuario@ucm.es';
