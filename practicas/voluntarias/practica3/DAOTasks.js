@@ -79,6 +79,9 @@ class DAOTasks{
                                     }
                                 });
                             });
+                            if(!error){
+                                callback(null);
+                            }
                             connection.release(); // Devolvemos la conexion al POOL cuando hayamos hecho todos los inserts
                         }
                     }
@@ -113,7 +116,7 @@ class DAOTasks{
                 callback(new Error("Error de conexion a la base de datos"));
             }
             else{
-                connection.query( `DELETE FROM task WHERE email =? AND done =true`,  [ email ], function (err) {
+                connection.query( `DELETE FROM task WHERE user=? AND done =true`,  [ email ], function (err) {
                     connection.release();
                     if (err) {
                         callback(new Error("Error de acceso a la base de datos"));
