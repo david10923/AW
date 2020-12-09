@@ -1,0 +1,43 @@
+"use strict"
+const mysql = require ('mysql');
+const config = require('./public/js/config');
+const DaoUsers = require('./public/js/DaoUsers.js');
+const DaoQuestionAndAnswer= require('./public/js/DaoQuestionAndAnswer');
+
+
+const pool = mysql.createPool({
+    host: config.host,
+    user    : config.user,
+    password: config.password,
+    database: config.database
+});
+
+
+// objetos de la aplicacion
+let daoUsers = new DaoUsers(pool); 
+let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
+
+
+// daoUsers.createUser({ email:"info@ucm.es", password:123, username:"Info Estudiantes", profileImg:"./public/resources/images/default.png" }, function(error, result){
+//     if(error){
+//         console.log('ERROR', error.message);
+//     } else{
+//         console.log("Creado con exito", result);
+//     }
+// });
+
+// daoUsers.readAllUsers(function(error, result){
+//     if(error){
+//         console.log('ERROR', error.message);
+//     } else{
+//         console.log("Lectura", result);
+//     }
+// });
+
+// daoUsers.readUser('info@ucm.es', function(error, result){
+//     if(error){
+//         console.log('ERROR', error.message);
+//     } else{
+//         console.log("Lectura", result);
+//     }
+// });
