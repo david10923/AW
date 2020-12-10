@@ -67,6 +67,10 @@ textarea.form-field:focus,
     background-color: #a97109;
     border-color: #a97109;
 }
+.btn.btn-xl{
+    font-size: 16px;
+    padding: 5px 10px;
+}
 
 /* UTILITIES */
 .mt-0{ margin-top: 0px; }
