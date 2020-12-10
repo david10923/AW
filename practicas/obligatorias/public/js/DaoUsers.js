@@ -13,6 +13,7 @@ class DaoUsers{
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
                 connection.query("INSERT INTO `users`(`email`, `username`, `password`, `profileImg`) VALUES (?, ?, ?, ?)", [ data.email, data.username, data.password, data.profileImg ], function(error, result){
+                    connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
@@ -30,6 +31,7 @@ class DaoUsers{
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
                 connection.query("SELECT username, profileImg as img, date FROM users WHERE email=?", [ email ], function(error, result){
+                    connection.realease();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
@@ -46,6 +48,7 @@ class DaoUsers{
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
                 connection.query("SELECT username, profileImg as img, totalScore as rep FROM users", function(error, result){
+                    connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{

@@ -41,3 +41,23 @@ let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
 //         console.log("Lectura", result);
 //     }
 // });
+
+// daoQuestionAndAnswers.createQuestion({ email:"info@ucm.es", tittle:"¿para que sirve el padding?", body:"No se para que sirve el padddinq ya que me confundo con el margin"},function(error,result){
+//     if(error){
+//         console.log('ERROR', error.message);
+//     }else{
+//         console.log("Creada con exito", result);
+//     }
+    
+// });
+
+// daoQuestionAndAnswers.createAnswer({email:"info@ucm.es",id:2}, function(error,result){
+//     if (error){
+//         console.log('ERROR', error.message);
+//     }
+//     else{
+//         console.log("Creada con exito", result);
+
+//     }
+// });
+
