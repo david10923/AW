@@ -14,30 +14,7 @@
     <title>Question | 404AW</title>
 </head>
 <body>
-    <header>
-        <div id="header">
-            <div class="header-element menu">
-                <button class="btn btn-primary">Preguntas <i class="fa fa-question"></i></button>
-                <button class="btn btn-primary">Sin responder <i class="fa fa-flag"></i></button>
-                <button class="btn btn-primary">Usuarios <i class="fa fa-users"></i></button>
-            </div>
-            <img src="./resources/images/logo_512.png" alt="404" class="logo">
-            <div class="header-element profile-info">
-                <img src="./resources/images/default.png" alt="Perfil" class="profile-img">
-                <span class="username">SHAM</span>
-                <button class="btn btn-primary">Cerrar Sesión <i class="fa fa-sign-out"></i></button>
-            </div>
-        </div>
-        <div class="content-search">
-            <div class="search">
-                <form action="#" method="POST" class="form-control">
-                    <button class="btn btn-search ml-10">Buscar <i class="fa fa-search"></i></button>
-                    <img src="./resources/images/lupa.png" alt="Search" class="icon-find">
-                    <input type="text" class="form-field ml-0 find-field" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
-                </form>
-            </div>
-        </div>
-    </header>
+    <%- include("header") %>
 
     <div class="content-body">
         <div class="question-asked">

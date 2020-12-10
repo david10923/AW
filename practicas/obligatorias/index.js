@@ -11,9 +11,17 @@ const DaoUsers = require('./public/js/DaoUsers.js');
 const DaoQuestionAndAnswer= require('./public/js/DaoQuestionAndAnswer');
 const ficherosEstaticos =path.join(__dirname,"public");
 
-//const router = require('router');
+const pool = mysql.createPool({
+    host: config.host,
+    user    : config.user,
+    password: config.password,
+    database: config.database
+});
 
+//const router = require('router');
 const app = express();
+
+//PARA RENDERIZAR LA PAGINA CON EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
 
@@ -24,20 +32,20 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(express.static(ficherosEstaticos));
 app.use(morgan('dev'));
 
+//HAY QUE VER DONDE PONER ESTOS MIDDLEWARES YA QUE SI LOS PONEMOS ANTES DE LOS MANEJADORES DE RUTAS NUNCA ENCONTRARÁ LA PÁGINA
+// app.use(middlewareNotFoundError);
+// app.use(middlewareServerError);
 
 
-const pool = mysql.createPool({
-    host: config.host,
-    user    : config.user,
-    password: config.password,
-    database: config.database
-});
 
 
-// objetos de la aplicacion
+// LOS OBJETOS DE LA BASE DE DATOS
 let daoUsers = new DaoUsers(pool); 
 let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
 
+
+
+//MANEJADORES DE RUTAS
 
 app.get("/", (request,response)=>{
     response.type("text/plain ,charset=utf-8");
@@ -72,5 +80,22 @@ app.listen(3000, function(err) {
     console.log("Servidor arrancado en el puerto 3000");
     }
 });
+
+
+
+
+//FUNCIONES QUE GESTIONAN LOS ERRORES 
+
+// function middlewareNotFoundError(request, response){
+//     response.render("error");
+//     // envío de página 404
+// }
+
+// //llamar a este desde cualquier middleware cuando haya algun problema
+// function middlewareServerError(error, request, response, next){
+//     response.status(500);
+//     // envío de página 500
+// }
+    
 
 
