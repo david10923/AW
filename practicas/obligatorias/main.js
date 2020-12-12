@@ -61,3 +61,14 @@ let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
 //     }
 // });
 
+daoQuestionAndAnswers.filterQuestionByTag('AW',function(error,result){
+    if(error){
+        console.log('ERROR', error.message);
+    }
+    else{
+        console.log("Devuelta con exito");
+        console.log(`${result.ID} ,${result.user}`);
+        
+    }
+});
+
