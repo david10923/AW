@@ -61,14 +61,19 @@ let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
 //     }
 // });
 
-daoQuestionAndAnswers.filterQuestionByTag('AW',function(error,result){
+// daoQuestionAndAnswers.filterQuestionByTag('AW', function(error, result){
+//     if(error){
+//         console.log('ERROR', error.message);
+//     }
+//     else{
+//         console.log("Devuelta con exito", result);
+//     }
+// });
+
+daoQuestionAndAnswers.readAllQuestion(function(error, res){
     if(error){
-        console.log('ERROR', error.message);
-    }
-    else{
-        console.log("Devuelta con exito");
-        console.log(`${result.ID} ,${result.user}`);
-        
+        console.log(error.message);
+    } else{
+        console.log(res);
     }
 });
-

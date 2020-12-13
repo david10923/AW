@@ -1,18 +1,17 @@
 "use strict"
 
-
 class DaoQuestionAndAnswer{
 
     constructor(pool){
         this.pool= pool;
     }
 
-    createQuestion(data,callback){
+    createQuestion(data, callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{               
-                connection.query("INSERT INTO `questions`(`user`, `title`, `body`) VALUES (?,?,?)",[data.email,data.tittle,data.body] , function(error, result){
+                connection.query("INSERT INTO `questions`(`user`, `title`, `body`) VALUES (?,?,?)", [ data.email, data.tittle, data.body ] , function(error, result){
                     connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
@@ -32,40 +31,63 @@ class DaoQuestionAndAnswer{
 
 
     }
-    //ORDENARLAS CRONOLOGICAMENTE
-    // readAllQuestion(callback){
-    //     this.pool.getConnection(function(error, connection){
-    //         if(error){
-    //             callback(new Error("Error de conexion a la base de datos"));
-    //         } else{
-    //             connection.query(" SELECT `ID`, `user`, `title`, `body`, `date` FROM `questions` ORDER BY data DESC ", function(error, result){
-    //                 if(error){
-    //                     callback(new Error("Error de acceso a la base de datos"));
-    //                 } else{
-    //                     //sacar los tags de la pregunta
-    //                     connection.query("SELECT `question`, `tagName` FROM `tags` WHERE question =?",[result.ID],(error,result)=> {
+    // ORDENARLAS CRONOLOGICAMENTE
+    readAllQuestion(callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                connection.query("SELECT q.`ID`, q.`user`, q.`title`, q.`body`, q.`date`, u.`username`, u.`profileImg` as userImg FROM `questions` q JOIN `users` u WHERE q.user=u.email ORDER BY date DESC", function(error, questions){
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        // sacar los tags de la pregunta
+                        questions.forEach(function(question){
+                            question.tags = [];
+                            connection.query("SELECT `tagName` as name FROM `tags` WHERE `question`=?", [ question.ID ], function(error, qTags){
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
+                                    var aux = qTags.map(tag => tag.name);
+                                    console.log('dentro', aux);
+                                }
+                            });
+                            console.log('question', question.tags);
+                        });
+                        connection.release();
+                        console.log('devuelvo callback');
+                        callback(false, questions);
+                    }
+                });
+            }
+        });
+    }
+    /*readAllQuestion(callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                connection.query(
+                "SELECT q.`ID`, q.`user`, q.`title`, q.`body`, q.`date`, u.`username`, u.`profileImg` as userImg FROM `questions` q JOIN `users` u ON q.user=u.email WHERE q.user=u.email ORDER BY date DESC;" +
+                "SELECT tagName FROM tags", function(error, results, fields){
+                    if(error){
+                        callback(error);
+                    } else{
+                        console.log(results);
+                        console.log(fields);
+                        callback(false, 'xd');
+                    }
+                });
+            }
+        });
+    }*/
 
-    //                         if(error){
-    //                             callback(new Error("Error de acceso a la base de datos"));
-    //                         }
-    //                         else{
-    //                             callback(false, result);
-    //                         }
-
-    //                     });
-    //                     connection.release();                       
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-
-    filterQuestionByTag(data,callback){
+    filterQuestionByTag(tagName, callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{               
-                connection.query("SELECT * FROM `questions` q JOIN `tags` t ON q.ID = t.question WHERE t.tagName = ?" ,[data.tagName] ,function(error, result){
+                connection.query("SELECT * FROM `questions` q JOIN `tags` t ON q.ID=t.question WHERE t.tagName=? AND t.question=q.ID", [ tagName ] , function(error, result){
                     connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));

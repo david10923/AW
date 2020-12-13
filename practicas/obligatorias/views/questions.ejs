@@ -23,36 +23,24 @@
                 <button class="btn btn-primary">Formular una pregunta <i class="fa fa-pencil"></i></button>
             </div>
             <div class="questions">
-                <div class="question">
-                    <div class="question-info">
-                        <span class="title">¿Cual es la diferencia entre position: relative, absolute etc blabla bla?</span>
-                        <span class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta quas perspiciatis impedit, cum laudantium facere officiis ratione reprehenderit excepturi dicta.</span>
-                        <div class="labels">
-                            <span class="label">CSS</span>
-                            <span class="label">CSS3</span>
+                <% questions.forEach(function(question){ %>
+                    <div class="question">
+                        <div class="question-info">
+                            <span class="title"><%= question.title %></span>
+                            <span class="description"><%= question.body %></span>
+                            <div class="labels">
+                                <% question.tags.forEach(function(tag){ %>
+                                    <span class="label"><%= tag %></span>
+                                <% }); %>
+                            </div>
+                        </div>
+                        <div class="question-user">
+                            <span class="date">Formulada el <%= question.date %></span>
+                            <img src="<%= question.userImg %>" alt="foto de perfil" class="user-img">
+                            <span class="username-ask"><%= question.username %></span>
                         </div>
                     </div>
-                    <div class="question-user">
-                        <span class="date">Formulada el 5/11/2020</span>
-                        <img src="./resources/images/default.png" alt="foto de perfil" class="user-img">
-                        <span class="username-ask">Pedro</span>
-                    </div>
-                </div>
-                <div class="question">
-                    <div class="question-info">
-                        <span class="title">Lorem, ipsum dolor sit amet consectetu</span>
-                        <span class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta quas perspiciatis impedit, cum laudantium facere officiis ratione reprehenderit excepturi dicta.</span>
-                        <div class="labels">
-                            <span class="label">AAAA</span>
-                            <span class="label">AAAA</span>
-                        </div>
-                    </div>
-                    <div class="question-user">
-                        <span class="date">Formulada el 5/11/2020</span>
-                        <img src="./resources/images/default.png" alt="foto de perfil" class="user-img">
-                        <span class="username-ask">Pedro</span>
-                    </div>
-                </div>
+                <% }); %>
                 <!-- Resto de preguntas -->
             </div>
         </div>

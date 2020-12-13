@@ -1,14 +1,13 @@
 "use strict"
 
 const bodyParser = require('body-parser');
-// const { response } = require('express');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 //const DaoQuestionAndAnswer = require('./public/js/DaoQuestionAndAnswer');
 const ficherosEstaticos = path.join(__dirname, "public");
-const usersRouter = require("./users");
-
+const usersRouter = require("./routes/usuarios.js");
+const questionsRouter = require('./routes/preguntas.js');
 
 const app = express();
 
@@ -20,8 +19,8 @@ app.set("views", path.join(__dirname, "./views"));
 // MIDDLEWARES
 app.use(express.static(ficherosEstaticos));
 app.use(morgan('dev'));
-app.use('/users',usersRouter);
-
+app.use('/usuarios', usersRouter);
+app.use('/preguntas', questionsRouter);
 
 // middleware para las cookies: ver si ha iniciado la sesion o no
 // middleware para ver que hacer cuando no encuentra un fichero estatico
@@ -35,18 +34,22 @@ app.use('/users',usersRouter);
 
 // MANEJADORES DE RUTAS
 app.get("/", (request, response) => {
-    // no iria aqui el render del index ???
-    response.type("text/plain; charset=utf-8");
-    response.end("Esta es la pagina raiz");
+    response.status(200);
+    response.render("index");
 });
 
 
 app.listen(3000, function(err) {
     if (err) {
-    console.error("No se pudo inicializar el servidor: " + err.message);
+        console.error("No se pudo inicializar el servidor: " + err.message);
     } else {
-    console.log("Servidor arrancado en el puerto 3000");
+        console.log("Servidor arrancado en el puerto 3000");
     }
+});
+
+app.get("*", (request, response) => {
+    response.status(200);
+    response.render("error");
 });
 
 
