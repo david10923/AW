@@ -101,6 +101,12 @@ textarea.form-field:focus,
 .ds-i{ display: inline; }
 .ds-ib{ display: inline-block; }
 
+.to-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* MEDALLAS */
 .medal{
     display: inline-block;

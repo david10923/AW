@@ -1,17 +1,17 @@
 "use strict"
 
-class DaoUsers{
+class DAOUsers{
 
     constructor(pool){
-        this.pool  = pool;
+        this.pool = pool;
     }
-    // metodos CRUD para la base de datos 
 
     createUser(data, callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
+                data.profileImg = data.profileImg || 'resources/images/default.png';
                 connection.query("INSERT INTO `users`(`email`, `username`, `password`, `profileImg`) VALUES (?, ?, ?, ?)", [ data.email, data.username, data.password, data.profileImg ], function(error, result){
                     connection.release();
                     if(error){
@@ -61,4 +61,4 @@ class DaoUsers{
     }
 }
 
-module.exports = DaoUsers;
+module.exports = DAOUsers;

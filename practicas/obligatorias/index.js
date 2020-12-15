@@ -1,15 +1,19 @@
 "use strict"
 
-const bodyParser = require('body-parser');
-const express = require('express');
-const path = require('path');
-const morgan = require('morgan');
-//const DaoQuestionAndAnswer = require('./public/js/DaoQuestionAndAnswer');
-const ficherosEstaticos = path.join(__dirname, "public");
-const usersRouter = require("./routes/usuarios.js");
-const questionsRouter = require('./routes/preguntas.js');
+// GENERAL
+const bodyParser        = require('body-parser');
+const express           = require('express');
+const path              = require('path');
+const morgan            = require('morgan');
+const staticFiles       = path.join(__dirname, "public");
+const usersRouter       = require("./routers/routerUsuarios");
+const questionsRouter   = require('./routers/routerPreguntas');
+const loginoutRouter    = require('./routers/routerLogin.js');
 
+
+// SERVER
 const app = express();
+
 
 // CONFIGURAR EJS COMO MOTOR DE PLANTILLAS Y DEFINIR EL DIRECTORIO DE LAS PLANTILLAS
 app.set("view engine", "ejs");
@@ -17,31 +21,32 @@ app.set("views", path.join(__dirname, "./views"));
 
 
 // MIDDLEWARES
-app.use(express.static(ficherosEstaticos));
+app.use(express.static(staticFiles));
 app.use(morgan('dev'));
+// app.use(middlewareLoggedUser); // middleware de cookie session
+// app.use(middlewareNotFoundError); // middleware ERROR 404
+// app.use(middlewareServerError); // middleware ERROR 500
+
+
+// ROUTERS
 app.use('/usuarios', usersRouter);
 app.use('/preguntas', questionsRouter);
-
-// middleware para las cookies: ver si ha iniciado la sesion o no
-// middleware para ver que hacer cuando no encuentra un fichero estatico
-
-// app.use(middlewareNotFoundError);
-// app.use(middlewareServerError);
+app.use('/loginout', loginoutRouter);
 
 
-// LOS OBJETOS DE LA BASE DE DATOS
-
-
-// MANEJADORES DE RUTAS
+// MANEJADORES DE RUTAS PRINCIPALES
 app.get("/", (request, response) => {
+    response.redirect("/index");
+});
+
+app.get("/index", (request, response) => {
     response.status(200);
     response.render("index");
 });
 
-
-app.listen(3000, function(err) {
-    if (err) {
-        console.error("No se pudo inicializar el servidor: " + err.message);
+app.listen(3000, function(error) {
+    if (error) {
+        console.error("No se pudo inicializar el servidor: " + error.message);
     } else {
         console.log("Servidor arrancado en el puerto 3000");
     }
@@ -53,8 +58,7 @@ app.get("*", (request, response) => {
 });
 
 
-//FUNCIONES QUE GESTIONAN LOS ERRORES 
-
+//FUNCIONES QUE GESTIONAN LOS ERRORES ==> mejor en otro fichero como databnse.js ????
 // function middlewareNotFoundError(request, response){
 //     response.render("error");
 //     // envío de página 404
@@ -65,6 +69,3 @@ app.get("*", (request, response) => {
 //     response.status(500);
 //     // envío de página 500
 // }
-    
-
-

@@ -1,9 +1,9 @@
 "use strict"
 
-class DaoQuestionAndAnswer{
+class DAOQuestions{
 
     constructor(pool){
-        this.pool= pool;
+        this.pool = pool;
     }
 
     createQuestion(data, callback){
@@ -146,4 +146,4 @@ class DaoQuestionAndAnswer{
 
 }
 
-module.exports= DaoQuestionAndAnswer ;
+module.exports = DAOQuestions ;

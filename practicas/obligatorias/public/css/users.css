@@ -24,10 +24,9 @@
     border: 1px solid #fff;
     background-color: #575757;
     padding: 25px;
-    margin: 10px;    
+    margin: 10px;
+    max-width: 80px;
 }
-
-
 
 .content-body .users-content .content-search .search .form-field{
     width: 20%;

@@ -1,9 +1,8 @@
 'use strict'
 
-const config = require('./config');
-const mysql = require ('mysql');
-
-const pool = mysql.createPool({
+const config    = require('./config');
+const mysql     = require ('mysql');
+const pool      = mysql.createPool({
     host    : config.host,
     user    : config.user,
     password: config.password,
@@ -11,5 +10,5 @@ const pool = mysql.createPool({
     multipleStatements: true
 });
 
-module.exports=pool;
+module.exports = pool;
 

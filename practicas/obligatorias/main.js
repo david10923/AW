@@ -1,4 +1,4 @@
-"use strict"
+"use strict" // FICHERO UNICAMENTE PARA PRUEBAS CON LOS DAOS
 const mysql = require ('mysql');
 const config = require('./public/js/config');
 const DaoUsers = require('./public/js/DaoUsers.js');
