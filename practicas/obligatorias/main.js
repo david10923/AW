@@ -1,21 +1,22 @@
 "use strict" // FICHERO UNICAMENTE PARA PRUEBAS CON LOS DAOS
 const mysql = require ('mysql');
-const config = require('./public/js/config');
-const DaoUsers = require('./public/js/DaoUsers.js');
-const DaoQuestionAndAnswer= require('./public/js/DaoQuestionAndAnswer');
+const config = require('./config');
+const DAOUsers = require('./models/modelUsuarios');
+const DAOQuestions= require('./models/modelPreguntas');
 
 
 const pool = mysql.createPool({
     host: config.host,
     user    : config.user,
     password: config.password,
-    database: config.database
+    database: config.database,
+    multipleStatements: true
 });
 
 
 // objetos de la aplicacion
-let daoUsers = new DaoUsers(pool); 
-let daoQuestionAndAnswers = new DaoQuestionAndAnswer(pool);
+let daoUsers = new DAOUsers(pool); 
+let daoQuestionAndAnswers = new DAOQuestions(pool);
 
 
 // daoUsers.createUser({ email:"info@ucm.es", password:123, username:"Info Estudiantes", profileImg:"./public/resources/images/default.png" }, function(error, result){

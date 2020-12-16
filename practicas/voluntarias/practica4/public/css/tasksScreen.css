@@ -1,0 +1,203 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+a{
+    text-decoration: none;
+}
+html{
+    height: 100%;
+    width: 100%;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Quicksand', sans-serif;
+    color: #000;
+}
+body{
+    background-color: #b9b3b3;
+}
+
+#header{
+    background-color: #343a40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+}
+#header .title{
+    font-size: 60px;
+    padding-left: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000 ;
+}
+
+#header .logininfo{
+    color: #fff;
+    padding-right: 20px;
+    display: flex;
+}
+#header .logininfo .profile-img{
+    border-radius: 50%;
+    width: 50px;
+}
+#header .logininfo .text{
+    font-size: 15px;
+    padding: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+#header .logininfo .text .disconnect:hover{
+    margin: -3px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.content{
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+.content .task-list{
+    list-style: none;
+    color: #fff;
+}
+.content .task-list .task{
+    border: 1px solid rgb(0, 95, 86);
+    padding: 10px;
+    margin: 5px 0px;
+    width: 600px;
+}
+.content .task-list .task.pending-task{
+    background-color: rgb(24, 169, 154);
+}
+
+/* .content .task-list .task.pending-task .delete-task{ creo que no afecta a nada esto 
+    float: right;
+} */
+
+.task.pending-task .task-info .name-task{
+    color: #000;
+    text-transform: uppercase;
+}
+.task.task-done .deleted-task{
+    text-transform: uppercase;
+    padding-left: 20px;
+}
+
+.content .task-list .task.pending-task .task-info .labels{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn{
+    border-radius: 5px;
+    border: 1px solid #343a40;
+    background-color: #343a40;
+    padding: 10px;
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+}
+.task{
+    border-radius: 5px;
+}
+
+.btn:hover{
+    background-color: #212427;
+    cursor: pointer;
+}
+
+.content .task-list .task .label{
+    padding: 5px;
+    border: 1px solid #6c757d;
+    border-radius: 10px;
+    background-color: #6c757d;
+    margin: 1px 0px 1px 5px;
+    cursor: context-menu;
+    text-transform: uppercase;
+}
+.content .task-list .task.pending-task{
+    /* background-color: rgb(129, 214, 169); */
+    background-color: rgb(68 160 112);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*
+.content .task-list .task.pending-task .delete-task{
+    color: #fff;
+    padding: 2px 5px;
+    background-color: rgb(216, 103, 78);
+}*/
+
+.content .task-list .task.pending-task .task-info{
+   display: flex;
+   align-items: center;
+}
+
+
+.content .task-list .task.task-done{
+    background-color: rgba(24, 169, 154, 0.2);    
+    color: rgb(0, 95, 86);
+    text-decoration-line: line-through;
+}
+.content .task-list .task.pending-task .task-info .labels{
+    display: flex;
+    flex-wrap: wrap;
+}
+.content .add-task{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(29, 31, 25);
+    width: 622px;
+    height: 45px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.add-task form{/*esto es para que el tamaño del form se ajuste al div que si no queda pocho*/
+    width: 85%;
+}
+.add-task .title{
+    padding-left: 10px;
+    color: white;
+}
+
+input.text-input,
+input.text-input:focus{
+    height: 25px;
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+button.AddtaskButton{
+    /* background-color: rgb(129, 214, 169); */
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    padding:5px;
+}
+button.AddtaskButton:hover{
+    background-color: #208036;
+    border: 1px solid #208036;
+}
+
+.content .delete-tasks{
+    margin-top: 5px;
+} 
+button.DeletetaskButton{
+    padding:13px 8px;
+    /* background-color: rgb(129, 214, 169); */
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    width: 100%;
+} 
+button.DeletetaskButton:hover{
+    background-color: #b61f2f;
+    border: 1px solid #b61f2f;
+}

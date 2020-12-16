@@ -41,15 +41,15 @@ let daoTask = new DAOTasks(pool);
 
 
 /* DAOTAREAS */
-// daoTask.getAlltasks("usuario+1@ucm.es", function(error, result){
-//     if (error){
-//         console.log(error.message);
-//     } else if(result){
-//         console.log(result);
-//     } else{
-//         console.log("El usuario no tiene tareas");
-//     }
-// });
+daoTask.getAlltasks("usuario@ucm.es", function(error, result){
+    if (error){
+        console.log(error.message);
+    } else if(result){
+        console.log(result);
+    } else{
+        console.log("El usuario no tiene tareas");
+    }
+});
 
 // daoTask.insertTask("usuario+1111@ucm.es", { text:"Poner la mesa", done:false, tags:['Mesa','Comida'] }, function(error){
 //     if(error){
