@@ -25,6 +25,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Crear una instancia de DAOTasks
 const daoT = new DAOTasks(pool);
 
+// Por si se hace peticion a / que no salte error
+app.get("/", function(request, response){
+    response.redirect("/tasks");
+});
+
 app.get("/tasks", function(request, response){
     daoT.getAlltasks('usuario@ucm.es', function(error, taskList){
         if(error){

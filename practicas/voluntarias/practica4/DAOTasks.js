@@ -51,7 +51,7 @@ class DAOTasks{
                             callback(null, resultado);
                         }
                         else{
-                            callback(null, false); // el usuario no tiene tareas
+                            callback(null, []); // el usuario no tiene tareas
                         }
                     }
                 });
@@ -98,6 +98,9 @@ class DAOTasks{
                                 callback(null);
                             }
                             connection.release(); // Devolvemos la conexion al POOL cuando hayamos hecho todos los inserts
+                        } else{
+                            connection.release();
+                            callback(null);
                         }
                     }
                 });
@@ -131,11 +134,12 @@ class DAOTasks{
                 callback(new Error("Error de conexion a la base de datos"));
             }
             else{
-                connection.query( `DELETE FROM task WHERE user=? AND done =true`,  [ email ], function (err) {
+                connection.query( `DELETE FROM task WHERE user=? AND done=true`,  [ email ], function (err) {
                     connection.release();
                     if (err) {
                         callback(new Error("Error de acceso a la base de datos"));
                     } else {
+
                         callback(null);
                     }
                 });
