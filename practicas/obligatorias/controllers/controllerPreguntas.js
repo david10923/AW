@@ -13,6 +13,7 @@ module.exports = {
             } else{
                 response.status(200);
                 response.render("questions", { questions: data });
+                response.end();
             }
         });
     }

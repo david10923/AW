@@ -9,6 +9,22 @@ const staticFiles       = path.join(__dirname, "public");
 const usersRouter       = require("./routers/routerUsuarios");
 const questionsRouter   = require('./routers/routerPreguntas');
 const loginoutRouter    = require('./routers/routerLogin.js');
+const session = require('express-session');
+const mysqlSession = require('express-mysql-session');
+const config = require('./config');
+const MySQLStore = mysqlSession(session);
+const sessionStore = new MySQLStore({
+    host:config.host,
+    user:config.user,
+    password:config.password,
+    database:config.database
+});
+const middlewareSession = session({
+    saveUninitialized: true,
+    secret:"DavidCarlos",
+    resave: false,
+    store:sessionStore 
+});
 
 
 // SERVER
@@ -23,7 +39,7 @@ app.set("views", path.join(__dirname, "./views"));
 // MIDDLEWARES
 app.use(express.static(staticFiles));
 app.use(morgan('dev'));
-// app.use(middlewareLoggedUser); // middleware de cookie session
+app.use(middlewareSession); // middleware de session
 // app.use(middlewareNotFoundError); // middleware ERROR 404
 // app.use(middlewareServerError); // middleware ERROR 500
 
@@ -42,6 +58,7 @@ app.get("/", (request, response) => {
 app.get("/index", (request, response) => {
     response.status(200);
     response.render("index");
+    response.end();
 });
 
 app.listen(3000, function(error) {

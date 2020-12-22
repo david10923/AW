@@ -14,6 +14,7 @@ module.exports = {
             } else{
                 response.status(200);
                 response.render("users", { users: allUsers });
+                response.end();
             }
         });
     }
