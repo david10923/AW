@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="/css/tasksScreen.css">
+    <link rel="stylesheet" media="print" href="/css/tasksPrint.css">
+    <link rel="icon" href="/img/icon.png" type="image/png">
+    <title>Gestor de tareas</title>
+</head>
+<body>
+    <header>
+        <div id="header">
+            <span class="title">TAREAS</span>
+            <div class="logininfo">
+                <img class="profile-img" src="/imagenUsuario" alt="user_img" />
+                <div class="text">
+                    <span><%= userEmail %></span>
+                    <a class="disconnect" href="/logout">Desconectar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <ul class="task-list">
+            <% taskList.forEach(function(task){ %>
+                <% if(task.done){ %>
+                    <li class="done">
+                        <div class="task task-done">
+                            <span class="deleted-task"><%= task.text %></span>
+                        </div>
+                    </li>
+                <% } else { %>
+                    <li class="todo">
+                        <div class="task pending-task">
+                            <div class="task-info">
+                                <span class="name-task"><%= task.text %></span>
+                                <div class="labels">
+                                    <% task.tags.forEach(function(tag){ %>
+                                        <span class="label"><%= tag %></span>
+                                    <% }); %>
+                                </div>
+                            </div>
+                            <a href="/finish/<%= task.id %>" class="btn delete-task">Marcar finalizada</a>
+                        </div>
+                    </li>
+                <% } %>
+            <% }); %>
+        </ul>
+
+        <div class="add-task">
+            <span class="title">TAREA</span> 
+            <form action="/addTask" method="POST">                
+                <input class="text-input" type="text" name="task_name">
+                <button class= "btn AddtaskButton" type="submit">AÑADIR TAREA</button>
+            </form>
+        </div>
+
+        <div class="delete-tasks">
+            <form action="/deleteCompleted" method="POST">
+                <button class="btn DeletetaskButton" type="submit">ELIMINAR TAREAS COMPLETADAS</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
