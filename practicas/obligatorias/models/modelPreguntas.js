@@ -32,52 +32,36 @@ class DAOQuestions{
 
     }
     // ORDENARLAS CRONOLOGICAMENTE
-    // readAllQuestion(callback){
-    //     this.pool.getConnection(function(error, connection){
-    //         if(error){
-    //             callback(new Error("Error de conexion a la base de datos"));
-    //         } else{
-    //             connection.query("SELECT q.`ID`, q.`user`, q.`title`, q.`body`, q.`date`, u.`username`, u.`profileImg` as userImg FROM `questions` q JOIN `users` u WHERE q.user=u.email ORDER BY date DESC", function(error, questions){
-    //                 if(error){
-    //                     callback(new Error("Error de acceso a la base de datos"));
-    //                 } else{
-    //                     // sacar los tags de la pregunta
-    //                     questions.forEach(function(question){
-    //                         question.tags = [];
-    //                         connection.query("SELECT `tagName` as name FROM `tags` WHERE `question`=?", [ question.ID ], function(error, qTags){
-    //                             if(error){
-    //                                 callback(new Error("Error de acceso a la base de datos"));
-    //                             } else{
-    //                                 var aux = qTags.map(tag => tag.name);
-    //                                 console.log('dentro', aux);
-    //                             }
-    //                         });
-    //                         console.log('question', question.tags);
-    //                     });
-    //                     connection.release();
-    //                     console.log('devuelvo callback');
-    //                     callback(false, questions);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-
     readAllQuestion(callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1= "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email ORDER BY date DESC;";
-                let sql2=  "SELECT tagName FROM tags;";
-                let sql= sql1 +sql2;
+                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email ORDER BY q.date DESC;";
+                let sql2 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
+                let sql = sql1 + sql2;
                 connection.query(sql, function(error, results, fields){
+                    connection.release();
                     if(error){
                         callback(error);
                     } else{
-                        console.log(results);
-                        console.log(fields);
-                        callback(false, 'xd');
+                        let questions   = {},
+                            response    = [];
+                        // Formateamos nuestro objeto
+                        results[0].forEach(function(question){
+                            question.tags = [];
+                            questions[question.ID] = question;
+                        });
+                        results[1].forEach(function(tag){
+                            questions[tag.question].tags.push(tag.tagName);
+                        });
+                        
+                        // Formateamos la salida
+                        for (const [ k, v ] of Object.entries(questions)) {
+                            response.push(v);
+                        }
+                        // console.log(response);
+                        callback(false, { totalQuestions: response.length, questions: response });
                     }
                 });
             }

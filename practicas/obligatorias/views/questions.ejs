@@ -19,29 +19,31 @@
         <div class="questions-content">
             <span class="title">Todas las preguntas</span>
             <div class="control-panel">
-                <span class="number-of-questions">5 preguntas</span>
-                <button class="btn btn-primary">Formular una pregunta <i class="fa fa-pencil"></i></button>
+                <span class="number-of-questions"><%= total %> preguntas</span>
+                <a class="btn btn-primary" href="/preguntas/formular">Formular una pregunta <i class="fa fa-pencil"></i></a>
             </div>
             <div class="questions">
                 <% questions.forEach(function(question){ %>
                     <div class="question">
                         <div class="question-info">
+                            <!-- <a href="/preguntas/:id"><span class="title"><%= question.title %></span></a> -->
                             <span class="title"><%= question.title %></span>
                             <span class="description"><%= question.body %></span>
                             <div class="labels">
                                 <% question.tags.forEach(function(tag){ %>
+                                    <!-- <a href="/preguntas/etiquetas/:label"><span class="label"><%= tag %></span></a> -->
                                     <span class="label"><%= tag %></span>
                                 <% }); %>
                             </div>
                         </div>
                         <div class="question-user">
                             <span class="date">Formulada el <%= question.date %></span>
+                            <!-- <a href="/usuarios/perfil/:id"><img src="<%= question.userImg %>" alt="foto de perfil" class="user-img"></a> -->
                             <img src="<%= question.userImg %>" alt="foto de perfil" class="user-img">
                             <span class="username-ask"><%= question.username %></span>
                         </div>
                     </div>
                 <% }); %>
-                <!-- Resto de preguntas -->
             </div>
         </div>
     </div>

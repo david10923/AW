@@ -127,3 +127,9 @@ textarea.form-field:focus,
 }
 .like{ color: #0c8f00; }
 .dislike{ color: #990000; }
+
+/* quitar unserline al <a> */
+a{
+    color: inherit;
+    text-decoration: none;
+}

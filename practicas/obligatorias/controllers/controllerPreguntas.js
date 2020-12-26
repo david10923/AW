@@ -9,10 +9,11 @@ module.exports = {
     getAllQuestions : function(request, response){
         dao.readAllQuestion(function(error, data){
             if(error){
-                response.redirect('/error');
+                response.status(200);
+                response.render("error_500");
             } else{
                 response.status(200);
-                response.render("questions", { questions: data });
+                response.render("questions", { questions: data.questions, total: data.totalQuestions });
                 response.end();
             }
         });

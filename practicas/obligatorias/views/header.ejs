@@ -1,23 +1,24 @@
 <header>
     <div id="header">
         <div class="header-element menu">
-            <button class="btn btn-primary">Preguntas <i class="fa fa-question"></i></button>
-            <button class="btn btn-primary">Sin responder <i class="fa fa-flag"></i></button>
-            <button class="btn btn-primary">Usuarios <i class="fa fa-users"></i></button>
+            <a class="btn btn-primary" href="/preguntas/">Preguntas <i class="fa fa-question"></i></a>
+            <a class="btn btn-primary" href="/preguntas/descargar/sinreponder">Sin responder <i class="fa fa-flag"></i></a>
+            <a class="btn btn-primary" href="/usuarios">Usuarios <i class="fa fa-users"></i></a>
         </div>
         <img src="/resources/images/logo_512.png" alt="404" class="logo">
         <div class="header-element profile-info">
-            <img src="/resources/images/default.png" alt="Perfil" class="profile-img">
-            <span class="username">SHAM</span>
-            <button class="btn btn-primary">Cerrar Sesión <i class="fa fa-sign-out"></i></button>
+            <!-- <a href="/usuarios/perfil/:id"><img src="/loginout/userImage" alt="Perfil" class="profile-img"></a> -->
+            <img src="/loginout/userImage" alt="Perfil" class="profile-img">
+            <span class="username"><%= userName %></span>
+            <a class="btn btn-primary" href="/loginout/logoutUser">Cerrar Sesión <i class="fa fa-sign-out"></i></a>
         </div>
     </div>
     <div class="content-search">
         <div class="search">
-            <form action="#" method="POST" class="form-control">
-                <button class="btn btn-search ml-10">Buscar</button>
+            <form action="/preguntas/buscar" method="GET" class="form-control">
+                <button class="btn btn-search ml-10" type="submit">Buscar</button>
                 <img src="/resources/images/lupa.png" alt="Search" class="icon-find">
-                <input type="text" class="form-field ml-0 find-field" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
+                <input type="text" class="form-field ml-0 find-field" name="busqueda" autocomplete="off" placeholder="Buscar por titulo/cuerpo de pregunta">
             </form>
         </div>
     </div>

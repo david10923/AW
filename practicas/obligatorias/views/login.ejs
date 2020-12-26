@@ -19,16 +19,21 @@
     </header>
 
     <div class="registro">
-        <form action="#" method="POST" class="form-control">
+        <form action="/loginout/loginUser" method="POST" class="form-control">
             <span class="form-title">Correo electrónico *</span>
-            <input type="email" class="form-field" autocomplete="off" placeholder="Introduce tu correo electónico...">
+            <input type="email" name="email" class="form-field" autocomplete="off" placeholder="Introduce tu correo electónico...">
             <span class="form-title">Contraseña *</span>
-            <input type="password" class="form-field" autocomplete="off" placeholder="Introduce tu contraseña...">
+            <input type="password" name="password" class="form-field" autocomplete="off" placeholder="Introduce tu contraseña...">
             <div class="btns-form_login">
-                <button class="btn btn-primary">Iniciar sesión <i class="fa fa-sign-in"></i></button>
-                <button class="btn btn-primary">Crear cuenta <i class="fa fa-plus-square-o"></i></button>
+                <button class="btn btn-primary" type="submit">Iniciar sesión <i class="fa fa-sign-in"></i></button>
+                <a class="btn btn-primary" href="/loginout/registro">Crear cuenta <i class="fa fa-plus-square-o"></i></a>
             </div>    
         </form>
+    </div>
+    <div class="error">
+        <% if(errorMsg){ %>
+            <%= errorMsg %>
+        <% } %>
     </div>
 </body>
 </html>

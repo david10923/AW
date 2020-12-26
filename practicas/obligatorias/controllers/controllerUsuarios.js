@@ -9,8 +9,8 @@ module.exports = {
     getAllUsers : function(request, response){
         dao.readAllUsers(function(error, allUsers){
             if(error){
-                response.status(400);
-                response.render("error");
+                response.status(200);
+                response.render("error_500");
             } else{
                 response.status(200);
                 response.render("users", { users: allUsers });
