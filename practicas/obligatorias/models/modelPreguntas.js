@@ -1,5 +1,7 @@
 "use strict"
 
+const { query } = require("express");
+
 class DAOQuestions{
 
     constructor(pool){
@@ -11,33 +13,46 @@ class DAOQuestions{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{               
-                connection.query("INSERT INTO `questions`(`user`, `title`, `body`) VALUES (?,?,?)", [ data.email, data.tittle, data.body ] , function(error, result){
-                    connection.release();
+                connection.query("INSERT INTO `questions`(`user`, `title`, `body`) VALUES (?,?,?)", [ data.email, data.title, data.body ] , function(error, result){
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        callback(false, result);
+                        var questionID = result.insertId;
+                        if(data.tags.length > 0){
+                            let queryStr = "INSERT INTO tags ('question','tagName)", params = [];
+                            for(var i = 0; i < data.tags.length; i++){
+                                queryStr += ' VALUES (?, ?)';
+                                params.push(questionID, data.tags[i]);
+                                if(i != (data.tags.length - 1)){
+                                    queryStr += ', ';
+                                }
+                            }
+                            connection.query("queryStr", params, function(error, result){
+                                if(error){
+                                    connection.release();
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
+                                    connection.release();
+                                    callback(null);
+                                }
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
+                        }
                     }
                 });
             }
         });
     }
 
-    updateQuestion(){
-
-    }
-   
-    readQuestion(){
-
-
-    }
     // ORDENARLAS CRONOLOGICAMENTE
     readAllQuestion(callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email ORDER BY q.date DESC;";
+                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email ORDER BY q.date DESC;";
                 let sql2 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
                 let sql = sql1 + sql2;
                 connection.query(sql, function(error, results, fields){
@@ -72,13 +87,34 @@ class DAOQuestions{
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
-            } else{               
-                connection.query("SELECT * FROM `questions` q JOIN `tags` t ON q.ID=t.question WHERE t.tagName=? AND t.question=q.ID", [ tagName ] , function(error, result){
+            } else{
+                let sql1 = "SELECT t.question FROM tags t JOIN questions q WHERE q.ID=t.question AND t.tagName=?;";
+                let sql2 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u WHERE q.user=u.email ORDER BY q.date DESC;";
+                let sql3 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
+                let sql = sql1 + sql2 + sql3;
+                connection.query(sql, [ tagName ] , function(error, results){
                     connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        callback(false, result);
+                        let tags        = {}, // todos los tags de cada pregunta
+                            response    = []; // todas las preguntas
+                        results[0].forEach(function(tag){
+                            tags[tag.question] = [];
+                        });
+                        results[2].forEach(function(tag){
+                            if(tags[tag.question]){
+                                tags[tag.question].push(tag.tagName);
+                            }
+                        });
+                        results[1].forEach(function(question){
+                            if(tags[question.ID]){
+                                question.tags = tags[question.ID];
+                                response.push(question);
+                            }
+                        });
+
+                        callback(false, { totalQuestions: response.length, questions: response });
                     }
                 });
             }
@@ -86,23 +122,12 @@ class DAOQuestions{
 
     }
 
-    filterQuestionByAnswer(){
-
-
-    }
-
-    filterQuestionByText(){
-
-
-
-    }
-
-    createAnswer(data,callback){
+    createAnswer(data, callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
-            } else{               
-                connection.query("INSERT INTO `answers`(`user`, `question`) VALUES (?,?)",[data.email,data.id] , function(error, result){
+            } else{
+                connection.query("INSERT INTO `answers`(`user`, `question`) VALUES (?,?)", [ data.email, data.id ] , function(error, result){
                     connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
@@ -114,22 +139,43 @@ class DAOQuestions{
         });
     }
 
-    updateAnswer(){
-
+    findByFilter(text, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u WHERE q.user=u.email AND q.title LIKE ?;";
+                let sql2 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
+                let sql = sql1 + sql2;
+                connection.query(sql, [ text ] , function(error, results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        let questions   = {},
+                            response    = [];
+                        // Formateamos nuestro objeto
+                        results[0].forEach(function(question){
+                            question.tags = [];
+                            questions[question.ID] = question;
+                        });
+                        results[1].forEach(function(tag){
+                            if(questions[tag.question]){
+                                questions[tag.question].tags.push(tag.tagName);
+                            }
+                        });
+                        
+                        // Formateamos la salida
+                        for (const [ k, v ] of Object.entries(questions)) {
+                            response.push(v);
+                        }
+                        // console.log(response);
+                        callback(false, { totalQuestions: response.length, questions: response });
+                    }
+                });
+            }
+        });
     }
-
-    readAnswer(){
-
-    }
-
-    readAllAnswers(){
-
-    }
-
-    deleteAnswer(){
-
-    }
-
 }
 
-module.exports = DAOQuestions ;
+module.exports = DAOQuestions;

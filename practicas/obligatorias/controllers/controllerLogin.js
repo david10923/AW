@@ -50,10 +50,13 @@ module.exports = {
     loginUser: function(request, response){
         daoUsers.isUserCorrect(request.body.email, request.body.password, function(error, user){
             if(error){
-                console.log("========================== ERROR ==========================", error.message);
+                response.status(200);
+                response.render("error_500");
+                response.end();
             } else if(user !== undefined){
-                request.session.currentName = user.username;
-                request.session.currentEmail = user.email;
+                request.session.currentName     = user.username;
+                request.session.currentEmail    = user.email;
+                request.session.currentID       = user.id;
                 response.redirect("/index");
             } else{
                 response.status(200);

@@ -43,9 +43,10 @@ app.use(middlewareSession); // middleware de session
 
 
 function checkSession(request, response, next){
-    if (request.session.currentName !== undefined && request.session.currentEmail  !== undefined) {
-        response.locals.userName = request.session.currentName; // SOLO para tener el email accesible es los EJS
-        response.locals.userEmail = request.session.currentEmail;
+    if (request.session.currentName !== undefined && request.session.currentEmail  !== undefined && request.session.currentID !== undefined) {
+        response.locals.userName    = request.session.currentName;
+        response.locals.userEmail   = request.session.currentEmail;
+        response.locals.userID      = request.session.currentID;
         next();
     } else {
         response.redirect("/loginout/login");

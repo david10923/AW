@@ -17,7 +17,7 @@
 
     <div class="content-body">
         <div class="questions-content">
-            <span class="title">Todas las preguntas</span>
+            <span class="title"><%= title %></span>
             <div class="control-panel">
                 <span class="number-of-questions"><%= total %> preguntas</span>
                 <a class="btn btn-primary" href="/preguntas/formular">Formular una pregunta <i class="fa fa-pencil"></i></a>
@@ -26,20 +26,17 @@
                 <% questions.forEach(function(question){ %>
                     <div class="question">
                         <div class="question-info">
-                            <!-- <a href="/preguntas/:id"><span class="title"><%= question.title %></span></a> -->
-                            <span class="title"><%= question.title %></span>
+                            <a href="/preguntas/<%= question.ID %>"><span class="title"><%= question.title %></span></a>
                             <span class="description"><%= question.body %></span>
                             <div class="labels">
                                 <% question.tags.forEach(function(tag){ %>
-                                    <!-- <a href="/preguntas/etiquetas/:label"><span class="label"><%= tag %></span></a> -->
-                                    <span class="label"><%= tag %></span>
+                                    <a href="/preguntas/etiquetas/<%= tag %>"><span class="label"><%= tag %></span></a>
                                 <% }); %>
                             </div>
                         </div>
                         <div class="question-user">
                             <span class="date">Formulada el <%= question.date %></span>
-                            <!-- <a href="/usuarios/perfil/:id"><img src="<%= question.userImg %>" alt="foto de perfil" class="user-img"></a> -->
-                            <img src="<%= question.userImg %>" alt="foto de perfil" class="user-img">
+                            <a href="/usuarios/perfil/<%= question.userID %>"><img src="<%= question.userImg %>" alt="foto de perfil" class="user-img"></a>
                             <span class="username-ask"><%= question.username %></span>
                         </div>
                     </div>

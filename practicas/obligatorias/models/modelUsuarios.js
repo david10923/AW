@@ -77,7 +77,7 @@ class DAOUsers{
                         }
                         else{
                             rows = rows[0];
-                            callback(null, { username: rows.username, email: rows.email });
+                            callback(null, { username: rows.username, email: rows.email, id:rows.id });
                         }
                     }
                 });
