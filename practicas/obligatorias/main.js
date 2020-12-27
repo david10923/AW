@@ -86,13 +86,20 @@ let daoQuestionAndAnswers = new DAOQuestions(pool);
 //         console.log(res);
 //     }
 // });
-daoQuestionAndAnswers.filterQuestionByTag('AW', function(error, res){
+// daoQuestionAndAnswers.filterQuestionByTag('AW', function(error, res){
+//     if(error){
+//         console.log(error.message);
+//     } else{
+//         // console.log(res);
+//         res.questions.forEach(aux => {
+//             console.log('tags de la pregunta ', aux.ID, ': ', aux.tags);
+//         });
+//     }
+// });
+daoQuestionAndAnswers.filterQuestionByID(2, function(error, res){
     if(error){
-        console.log(error.message);
+        console.log("==================", error.message);
     } else{
-        // console.log(res);
-        res.questions.forEach(aux => {
-            console.log('tags de la pregunta ', aux.ID, ': ', aux.tags);
-        });
+        console.log(res);
     }
 });

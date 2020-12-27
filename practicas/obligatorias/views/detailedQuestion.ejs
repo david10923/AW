@@ -11,7 +11,7 @@
     <link rel="stylesheet" media="screen" href="/css/questions.css">
     <link rel="stylesheet" media="screen" href="/css/detailedQuestion.css">
     <link rel="icon" href="/resources/images/logo_64.png">
-    <title>Question | 404AW</title>
+    <title><%= question.title %> | 404AW</title>
 </head>
 <body>
     <%- include("header") %>
@@ -19,48 +19,46 @@
     <div class="content-body">
         <!-- DINAMICO -->
         <div class="question-asked">
-            <span class="title mb-10">¿Cómo funciona exactamente nth-child?</span>
-            <span class="viewed mt-5">Vista 1 veces</span>
-            <span class="votes mt-5">0 votos <i class="fa fa-thumbs-up like"></i> <i class="fa fa-thumbs-down dislike"></i></span>
-            <div class="question-body mt-10">
-                No acabo de comprender muy bien que hace exactamente y qué usos puede tener.
-            </div>
+            <span class="title mb-10"><%= question.title %></span>
+            <span class="viewed mt-5">Vista <%= question.visits %> veces</span>
+            <span class="votes mt-5"><%= question.nLikes %> <i class="fa fa-thumbs-up like"></i> <%= question.nDislikes %> <i class="fa fa-thumbs-down dislike"></i></span>
+            <div class="question-body mt-10"><%= question.body %></div>
             <div class="labels mt-10">
-                <span class="label">CSS</span>
-                <span class="label">HTML</span>
+                <% question.tags.forEach(function(tag){ %>
+                    <a href="/preguntas/etiquetas/<%= tag %>"><span class="label"><%= tag %></span></a>
+                <% }); %>
             </div>
             <div class="user-info">
                 <div class="user-profile">
-                    <span class="date">Formulada el 5/11/2020</span>
-                    <img src="./resources/images/default.png" alt="imagen de usuario" class="user-img">
-                    <span class="username-ask">Pedro</span>
+                    <span class="date">Formulada el <%= question.date %></span>
+                    <a href="/usuarios/perfil/<%= question.qUserID %>"><img src="<%= question.profileImg %>" alt="imagen de usuario" class="user-img"></a>
+                    <span class="username-ask"><%= question.username %></span>
                 </div>
             </div>
         </div>
 
         <!-- DINAMICO -->
         <div class="answers">
-            <span class="title mt-10 mb-20">1 respuestas</span>
-            <div class="reply">
-                <span class="votes mt-5">0 votos <i class="fa fa-thumbs-up like"></i> <i class="fa fa-thumbs-down dislike"></i></span>
-                <div class="answer-body mt-10">
-                    La pseudoclase :nth-child() selecciona los hermanos que cumplan cierta condicion definida en la formula en +b , a y b deben de ser 
-                    numeros enteros, n es un contador.El grupo a representa un ciclo, cada cuantos elementos se repite ; b indica desde donde empezamos a contar.
-                </div>
-                <div class="user-info mt-10">
-                    <div class="user-profile">
-                        <span class="date">Formulada el 5/11/2020</span>
-                        <img src="./resources/images/default.png" alt="imagen de usuario" class="user-img">
-                        <span class="username-ask">Pedro</span>
+            <span class="title mt-10 mb-20"><%= answers.length %> respuestas</span>
+            <% answers.forEach(function(answer){ %>
+                <div class="reply">
+                    <span class="votes mt-5"><%= answer.nLikes %> <i class="fa fa-thumbs-up like"></i> <%= answer.nDislikes %><i class="fa fa-thumbs-down dislike"></i></span>
+                    <div class="answer-body mt-10"><%= answer.body %></div>
+                    <div class="user-info mt-10">
+                        <div class="user-profile">
+                            <span class="date">Formulada el <%= answer.date %></span>
+                            <a href="/usuarios/perfil/<%= answer.userID %>"><img src="<%= answer.profileImg %>" alt="imagen de usuario" class="user-img"></a>
+                            <span class="username-ask"><%= answer.aUser %></span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <% }); %>
         </div>
 
         <div class="user-answer">
             <span class="title">Tu respuesta</span>
-            <form action="/preguntas/publicarRespuesta/<%= id %>>" method="POST">
-                <textarea class="form-field mt-10 mb-10" placeholder="Escribe aqui tu respuesta detallada"></textarea>
+            <form action="/preguntas/publicarRespuesta/<%= question.qID %>" method="POST">
+                <textarea class="form-field mt-10 mb-10" placeholder="Escribe aqui tu respuesta detallada" name="a_body"></textarea>
                 <button class="btn btn-primary mb-20" type="submit">Publicar tu respuesta <i class="fa fa-check-square-o"></i></button>
             </form>
         </div>

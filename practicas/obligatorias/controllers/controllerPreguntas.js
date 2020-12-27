@@ -24,7 +24,6 @@ module.exports = {
         dao.findByFilter(`%${request.query.busqueda}%`, function(error, data){
             if(error){
                 response.status(200);
-                console.log("Erorr", error.message);
                 response.render("error_500");
             } else{
                 response.status(200);
@@ -65,7 +64,6 @@ module.exports = {
             body    : request.body.body,
             tags    : labels
         };
-        console.log(params);
 
         dao.createQuestion(params, function(error){
             if(error){
@@ -76,9 +74,40 @@ module.exports = {
                 response.redirect("/");
             }
         });
-    }
+    },
 
-    // getQuestion : function (request,response){
-       
-    // }
+    // Ruta: /preguntas/:id vista especifica de cada pregunta
+    getQuestion: function (request, response){
+        // INCREMENTAR EN 1 EL NUMERO DE VISITAS A LA PREGUNTA PARA EL USUARIO ACTUAL SI NO LA HA VISITADO ANTES
+        dao.filterQuestionByID(request.params.id, function(error, qData){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                // console.log(JSON.stringify(qData));
+                response.status(200);
+                response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
+                response.end();
+            }
+        });
+    },
+
+    // Ruta: /preguntas/publicarRespuesta/:id para publicar una respuesta dentro de la vista de una pregunta
+    postAnswer: function(request, response){
+        let params = {
+            question    : request.params.id,
+            text        : request.body.a_body,
+            user        : request.session.currentEmail
+        };
+        console.log(params);
+        dao.postAnswer(params, function(error){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                response.status(200);
+                response.redirect("/preguntas");
+            }
+        });
+    }
 }

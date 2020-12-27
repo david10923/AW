@@ -75,7 +75,7 @@
 .questions-content .questions .question .question-user .date,
 .question-asked .user-info .user-profile .date,
 .answers .reply .user-info .date{
-    color: #000;
+    color: #fff;
     font-size: 12px;
 }
 .questions-content .questions .question .question-user .user-img,
@@ -88,6 +88,6 @@
 .questions-content .questions .question .question-user .username-ask,
 .question-asked .user-info .user-profile .username-ask,
 .answers .reply .user-info .username-ask{
-    color: #0f26a9;
+    color: #a0a9da;
     font-weight: bold;
 }
