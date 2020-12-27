@@ -144,7 +144,9 @@ class DAOQuestions{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u WHERE q.user=u.email AND q.title LIKE ?;";
+                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID"+
+                " FROM questions q JOIN users u WHERE q.user=u.email AND" +
+                "(q.title LIKE '?' OR q.body LIKE '? %' OR q.body LIKE '% ?') ";
                 let sql2 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
                 let sql = sql1 + sql2;
                 connection.query(sql, [ text ] , function(error, results){
@@ -175,6 +177,44 @@ class DAOQuestions{
                 });
             }
         });
+    }
+
+
+    filterQuestionByID(questionId, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{               
+                connection.query("",[questionId] ,function(error, results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{                       
+                       
+                        callback(true);
+                    }
+                });
+            }
+        });
+
+    }
+
+    filterAnswerByQuestionID(questionId, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{               
+                connection.query("SELECT a.user a.nLikes a.nDisliKes u.username FROM answers a JOIN questions JOIN users u q WHERE a.question =?",[questionId] ,function(error, results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(true);
+                    }
+                });
+            }
+        });
+
     }
 }
 

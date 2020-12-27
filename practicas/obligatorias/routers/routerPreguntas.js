@@ -31,6 +31,7 @@ function middlewareServerError(error, request, response, next){
 questionsRouter.get("/", checkSession, controller.getAllQuestions);
 questionsRouter.get("/etiquetas/:label", checkSession, controller.findByTag);
 questionsRouter.get("/formular", checkSession, controller.formulate);
+//questionsRouter.get("/:id",checkSession, );
 
 // Forms/acciones de las vistas
 questionsRouter.get("/buscar", checkSession, controller.findByFilter);

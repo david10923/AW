@@ -24,6 +24,7 @@ module.exports = {
         dao.findByFilter(`%${request.query.busqueda}%`, function(error, data){
             if(error){
                 response.status(200);
+                console.log("Erorr", error.message);
                 response.render("error_500");
             } else{
                 response.status(200);
@@ -76,4 +77,8 @@ module.exports = {
             }
         });
     }
+
+    // getQuestion : function (request,response){
+       
+    // }
 }
