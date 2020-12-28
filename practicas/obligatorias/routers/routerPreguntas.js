@@ -28,18 +28,16 @@ function middlewareServerError(error, request, response, next){
     response.render("error_500");
 }
 
-// Vistas
+// Vistas y forms/acciones de las vistas
 questionsRouter.get("/", checkSession, controller.getAllQuestions);
 questionsRouter.get("/etiquetas/:label", checkSession, controller.findByTag);
 questionsRouter.get("/formular", checkSession, controller.formulate);
-questionsRouter.get("/:id", checkSession, controller.getQuestion);
-
-// Forms/acciones de las vistas
 questionsRouter.get("/buscar", checkSession, controller.findByFilter);
+questionsRouter.get("/:id", checkSession, controller.getQuestion);
 questionsRouter.post("/formulateQuestion", checkSession, controller.formulateQuestion);
 questionsRouter.post("/publicarRespuesta/:id", checkSession, controller.postAnswer);
-questionsRouter.get("/like/:id", checkSession, controller.likeAQuestion);
-questionsRouter.get("/dislike/:id", checkSession, controller.dislikeAQuestion);
+questionsRouter.get("/like/:id", checkSession, controller.scoreQuestion);
+questionsRouter.get("/dislike/:id", checkSession, controller.scoreQuestion);
 
 questionsRouter.use(middlewareNotFoundError); // middleware ERROR 404
 questionsRouter.use(middlewareServerError); // middleware ERROR 500

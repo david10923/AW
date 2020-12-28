@@ -2,7 +2,6 @@
 
 const DAOQuestions  = require('../models/modelPreguntas'); // DAOQuestions
 const pool          = require("../database");
-const { resolveInclude } = require('ejs');
 let dao             = new DAOQuestions(pool);
 
 module.exports = {
@@ -36,6 +35,7 @@ module.exports = {
 
     // Ruta: /preguntas/etiquetas/:label
     findByTag: function(request, response){
+        console.log('=================', request.originalUrl);
         dao.filterQuestionByTag(request.params.label, function(error, data){
             if(error){
                 response.status(200);
@@ -50,6 +50,7 @@ module.exports = {
 
     // Ruta: /preguntas/formular
     formulate: function(request, response){
+        console.log('=================', request.originalUrl);
         response.status(200);
         response.render("formulate", {});
         response.end();
@@ -79,61 +80,14 @@ module.exports = {
 
     // Ruta: /preguntas/:id vista especifica de cada pregunta
     getQuestion: function (request, response){
-        // INCREMENTAR EN 1 EL NUMERO DE VISITAS A LA PREGUNTA PARA EL USUARIO ACTUAL SI NO LA HA VISITADO ANTES
-        dao.filterQuestionByID(request.params.id, function(error, qData){
+        dao.filterQuestionByID({ question : request.params.id, user : request.session.currentEmail }, function(error, qData){
             if(error){
                 response.status(200);
                 response.render("error_500");
             } else{
-                let params ={
-                    questionID    : request.params.id,
-                    user        : request.session.currentEmail
-                };
-
-                //buscar en la tabla visitas, para ver si ese user ya tenia algo 
-                dao.checkUserVisits(params,function(error,result){
-                    if(error){
-                        response.status(200);
-                        response.render("error_500");
-                    }
-                    else{                        
-                        if(result[0].filas === 0){ // todavia no has visitado esa pregunta
-                           
-                            dao.updateVisits(params, function(error,resultado){
-                                if(error){
-                                    console.log("================================>", error.message);
-                                    response.status(200);
-                                    response.render("error_500");
-                                }
-                                else{                                   
-                                    response.status(200);
-                                    dao.filterQuestionByID(request.params.id, function(error, qData){
-                                        if(error){
-                                            response.status(200);
-                                            response.render("error_500");
-                                        } else{
-                                            response.status(200);
-                                            response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                            response.end();
-                                        }
-                                    });
-                                }
-                            });
-                        } else{
-                            dao.filterQuestionByID(request.params.id, function(error, qData){
-                                if(error){
-                                    response.status(200);
-                                    response.render("error_500");
-                                } else{
-                                    response.status(200);
-                                    console.log(qData);
-                                    response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                    response.end();
-                                }
-                            });
-                        }
-                    }
-                });               
+                response.status(200);
+                response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
+                response.end();
             }
         });
     },
@@ -157,8 +111,26 @@ module.exports = {
         });
     },
 
-    //
-    likeAQuestion: function(request,response){
+    // Ruta: /preguntas/like/:id o /preguntas/dislike/:id a una pregunta
+    scoreQuestion: function(request, response){
+        let like = request.originalUrl.split('/')[2] === 'like',
+        params = {
+            type        : like,
+            question    : request.params.id,
+            user        : request.session.currentEmail
+        };
+        dao.scoreQuestion(params, function(error){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                response.status(200);
+                response.redirect("/preguntas"); // de momento redirigir a todas las preguntas
+            }
+        });
+    }
+
+    /*likeAQuestion: function(request,response){
         let params = {
             questionID    : request.params.id,
             user        : request.session.currentEmail,
@@ -316,5 +288,5 @@ module.exports = {
             }
         });         
             
-    }
+    }*/
 }

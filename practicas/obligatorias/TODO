@@ -1,0 +1,10 @@
+- Ordenar preguntas cronologicamente
+- Module exports de los middlewares comunes
+- El tema de las imagenes
+- Insert de una pregunta para los tags: se hace un insert por cada vuelta del tags.forEach o un insert multiple en una cosulta?
+- Hacer EJS el register
+- RegExp de crear question
+- Cuando cargamos paginas de errores antes de hacer el render, en el status ponemos 200 o el error que corresponda
+- Controlar errores de JS como undefined.XXXXX pq se jode toda la app
+- Crear pregunta: campos obligatorios
+- Cuando das like la medalla (y puntos del usuario) se le otorga al currentEmail y no al usuario que ha hecho la pregunta ==> cambiar trigger que es quien hace el insert de la medalla
