@@ -219,24 +219,116 @@ class DAOQuestions{
         });
     }
 
-    /*filterAnswerByQuestionID(questionId, callback){
-        this.pool.getConnection(function(error, connection){
+    
+
+    likeDislikeAQuestion(params,callback){
+        this.pool.getConnection(function(error,connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
-            } else{               
-                connection.query("SELECT a.user a.nLikes a.nDisliKes u.username FROM answers a JOIN questions JOIN users u q WHERE a.question =?",[questionId] ,function(error, results){
-                    connection.release();
+            }else{
+                let sql1 = "SELECT q.ID as qID, q.title, q.body, q.date, q.visits, q.nLikes, q.nDislikes, u.ID as qUserID, u.profileImg, u.username FROM questions q JOIN users u WHERE q.user=u.email AND q.ID=?;";
+                let sql2 = "SELECT t.tagName FROM tags t WHERE t.question=?;";
+                let sql3 = "SELECT u.username as aUser, a.body, a.nLikes, a.nDislikes, a.date, u.ID as userID, u.profileImg FROM answers a JOIN users u WHERE a.user=u.email AND a.question=?;";
+                let sql4=  "INSERT INTO questions_score(question,user,type) VALUES (?,?,?)"
+                let sql = sql1 + sql2 + sql3 + sql4;
+                connection.query(sql,[params.questionID, params.questionID, params.questionID,params.questionID,params.user,params.type], function(error, results){
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
+                        let q = results[0][0];
+                        q.tags = [];
+                        results[1].forEach(function(tag){ q.tags.push(tag.tagName); });
+                        callback(null, { question: q, answers: results[2] });
+                    }
+                    connection.release();         
 
-                        callback(null);
+                });
+            }
+        });
+    }
+
+    updateLikeDislikeAQuestion(params,callback){   
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{
+                let sql1 = "SELECT q.ID as qID, q.title, q.body, q.date, q.visits, q.nLikes, q.nDislikes, u.ID as qUserID, u.profileImg, u.username FROM questions q JOIN users u WHERE q.user=u.email AND q.ID=?;";
+                let sql2 = "SELECT t.tagName FROM tags t WHERE t.question=?;";
+                let sql3 = "SELECT u.username as aUser, a.body, a.nLikes, a.nDislikes, a.date, u.ID as userID, u.profileImg FROM answers a JOIN users u WHERE a.user=u.email AND a.question=?;";
+                let sql4=  "UPDATE questions_score q SET question= ? , user = ? , type = ? WHERE q.question= ? ";
+                let sql = sql1 + sql2 + sql3 + sql4;
+                connection.query(sql,[params.questionID, params.questionID, params.questionID,params.questionID,params.user,params.type,params.questionID], function(error, results){
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        let q = results[0][0];
+                        q.tags = [];
+                        results[1].forEach(function(tag){ q.tags.push(tag.tagName); });
+                        callback(null, { question: q, answers: results[2] });
+                    }
+                    connection.release();         
+
+                });
+            }
+        });
+
+    }
+
+    checkQuestionStatus(params,callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{               
+                connection.query("SELECT COUNT(*) as filas, q.type as tipo FROM questions_score q WHERE q.question = ? ",[params.questionID], function(error, results){
+                    connection.release();  
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(null,results);
+                        //callback(null,{number: results.filas, tipo:results.tipo});
                     }
                 });
             }
         });
 
-    }*/
+    }    
+
+    checkUserVisits(params,callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{
+                connection.query("SELECT COUNT(*) as filas FROM visits v WHERE v.question =? AND v.user =?",[params.questionID, params.user], function(error, results){
+                    connection.release();  
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(null,results);
+                    }
+                });
+            }
+        });
+    }
+
+
+    updateVisits(params,callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{                
+                connection.query("INSERT INTO visits(question,user) VALUES(?,?)",[params.questionID, params.user], function(error, results){
+                    connection.release();  
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(null,results);
+                    }
+                });
+            }
+        });
+
+    }
+    
 }
 
 module.exports = DAOQuestions;

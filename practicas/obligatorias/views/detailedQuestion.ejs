@@ -21,7 +21,7 @@
         <div class="question-asked">
             <span class="title mb-10"><%= question.title %></span>
             <span class="viewed mt-5">Vista <%= question.visits %> veces</span>
-            <span class="votes mt-5"><%= question.nLikes %> <i class="fa fa-thumbs-up like"></i> <%= question.nDislikes %> <i class="fa fa-thumbs-down dislike"></i></span>
+            <span class="votes mt-5"><a href="/preguntas/like/<%= question.qID %>"><%=question.nLikes %> <i class="fa fa-thumbs-up like"></i></a><a href="/preguntas/dislike/<%= question.qID  %>"><%= question.nDislikes %> <i class="fa fa-thumbs-down dislike"></i></a></span>
             <div class="question-body mt-10"><%= question.body %></div>
             <div class="labels mt-10">
                 <% question.tags.forEach(function(tag){ %>

@@ -38,8 +38,8 @@ questionsRouter.get("/:id", checkSession, controller.getQuestion);
 questionsRouter.get("/buscar", checkSession, controller.findByFilter);
 questionsRouter.post("/formulateQuestion", checkSession, controller.formulateQuestion);
 questionsRouter.post("/publicarRespuesta/:id", checkSession, controller.postAnswer);
-// questionsRouter.post("/like/:id", checkSession, controller.likeQuestion);
-// questionsRouter.post("/dislike/:id", checkSession, controller.dislikeQuestion);
+questionsRouter.get("/like/:id", checkSession, controller.likeAQuestion);
+questionsRouter.get("/dislike/:id", checkSession, controller.dislikeAQuestion);
 
 questionsRouter.use(middlewareNotFoundError); // middleware ERROR 404
 questionsRouter.use(middlewareServerError); // middleware ERROR 500
