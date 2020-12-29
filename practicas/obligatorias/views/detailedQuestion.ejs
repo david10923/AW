@@ -42,7 +42,7 @@
             <span class="title mt-10 mb-20"><%= answers.length %> respuestas</span>
             <% answers.forEach(function(answer){ %>
                 <div class="reply">
-                    <span class="votes mt-5"><%= answer.nLikes %> <i class="fa fa-thumbs-up like"></i> <%= answer.nDislikes %><i class="fa fa-thumbs-down dislike"></i></span>
+                    <span class="votes mt-5"><a href="/preguntas/respuestas/like/<%= question.qID %>/<%= answer.aID%>"><%= answer.nLikes %> <i class="fa fa-thumbs-up like"></i></a> <a href="/preguntas/respuestas/dislike/<%= question.qID %>/<%= answer.aID%>"><%= answer.nDislikes %><i class="fa fa-thumbs-down dislike"></i></a></span>
                     <div class="answer-body mt-10"><%= answer.body %></div>
                     <div class="user-info mt-10">
                         <div class="user-profile">

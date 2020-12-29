@@ -13,7 +13,21 @@ module.exports = {
                 response.render("error_500");
             } else{
                 response.status(200);
-                response.render("users", { users: allUsers });
+                response.render("users", { users: allUsers, title: 'Usuarios' });
+                response.end();
+            }
+        });
+    },
+
+    // Ruta: /usuarios/filtrar por nombre de usuario
+    findByFilter: function(request, response){
+        dao.findByFilter(`%${request.query.filtro}%`, function(error, users){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                response.status(200);
+                response.render("users", { users: users, title: `Usuarios filtrados por ["${request.query.filtro}"]` });
                 response.end();
             }
         });

@@ -38,6 +38,9 @@ questionsRouter.post("/formulateQuestion", checkSession, controller.formulateQue
 questionsRouter.post("/publicarRespuesta/:id", checkSession, controller.postAnswer);
 questionsRouter.get("/like/:id", checkSession, controller.scoreQuestion);
 questionsRouter.get("/dislike/:id", checkSession, controller.scoreQuestion);
+questionsRouter.get("/descargar/sinreponder", checkSession, controller.noAnswers);
+questionsRouter.get("/respuestas/like/:idQ/:idA", checkSession,controller.scoreAnswer);
+questionsRouter.get("/respuestas/dislike/:idQ/:idA", checkSession,controller.scoreAnswer);
 
 questionsRouter.use(middlewareNotFoundError); // middleware ERROR 404
 questionsRouter.use(middlewareServerError); // middleware ERROR 500

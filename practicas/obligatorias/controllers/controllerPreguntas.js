@@ -35,7 +35,7 @@ module.exports = {
 
     // Ruta: /preguntas/etiquetas/:label
     findByTag: function(request, response){
-        console.log('=================', request.originalUrl);
+        // console.log('=================', request.originalUrl);
         dao.filterQuestionByTag(request.params.label, function(error, data){
             if(error){
                 response.status(200);
@@ -50,7 +50,7 @@ module.exports = {
 
     // Ruta: /preguntas/formular
     formulate: function(request, response){
-        console.log('=================', request.originalUrl);
+        // console.log('=================', request.originalUrl);
         response.status(200);
         response.render("formulate", {});
         response.end();
@@ -67,15 +67,20 @@ module.exports = {
             tags    : labels
         };
 
-        dao.createQuestion(params, function(error){
-            if(error){
-                response.status(200);
-                response.render("error_500");
-            } else{
-                response.status(200);
-                response.redirect("/");
-            }
-        });
+        if(params.title === "" || params.body === ""){
+            response.status(200);
+            response.redirect("/preguntas/formular");
+        } else{
+            dao.createQuestion(params, function(error){
+                if(error){
+                    response.status(200);
+                    response.render("error_500");
+                } else{
+                    response.status(200);
+                    response.redirect("/preguntas");
+                }
+            });
+        }
     },
 
     // Ruta: /preguntas/:id vista especifica de cada pregunta
@@ -125,168 +130,42 @@ module.exports = {
                 response.render("error_500");
             } else{
                 response.status(200);
-                response.redirect("/preguntas"); // de momento redirigir a todas las preguntas
+                response.redirect(`/preguntas/${request.params.id}`);
             }
         });
-    }
-
-    /*likeAQuestion: function(request,response){
-        let params = {
-            questionID    : request.params.id,
-            user        : request.session.currentEmail,
-            type        : 1
-        };
-        
-        // hay que ver si esa pregunta ya tiene un dislike, si ya le diste like salta error
-        dao.checkQuestionStatus(params, function(error, results){
-            if(error){
-                response.status(200);
-                response.render("error_500");
-            } else{
-                response.status(200);
-                //LO DISTINGO PQ SI LE DAS LIKE A UNA PREGUNTA QUE YA LO TIENE SE QUEDA COLGAO
-                if(results[0].filas >0 && results[0].tipo == 0){ // ya existe y es dislike hacer un UPDATE
-                    dao.updateLikeDislikeAQuestion(params,function(error){
-                        if (error){
-                            response.status(200);
-                            response.render("error_500");
-                        }else{
-                            response.status(200);
-                            //SI NO LLAMO ALs OTRO DAO NO SE ACTUALIZA LA INFORMACION !!!!!!
-                            //response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            dao.filterQuestionByID(request.params.id, function(error, qData){
-                                if(error){
-                                    response.status(200);
-                                    response.render("error_500");
-                                } else{
-                                    response.status(200);
-                                    response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                    response.end();
-                                }
-                            });
-                        }
-                    });
-                    
-                }
-                else if(results[0].filas >0 && results[0].tipo == 1){ // si es del mismo tipo renderizo la pagina otra vez
-                    dao.filterQuestionByID(request.params.id, function(error, qData){
-                        if(error){
-                            response.status(200);
-                            response.render("error_500");
-                        } else{
-                            response.status(200);
-                            response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            response.end();
-                        }
-                    });
-                }
-                else{ // si no tiene like
-                    console.log("No tiene nada, le da like");
-                    dao.likeDislikeAQuestion(params,function(error,qData){
-                        if(error){
-                            //console.log("==============================================>",error.message);
-                            response.status(200);
-                            response.render("error_500");
-                        }else{
-                            response.status(200);
-                            //SI NO LLAMO AL OTRO DAO NO SE ACTUALIZA LA INFORMACION !!!!!!
-                            //response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            dao.filterQuestionByID(request.params.id, function(error, qData){
-                                if(error){
-                                    response.status(200);
-                                    response.render("error_500");
-                                } else{
-                                    response.status(200);
-                                    response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                    response.end();
-                                }
-                            });
-                                            
-                        }
-                    });
-                }
-
-            }
-        });        
     },
 
-    dislikeAQuestion: function(request,response){
-        let params = {
-            questionID    : request.params.id,
-            user        : request.session.currentEmail,
-            type        : 0
-        };
-
-        dao.checkQuestionStatus(params, function(error, results){
+    // Ruta: /usuarios/descargar/sinreponder
+    noAnswers: function(request, response){
+        dao.noAnswers(function(error, data){
             if(error){
                 response.status(200);
                 response.render("error_500");
             } else{
-                console.log(results);
                 response.status(200);
-                //LO DISTINGO PQ SI LE DAS DISLIKE A UNA PREGUNTA QUE YA LO TIENE SE QUEDA COLGAO
-                if(results[0].filas >0 && results[0].tipo == 1){ // ya existe y es like hacer un UPDATE
-                    dao.updateLikeDislikeAQuestion(params,function(error){
-                        if (error){
-                            response.status(200);
-                            response.render("error_500");
-                        }else{
-                            response.status(200);
-                            //SI NO LLAMO AL OTRO DAO NO SE ACTUALIZA LA INFORMACION !!!!!!
-                            //response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            dao.filterQuestionByID(request.params.id, function(error, qData){
-                                if(error){
-                                    response.status(200);
-                                    response.render("error_500");
-                                } else{
-                                    response.status(200);
-                                    response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                    response.end();
-                                }
-                            });
-                        }
-                    });
-                    
-                }
-                else if(results[0].filas >0 && results[0].tipo == 0){ // si es del mismo tipo renderizo la pagina otra vez
-                    dao.filterQuestionByID(request.params.id, function(error, qData){
-                        if(error){
-                            response.status(200);
-                            response.render("error_500");
-                        } else{
-                            response.status(200);
-                            response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            response.end();
-                        }
-                    });
-                }
-                else{ // si no tiene Dislike
-                    dao.likeDislikeAQuestion(params,function(error,qData){
-                        if(error){
-                            //console.log("==============================================>",error.message);
-                            response.status(200);
-                            response.render("error_500");
-                        }else{
-                            response.status(200);
-                            //SI NO LLAMO AL OTRO DAO NO SE ACTUALIZA LA INFORMACION !!!!!!
-                            //response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                            dao.filterQuestionByID(request.params.id, function(error, qData){
-                                if(error){
-                                    response.status(200);
-                                    response.render("error_500");
-                                } else{
-                                    response.status(200);
-                                    response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                                    response.end();
-                                }
-                            });
-                                            
-                        }
-                    });
-                }
-
+                response.render("questions", { questions: data.questions, total: data.questions.length, title: "Preguntas sin responder" });
+                response.end();
             }
-        });         
-            
-    }*/
+        });
+    },
+
+    // Ruta: /preguntas/respuestas/like/:idQ/:idA o /preguntas/respuestas/dislike/:id a una pregunta
+    scoreAnswer: function(request, response){
+        let like = request.originalUrl.split('/')[3] === 'like',
+        params = {
+            type        : like,
+            answer      : request.params.idA,
+            user        : request.session.currentEmail
+        };
+        
+        dao.scoreAnswer(params, function(error){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                response.status(200);
+                response.redirect(`/preguntas/${request.params.idQ}`);
+            }
+        });
+    },
 }

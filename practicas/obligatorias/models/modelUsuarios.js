@@ -106,6 +106,24 @@ class DAOUsers{
             }
         });
     }
+
+    findByFilter(text, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                let sql = "SELECT username, profileImg as img, totalScore as rep FROM users u WHERE u.username LIKE ?;";
+                connection.query(sql, [ text ] , function(error, results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(false, results);
+                    }
+                });
+            }
+        });
+    }
 }
 
 module.exports = DAOUsers;
