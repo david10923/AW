@@ -60,6 +60,7 @@ module.exports = {
     formulateQuestion: function(request, response){
         let labels = request.body.labels || '';
         labels = labels !== '' ? labels : [];
+
         let params = {
             email   : request.session.currentEmail,
             title   : request.body.title,
