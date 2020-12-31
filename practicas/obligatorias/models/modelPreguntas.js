@@ -32,10 +32,8 @@ class DAOQuestions{
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
                         var questionID = result.insertId;
-                        console.log("estos son los tags",data.tags);
                         if(data.tags.length > 0){
-                            let queryStr = "INSERT INTO tags ('question','tagName)", params = [];       
-                            console.log(typeof(data.tags));                                               
+                            let queryStr = "INSERT INTO tags ('question','tagName')", params = [];                                     
                             for(var i = 0; i < data.tags.length; i++){
                                 queryStr += ' VALUES (?, ?)';
                                 params.push(questionID, data.tags[i]);
@@ -43,7 +41,6 @@ class DAOQuestions{
                                     queryStr += ', ';
                                 }
                             }
-                            console.log("=======>",params);
                             connection.query(queryStr, params, function(error, result){
                                 connection.release();
                                 if(error){
@@ -56,12 +53,14 @@ class DAOQuestions{
                             connection.release();
                             callback(null);
                         }
+
                     }
                 });
             }
         });
     }
 
+    
     // ORDENARLAS CRONOLOGICAMENTE
     readAllQuestion(callback){
         this.pool.getConnection(function(error, connection){

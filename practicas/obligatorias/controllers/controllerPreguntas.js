@@ -59,7 +59,7 @@ module.exports = {
     // Ruta: POST /preguntas/createQuestion del FORM para crear la pregunta
     formulateQuestion: function(request, response){
         let labels = request.body.labels || '';
-        labels = labels !== '' ? labels : [];
+        labels = labels !== '' ?  labels.split("@") : [];           
 
         let params = {
             email   : request.session.currentEmail,
