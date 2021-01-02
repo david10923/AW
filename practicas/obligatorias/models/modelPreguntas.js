@@ -33,18 +33,18 @@ class DAOQuestions{
                     } else{
                         var questionID = result.insertId;
                         if(data.tags.length > 0){
-                            let queryStr = "INSERT INTO tags ('question','tagName')", params = [];                                     
+                            // PROBAR: https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
+                            let queryStr = "INSERT INTO tags (question,tagName) VALUES", params = [];
                             for(var i = 0; i < data.tags.length; i++){
-                                queryStr += ' VALUES (?, ?)';
+                                queryStr += ' (?,?),';
                                 params.push(questionID, data.tags[i]);
-                                if(i != (data.tags.length - 1)){
-                                    queryStr += ', ';
-                                }
                             }
-                            connection.query(queryStr, params, function(error, result){
+                            queryStr = queryStr.slice(0, -1);
+                            console.log(queryStr, params);
+                            connection.query(queryStr, [ params ], function(error){
                                 connection.release();
                                 if(error){
-                                    callback(new Error("Error de acceso a la base de datos"));
+                                    callback(new Error("Error de acceso a la base de datos tags"));
                                 } else{
                                     callback(null);
                                 }
@@ -330,12 +330,12 @@ class DAOQuestions{
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        console.log(results);
+                        // console.log(results);
                         let sql = '', queryParams = [];
                         if(results[0].filas === 0){ // insertar
                             sql = "INSERT INTO answers_score(IdAnswer,user,type) VALUES(?,?,?);";
                             queryParams.push(params.answer, params.user, params.type);
-                            console.log("PPPPPPPPPPPPPPPPPPPP", queryParams);
+                            // console.log("PPPPPPPPPPPPPPPPPPPP", queryParams);
                         } else{ // actualizar, diferenciar el tipo y eso se encarga el trigger
                             sql = "UPDATE answers_score SET type=? WHERE IdAnswer=? AND user=?;";
                             queryParams.push(params.type, params.answer, params.user);

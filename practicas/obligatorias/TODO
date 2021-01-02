@@ -7,6 +7,7 @@ TUTORIA:
     - Los likes/dislikes los tenemos como a[href] y para las rutas tiene que ser con router.get() ==> esta bien o ponerlo como post()?
     - Likes y dislikes de una repsuesta estan en el router de preguntas ==> esta bien?
     - Comentar los copy/paste (codigo repetido sobre toido en la parte de questions de formatear y ordenar la salida)
+    - En las tablas tenemos que la FK es el email del usuario, cambiar por el ID?? (para el perfil por ejemplo tenemos que sacar 1º el email a partir del ID y luego sacar los datos)
 
 AVANZAR:
     - Insert de una pregunta para los tags: se hace un insert por cada vuelta del tags.forEach o un insert multiple en una cosulta?

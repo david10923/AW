@@ -59,7 +59,8 @@ module.exports = {
     // Ruta: POST /preguntas/createQuestion del FORM para crear la pregunta
     formulateQuestion: function(request, response){
         let labels = request.body.labels || '';
-        labels = labels !== '' ?  labels.split("@") : [];           
+        // labels = labels !== '' ?  labels.split("@") : [];
+        labels = labels.split('@').filter(tag => tag != '');
 
         let params = {
             email   : request.session.currentEmail,
@@ -74,6 +75,7 @@ module.exports = {
         } else{
             dao.createQuestion(params, function(error){
                 if(error){
+                    console.log(error.message);
                     response.status(200);
                     response.render("error_500");
                 } else{

@@ -124,6 +124,40 @@ class DAOUsers{
             }
         });
     }
+
+    findByID(id, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                connection.query("SELECT email FROM users WHERE id=?", [ id ] , function(error, result){
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        let email = result[0].email;
+                        let sql1 = "SELECT u.date, u.username, u.profileImg as img, u.totalScore as rep FROM users u WHERE u.id=?;";
+                        let sql2 = "SELECT COUNT(*) AS questions FROM questions WHERE user=?;";
+                        let sql3 = "SELECT COUNT(*) AS answers FROM answers WHERE user=?;";
+                        let sql4 = "SELECT MedalType, MedalName FROM medals_user WHERE IdUser=?";
+                        connection.query(sql1 + sql2 + sql3, [ id, email, email ] , function(error, results){
+                            connection.release();
+                            if(error){
+                                callback(new Error("Error de acceso a la base de datos"));
+                            } else{
+                                let response = {};
+                                response.user = results[0][0];
+                                response.user.questions = results[1][0].questions;
+                                response.user.answers = results[2][0].answers;
+
+                                response.medals = { gold : [], silver : [], bronze : [] }; // array de objetos { name, quantity }
+                                callback(false, response);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 }
 
 module.exports = DAOUsers;

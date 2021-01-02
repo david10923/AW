@@ -31,5 +31,19 @@ module.exports = {
                 response.end();
             }
         });
+    },
+
+    // Ruta: /usuarios/perfil/:id para obtener el perfil de un usuario
+    findByID: function(request, response){
+        dao.findByID(request.params.id, function(error, data){
+            if(error){
+                response.status(200);
+                response.render("error_500");
+            } else{
+                response.status(200);
+                response.render("profile", { user: data.user, medals: data.medals });
+                response.end();
+            }
+        });
     }
 };

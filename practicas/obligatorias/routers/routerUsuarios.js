@@ -26,6 +26,7 @@ function middlewareServerError(error, request, response, next){
 // Vistas y acciones
 usersRouter.get("/", checkSession, controller.getAllUsers);
 usersRouter.get("/filtrar", checkSession, controller.findByFilter);
+usersRouter.get("/perfil/:id", checkSession, controller.findByID);
 
 usersRouter.use(middlewareNotFoundError); // middleware ERROR 404
 usersRouter.use(middlewareServerError); // middleware ERROR 500

@@ -21,24 +21,24 @@
         <div class="content-info mt-20">
             <div class="first-row">
                 <div class="user-info">
-                    <img src="/resources/images/default.png" alt="profile image" class="profile-img">
-                    <span class="username">SHAM</span>
-                    <span class="date">Miembro desde 1-10-2020</span>
+                    <img src="<%= user.img %>" alt="profile image" class="profile-img">
+                    <span class="username"><%= user.username %></span>
+                    <span class="date">Miembro desde <%= user.date %></span>
                 </div>                
                 <div class="stats">
                     <span class="ds-b profile-header">ESTADISTICAS</span>     
                     <div class="stats-info">
                         <div class="questions">
                             <span class="key">Preguntas</span>
-                            <span class="value">30</span>
+                            <span class="value"><%= user.questions %></span>
                         </div>
                         <div class="rep">
                             <span class="key">Reputación</span>
-                            <span class="value">278</span>
+                            <span class="value"><%= user.rep %></span>
                         </div>
                         <div class="answers">
                             <span class="key">Respuestas</span>
-                            <span class="value">10</span>
+                            <span class="value"><%= user.answers %></span>
                         </div>
                     </div>                   
                 </div>
@@ -49,7 +49,7 @@
                     <div class="bronze-medals">
                         <div class="bronze-title bronze mb-10">
                             <span class ="title">BRONCE</span>
-                            <span class = "title">5</span>
+                            <span class = "title"><%= medals.bronze.length %></span>
                         </div>
                         <div class="bronze-info mt-20">
                             <div class="medal-name">
@@ -69,7 +69,7 @@
                     <div class="silver-medals">
                         <div class="silver-title silver">
                             <span class="title">PLATA</span>
-                            <span class="title">3</span>
+                            <span class="title"><%= medals.silver.length %></span>
                         </div>
                         <div class="silver-info mt-20">
                             <div class="medal-name">
@@ -83,7 +83,7 @@
                     <div class="gold-medals">   
                         <div class="gold-title gold">
                             <span class="title">ORO</span>
-                            <span class= "title">2</span>
+                            <span class= "title"><%= medals.gold.length %></span>
                         </div>
                         <div class="gold-info  mt-20">
                             <div class="medal-name">

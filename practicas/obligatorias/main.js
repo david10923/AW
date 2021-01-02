@@ -96,10 +96,23 @@ let daoQuestionAndAnswers = new DAOQuestions(pool);
 //         });
 //     }
 // });
-daoQuestionAndAnswers.filterQuestionByID(2, function(error, res){
+let tags = ["AW","BBDD"];
+let query = "INSERT INTO xxxx(FIELDS HERE) VALUES(?,?),";
+for(var i = 1; i < tags.length; i++){
+    query += '(?,?),';
+}
+query = query.slice(0, -1);
+// console.log(query);
+
+// tags = '@uno@dos@tres';
+tags = '';
+tags = tags.split('@').filter(tag => tag != '');
+// console.log(tags);
+
+daoUsers.findByID(5, function(error, data){
     if(error){
-        console.log("==================", error.message);
+        console.log(error.message);
     } else{
-        console.log(res);
+        console.log(data);
     }
 });
