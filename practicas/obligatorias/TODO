@@ -16,3 +16,4 @@ AVANZAR:
 
 - En el trigger de UPDATE_QUESTIONS_SCORE si antes dislike y ahora like, se le puede volver a otorgar una medalla a la misma pregunta? ===> Revisar bien las puntuaciones del usuario
 - Igual para answers
+- Longitud de 150 caracteres en el create questions (el body creo que era)
