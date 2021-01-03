@@ -52,7 +52,7 @@ module.exports = {
     formulate: function(request, response){
         // console.log('=================', request.originalUrl);
         response.status(200);
-        response.render("formulate", {});
+        response.render("formulate", { errorMsg : null });
         response.end();
     },
 
@@ -71,7 +71,8 @@ module.exports = {
 
         if(params.title === "" || params.body === ""){
             response.status(200);
-            response.redirect("/preguntas/formular");
+            // response.redirect("/preguntas/formular");
+            response.render("formulate", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
         } else{
             dao.createQuestion(params, function(error){
                 if(error){

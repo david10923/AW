@@ -9,7 +9,7 @@ module.exports = {
     // Ruta: /loginout/registro
     getRegisterRedirect: function(request, response){
         response.status(200);
-        response.sendFile(path.join(__dirname, '../public/register.html'));
+        response.render("register", { errorMsg : null });
     },
 
     // Ruta: /loginout/login
@@ -30,19 +30,25 @@ module.exports = {
         };
     
         if(data.password === data.password_c){
-            daoUsers.createUser(data, function (error) {
-                if (error) {
-                    response.status(200);
-                    response.render("error_500");
-                    response.end();
-                } else {
-                    response.status(200);
-                    response.redirect("/loginout/login");
-                }
-            });
+            if(data.username === '' || data.email === ''){
+                response.status(200);
+                response.render("register", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
+            } else{
+                daoUsers.createUser(data, function (error) {
+                    if (error) {
+                        response.status(200);
+                        response.render("error_500");
+                        response.end();
+                    } else {
+                        response.status(200);
+                        response.redirect("/loginout/login");
+                    }
+                });
+            }
         } else{
             response.status(200);
-            response.redirect("/loginout/registro");
+            // response.redirect("/loginout/registro");
+            response.render("register", { errorMsg : 'Las contraseñas no coinciden.' });
         }
     },
 
@@ -53,14 +59,14 @@ module.exports = {
                 response.status(200);
                 response.render("error_500");
                 response.end();
-            } else if(user !== undefined){
+            } else if(user !== null){
                 request.session.currentName     = user.username;
                 request.session.currentEmail    = user.email;
                 request.session.currentID       = user.id;
                 response.redirect("/index");
             } else{
                 response.status(200);
-                response.render("login", { errorMsg : "Direccion de correo y/o contraseña no válidos" });
+                response.render("login", { errorMsg : "Direccion de correo electrónico y/o contraseña no válidos" });
             }
         });
     },

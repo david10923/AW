@@ -133,3 +133,10 @@ a{
     color: inherit;
     text-decoration: none;
 }
+
+/* Errores en las páginas */
+.error{
+    text-align: center;
+    margin-top: 25px;
+    color: red;
+}

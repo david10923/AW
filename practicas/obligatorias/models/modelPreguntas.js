@@ -1,6 +1,7 @@
 "use strict"
 
 const { query } = require("express");
+const questionsRouter = require("../routers/routerPreguntas");
 
 class DAOQuestions{
 
@@ -80,6 +81,9 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            if(question.body.length > 150){
+                                question.body = question.body.slice(0, 150) + '...';
+                            }
                             questions[question.ID] = question;
                         });
                         results[1].forEach(function(tag){
@@ -127,6 +131,9 @@ class DAOQuestions{
                         results[1].forEach(function(question){
                             if(tags[question.ID]){
                                 question.tags = tags[question.ID];
+                                if(question.body.length > 150){
+                                    question.body = question.body.slice(0, 150) + '...';
+                                }
                                 response.push(question);
                             }
                         });
@@ -174,6 +181,9 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            if(question.body.length > 150){
+                                question.body = question.body.slice(0, 150) + '...';
+                            }
                             questions[question.ID] = question;
                         });
                         results[1].forEach(function(tag){
@@ -301,6 +311,9 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            if(question.body.length > 150){
+                                question.body = question.body.slice(0, 150) + '...';
+                            }
                             questions[question.ID] = question;
                         });
                         results[1].forEach(function(tag){

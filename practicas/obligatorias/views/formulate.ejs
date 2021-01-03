@@ -10,7 +10,7 @@
     <link rel="stylesheet" media="screen" href="/css/index.css">
     <link rel="stylesheet" media="screen" href="/css/formulate.css">
     <link rel="icon" href="/resources/images/logo_64.png">
-    <title>Crear una pregunta | 404</title>
+    <title>Crear una pregunta | 404AW</title>
 </head>
 <body>
     <%- include("header") %>
@@ -37,6 +37,11 @@
                         <button type="submit" class="btn btn-primary mt-15">Publica tu pregunta <i class="fa fa-check-square-o"></i></button>
                     </div>
                 </form>
+            </div>
+            <div class="error">
+                <% if(errorMsg){ %>
+                    <%= errorMsg %>
+                <% } %>
             </div>
         </div>
     </div>
