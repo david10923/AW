@@ -47,7 +47,7 @@ class DAOUsers{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                connection.query("SELECT username, profileImg as img, totalScore as rep FROM users", function(error, result){
+                connection.query("SELECT id as userid, username, profileImg as img, totalScore as rep FROM users", function(error, result){
                     connection.release();
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
@@ -138,39 +138,48 @@ class DAOUsers{
                         let sql1 = "SELECT u.date, u.username, u.profileImg as img, u.totalScore as rep FROM users u WHERE u.id=?;";
                         let sql2 = "SELECT COUNT(*) AS questions FROM questions WHERE user=?;";
                         let sql3 = "SELECT COUNT(*) AS answers FROM answers WHERE user=?;";
-                        let sql4 = "SELECT MedalType, COUNT(MedalType) as medalsNumber, MedalName FROM medals_user WHERE IdUser=? GROUP BY MedalType ORDER BY MedalType DESC";
-                        connection.query(sql1 + sql2 + sql3+ sql4, [ id, email, email,email ] , function(error, results){
+                        // let sql4 = "SELECT MedalType, COUNT(MedalType) as medalsNumber, MedalName FROM medals_user WHERE IdUser=? GROUP BY MedalType ORDER BY MedalType DESC";
+                        let sql4 = "SELECT MedalType as type, MedalName as name, COUNT(*) as totalCount FROM medals_user WHERE IdUser=? GROUP BY MedalName;";
+                        connection.query(sql1 + sql2 + sql3 + sql4, [ id, email, email, email ] , function(error, results){
                             connection.release();
                             if(error){
                                 callback(new Error("Error de acceso a la base de datos"));
                             } else{
-                                let response = {};
+                                let response = { user : {}, medals : { Gold:[], Bronze:[], Silver:[] } };
+                                response.user           = results[0][0];
+                                response.user.questions = results[1][0].questions;
+                                response.user.answers   = results[2][0].answers;
+                                results[3].forEach(medalPkg => {
+                                    response.medals[medalPkg.type].push(medalPkg);
+                                });
+
+                                /*let response = {};
                                 response.user = results[0][0];
                                 response.user.questions = results[1][0].questions;
                                 response.user.answers = results[2][0].answers;
-                                // console.log("ESTAS SON LAS MEDALLAS DEL USUARIO INDICADO=>>>>>>>>>>>>>>>>>>>>>>>>>");
-                                 console.log(results[3][0]);
-                                 console.log(results[3][1]);
-                                 console.log(results[3][2]);
-                               //response.medals = { gold : [], silver : [], bronze : [] }; // array de objetos { name, quantity }
-                               let gold,silver,bronze;
-                               gold = {
-                                   number : results[3][1]==undefined ? 0:results[3][1].medalsNumber,
-                                   medalName : results[3][1]== undefined ? "":results[3][1].MedalName
-                               };
-                               silver = {
+                                // console.log("ESTAS SON LAS MEDALLAS DEL USUARIO INDICADO=>>>>>>>>>>>>>>>>>>>>>>>>>", results);
+                                // console.log(results[3][0]);
+                                // console.log(results[3][1]);
+                                console.log(results[3]);
+                                //response.medals = { gold : [], silver : [], bronze : [] }; // array de objetos { name, quantity }
+                                let gold,silver,bronze;
+                                gold = {
+                                    number : results[3][1]==undefined ? 0:results[3][1].medalsNumber,
+                                    medalName : results[3][1]== undefined ? "":results[3][1].MedalName
+                                };
+                                silver = {
                                     number : results[3][2]==undefined  ? 0:results[3][2].medalsNumber,
                                     medalName : results[3][2]== undefined ? "":results[3][2].MedalName
-                               }; 
-                               bronze ={
+                                }; 
+                                bronze ={
                                     number : results[3][0]==undefined  ? 0:results[3][0].medalsNumber,
                                     medalName : results[3][0]== undefined ? "":results[3][0].MedalName
-                               };
-                               response.medals = {gold,silver,bronze}; 
-                               //console.log(typeof(bronze.number));                           
-                                //console.log(response.medals);
+                                };
+                                response.medals = {gold,silver,bronze}; 
+                                //console.log(typeof(bronze.number));                           
+                                // console.log(response.medals);
+                                callback(false, response);*/
                                 callback(false, response);
-
                             }
                         });
                     }

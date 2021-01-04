@@ -49,49 +49,40 @@
                     <div class="bronze-medals">
                         <div class="bronze-title bronze mb-10">
                             <span class ="title">BRONCE</span>
-                            <span class = "title"><%= medals.bronze.length %></span>
+                            <span class = "title"><%= medals.Bronze.length %></span>
                         </div>
                         <div class="bronze-info mt-20">
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal bronze"></span> Pregunta Popular</span> x2
-                            </div>
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal bronze"></span> Respuesta interesante</span> x1
-                            </div>
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal bronze"></span> Estudiante</span> x1
-                            </div>
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal bronze"></span> Pregunta Interesante</span> x1
-                            </div>
+                            <% medals.Bronze.forEach(function(medalPkg){ %>
+                                <div class="medal-name">
+                                    <span class="detailed-info"><span class="medal bronze"></span> <%= medalPkg.name %></span> x<%= medalPkg.totalCount %>
+                                </div>
+                            <% }); %>
                         </div>                                         
                     </div>    
                     <div class="silver-medals">
                         <div class="silver-title silver">
                             <span class="title">PLATA</span>
-                            <span class="title"><%= medals.silver.length %></span>
+                            <span class="title"><%= medals.Silver.length %></span>
                         </div>
                         <div class="silver-info mt-20">
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal silver"></span> Pregunta destacada</span> x1
-                            </div>
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal silver"></span> Buena pregunta</span> x1
-                            </div>
+                            <% medals.Silver.forEach(function(medalPkg){ %>
+                                <div class="medal-name">
+                                    <span class="detailed-info"><span class="medal silver"></span> <%= medalPkg.name %></span> x<%= medalPkg.totalCount %>
+                                </div>
+                            <% }); %>
                         </div>                       
                     </div>    
                     <div class="gold-medals">   
                         <div class="gold-title gold">
                             <span class="title">ORO</span>
-                            <span class= "title"><%= medals.gold.length %></span>
+                            <span class= "title"><%= medals.Gold.length %></span>
                         </div>
                         <div class="gold-info  mt-20">
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal gold"></span> Excelente pregunta</span> x2
-                            </div>
-                            <div class="medal-name">
-                                <span class="detailed-info"><span class="medal gold"></span> Pregunta famosa</span> x2
-                            </div>
+                            <% medals.Gold.forEach(function(medalPkg){ %>
+                                <div class="medal-name">
+                                    <span class="detailed-info"><span class="medal gold"></span> <%= medalPkg.name %></span> x<%= medalPkg.totalCount %>
+                                </div>
+                            <% }); %>
                         </div>                       
                     </div>
                 </div>
