@@ -26,11 +26,14 @@ module.exports = {
             username    : request.body.username,
             password    : request.body.password,
             password_c  : request.body.password_confirm,
-            profileImg  : request.body.img
+            profileImg  : request.file
         };
+        if(data.profileImg){
+            data.profileImg = data.profileImg.filename // nombre del fichero, luego para obtener las imgs se hace a traves de /imagen/:id
+        }
     
         if(data.password === data.password_c){
-            if(data.username === '' || data.email === ''){
+            if(data.username === '' || data.email === '' || data.password === '' || data.password_c === ''){
                 response.status(200);
                 response.render("register", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
             } else{
@@ -81,10 +84,8 @@ module.exports = {
         daoUsers.getUserImageName(response.locals.userEmail, function(error, img){
             if(error){
                 console.log("========================== ERROR ==========================", error.message);
-            } else if(img != '/resources/images/default.png'){
-                response.sendFile(path.join(__dirname, img));
             } else{
-                response.sendFile(path.join(__dirname, "../public/resources/images/default.png"));
+                response.redirect(`/imagen/${img}`);
             }
         });
     }

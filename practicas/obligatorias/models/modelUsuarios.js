@@ -11,7 +11,7 @@ class DAOUsers{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                data.profileImg = data.profileImg || '/resources/images/default.png';
+                data.profileImg = data.profileImg || 'default';
                 connection.query("INSERT INTO `users`(`email`, `username`, `password`, `profileImg`) VALUES (?, ?, ?, ?)", [ data.email, data.username, data.password, data.profileImg ], function(error, result){
                     connection.release();
                     if(error){
@@ -112,7 +112,7 @@ class DAOUsers{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql = "SELECT username, profileImg as img, totalScore as rep FROM users u WHERE u.username LIKE ?;";
+                let sql = "SELECT id as userid, username, profileImg as img, totalScore as rep FROM users u WHERE u.username LIKE ?;";
                 connection.query(sql, [ text ] , function(error, results){
                     connection.release();
                     if(error){

@@ -31,7 +31,7 @@
             <div class="user-info">
                 <div class="user-profile">
                     <span class="date">Formulada el <%= question.date %></span>
-                    <a href="/usuarios/perfil/<%= question.qUserID %>"><img src="<%= question.profileImg %>" alt="imagen de usuario" class="user-img"></a>
+                    <a href="/usuarios/perfil/<%= question.qUserID %>"><img src="/imagen/<%= question.profileImg %>" alt="imagen de usuario" class="user-img"></a>
                     <span class="username-ask"><%= question.username %></span>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     <div class="user-info mt-10">
                         <div class="user-profile">
                             <span class="date">Formulada el <%= answer.date %></span>
-                            <a href="/usuarios/perfil/<%= answer.userID %>"><img src="<%= answer.profileImg %>" alt="imagen de usuario" class="user-img"></a>
+                            <a href="/usuarios/perfil/<%= answer.userID %>"><img src="/imagen/<%= answer.profileImg %>" alt="imagen de usuario" class="user-img"></a>
                             <span class="username-ask"><%= answer.aUser %></span>
                         </div>
                     </div>

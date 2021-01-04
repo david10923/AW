@@ -77,6 +77,11 @@ app.get("/index", checkSession, (request, response) => {
     response.render("index");
 });
 
+app.get("/imagen/:id", checkSession, function(request, response){
+    response.status(200);
+    response.sendFile(path.join(__dirname, "./uploads", request.params.id));
+});
+
 app.listen(3000, function(error) {
     if (error) {
         console.error("No se pudo inicializar el servidor: " + error.message);
