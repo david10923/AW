@@ -1,5 +1,7 @@
 "use strict"
 
+const moment = require('moment'); // Formatear fechas
+
 class DAOUsers{
 
     constructor(pool){
@@ -25,7 +27,7 @@ class DAOUsers{
 
     }
 
-    readUser(email, callback){
+    /*readUser(email, callback){
         this.pool.getConnection(function(error, connection){
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
@@ -40,7 +42,7 @@ class DAOUsers{
                 });
             }
         });
-    }
+    }*/
 
     readAllUsers(callback){
         this.pool.getConnection(function(error, connection){
@@ -147,38 +149,12 @@ class DAOUsers{
                             } else{
                                 let response = { user : {}, medals : { Gold:[], Bronze:[], Silver:[] } };
                                 response.user           = results[0][0];
+                                response.user.date      = moment(response.user.date).format('YYYY-MM-DD HH:mm:ss');
                                 response.user.questions = results[1][0].questions;
                                 response.user.answers   = results[2][0].answers;
                                 results[3].forEach(medalPkg => {
                                     response.medals[medalPkg.type].push(medalPkg);
                                 });
-
-                                /*let response = {};
-                                response.user = results[0][0];
-                                response.user.questions = results[1][0].questions;
-                                response.user.answers = results[2][0].answers;
-                                // console.log("ESTAS SON LAS MEDALLAS DEL USUARIO INDICADO=>>>>>>>>>>>>>>>>>>>>>>>>>", results);
-                                // console.log(results[3][0]);
-                                // console.log(results[3][1]);
-                                console.log(results[3]);
-                                //response.medals = { gold : [], silver : [], bronze : [] }; // array de objetos { name, quantity }
-                                let gold,silver,bronze;
-                                gold = {
-                                    number : results[3][1]==undefined ? 0:results[3][1].medalsNumber,
-                                    medalName : results[3][1]== undefined ? "":results[3][1].MedalName
-                                };
-                                silver = {
-                                    number : results[3][2]==undefined  ? 0:results[3][2].medalsNumber,
-                                    medalName : results[3][2]== undefined ? "":results[3][2].MedalName
-                                }; 
-                                bronze ={
-                                    number : results[3][0]==undefined  ? 0:results[3][0].medalsNumber,
-                                    medalName : results[3][0]== undefined ? "":results[3][0].MedalName
-                                };
-                                response.medals = {gold,silver,bronze}; 
-                                //console.log(typeof(bronze.number));                           
-                                // console.log(response.medals);
-                                callback(false, response);*/
                                 callback(false, response);
                             }
                         });

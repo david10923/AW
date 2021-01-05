@@ -1,7 +1,6 @@
 "use strict"
 
-const { query } = require("express");
-const questionsRouter = require("../routers/routerPreguntas");
+const moment = require('moment'); // Formatear fechas
 
 class DAOQuestions{
 
@@ -34,11 +33,10 @@ class DAOQuestions{
                     } else{
                         var questionID = result.insertId;
                         if(data.tags.length > 0){
-                            // PROBAR: https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
-                            let queryStr = "INSERT INTO tags (question,tagName) VALUES", params = [];
+                            // INSERCIONES MULTIPLES: https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
+                            let queryStr = "INSERT INTO tags (question,tagName) VALUES ?;", params = [];
                             for(var i = 0; i < data.tags.length; i++){
-                                queryStr += ' (?,?),';
-                                params.push(questionID, data.tags[i]);
+                                params.push([ questionID, data.tags[i] ]);
                             }
                             queryStr = queryStr.slice(0, -1);
                             console.log(queryStr, params);
@@ -54,7 +52,6 @@ class DAOQuestions{
                             connection.release();
                             callback(null);
                         }
-
                     }
                 });
             }
@@ -81,6 +78,7 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            question.date = moment(question.date).format('YYYY-MM-DD HH:mm:ss');
                             if(question.body.length > 150){
                                 question.body = question.body.slice(0, 150) + '...';
                             }
@@ -130,6 +128,7 @@ class DAOQuestions{
                         });
                         results[1].forEach(function(question){
                             if(tags[question.ID]){
+                                question.date = moment(question.date).format('YYYY-MM-DD HH:mm:ss');
                                 question.tags = tags[question.ID];
                                 if(question.body.length > 150){
                                     question.body = question.body.slice(0, 150) + '...';
@@ -181,6 +180,7 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            question.date = moment(question.date).format('YYYY-MM-DD HH:mm:ss');
                             if(question.body.length > 150){
                                 question.body = question.body.slice(0, 150) + '...';
                             }
@@ -234,6 +234,7 @@ class DAOQuestions{
                                 // console.log(results);
                                 let q = results[total - 3][0];
                                 q.tags = [];
+                                q.date = moment(q.date).format('YYYY-MM-DD HH:mm:ss');
                                 results[total - 2].forEach(function(tag){ q.tags.push(tag.tagName); });
                                 callback(null, { question: q, answers: results[total - 1] });
                             }
@@ -311,6 +312,7 @@ class DAOQuestions{
                         // Formateamos nuestro objeto
                         results[0].forEach(function(question){
                             question.tags = [];
+                            question.date = moment(question.date).format('YYYY-MM-DD HH:mm:ss');
                             if(question.body.length > 150){
                                 question.body = question.body.slice(0, 150) + '...';
                             }

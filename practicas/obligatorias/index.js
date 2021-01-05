@@ -12,6 +12,7 @@ const loginoutRouter    = require('./routers/routerLogin.js');
 const session           = require('express-session');
 const mysqlSession      = require('express-mysql-session');
 const config            = require('./config');
+const momentDates       = require('moment'); // Formatear fechas
 const MySQLStore        = mysqlSession(session);
 const sessionStore      = new MySQLStore({
     host        : config.host,

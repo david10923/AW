@@ -1,9 +1,7 @@
 TUTORIA:
     - Module exports de los middlewares comunes
-    - El tema de las imagenes
     - Cuando cargamos paginas de errores antes de hacer el render, en el status ponemos 200 o el error que corresponda
     - Controlar errores de JS como undefined.XXXXX pq se jode toda la app
-    - Fechas de las preguntas
     - Los likes/dislikes los tenemos como a[href] y para las rutas tiene que ser con router.get() ==> esta bien o ponerlo como post()?
     - Likes y dislikes de una repsuesta estan en el router de preguntas ==> esta bien?
     - Comentar los copy/paste (codigo repetido sobre toido en la parte de questions de formatear y ordenar la salida)
@@ -14,5 +12,4 @@ TUTORIA:
     - Igual para answers
 
 AVANZAR:
-    - Insert multiple de los tags en createQuestion
     - RegExp de crear question
