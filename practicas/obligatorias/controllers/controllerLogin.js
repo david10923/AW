@@ -66,6 +66,7 @@ module.exports = {
                 request.session.currentName     = user.username;
                 request.session.currentEmail    = user.email;
                 request.session.currentID       = user.id;
+                request.session.currentImg      = user.profileImg;
                 response.redirect("/index");
             } else{
                 response.status(200);
