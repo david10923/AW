@@ -102,9 +102,9 @@ app.get("/imagenUsuario", checkSession, function(request, response){
         if(error){
             console.log("========================== ERROR ==========================", error.message);
         } else if(img){
-            response.sendFile(path.join(__dirname, img));
+            response.sendFile(path.join(__dirname,"./profile_imgs/"+img));
         } else{
-            response.sendFile(path.join(__dirname, "./public/img/NoPerfil.png"));
+            response.sendFile(path.join(__dirname, "./profile_imgs/NoPerfil.png"));
         }
     });
 });
