@@ -79,10 +79,10 @@ class DAOUsers{
                         }
                         else{
                             rows = rows[0];
-                            callback(null, { username: rows.username, email: rows.email, id:rows.id });
+                            callback(null, { username: rows.username, email: rows.email, id:rows.id, profileImg :rows.profileImg });
                         }
                     }
-                });
+                }); 
             }
         });
     }

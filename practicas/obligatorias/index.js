@@ -44,10 +44,11 @@ app.use(middlewareSession); // middleware de session
 
 
 function checkSession(request, response, next){
-    if (request.session.currentName !== undefined && request.session.currentEmail  !== undefined && request.session.currentID !== undefined) {
+    if (request.session.currentName !== undefined && request.session.currentEmail  !== undefined && request.session.currentID !== undefined && request.session.currentImg !== undefined) {
         response.locals.userName    = request.session.currentName;
         response.locals.userEmail   = request.session.currentEmail;
         response.locals.userID      = request.session.currentID;
+        response.locals.userImg     = request.session.currentImg;
         next();
     } else {
         response.redirect("/loginout/login");

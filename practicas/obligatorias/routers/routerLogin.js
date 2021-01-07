@@ -12,7 +12,7 @@ const multerFactory     = multer({ dest : path.join(__dirname, "../uploads") });
 loginRouter.use(bodyParser.urlencoded({ extended: false }));
 
 function checkSession(request, response, next){
-    if (request.session.currentName !== undefined && request.session.currentEmail !== undefined && request.session.currentID !== undefined && request.session.currentImg !==undefined) {
+    if (request.session.currentName !== undefined && request.session.currentEmail !== undefined && request.session.currentID !== undefined && request.session.currentImg !== undefined) {
         response.locals.userName    = request.session.currentName;
         response.locals.userEmail   = request.session.currentEmail;
         response.locals.userID      = request.session.currentID;
@@ -40,7 +40,6 @@ loginRouter.get("/login", controller.getLoginRedirect);
 loginRouter.post("/registrarUsuario", multerFactory.single("img"), controller.registerUser);
 loginRouter.post("/loginUser", controller.loginUser);
 loginRouter.get("/logoutUser", checkSession, controller.logoutUser);
-loginRouter.get("/userImage", checkSession, controller.userImage);
 
 
 loginRouter.use(middlewareNotFoundError); // middleware ERROR 404

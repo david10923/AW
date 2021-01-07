@@ -70,24 +70,14 @@ module.exports = {
                 response.redirect("/index");
             } else{
                 response.status(200);
-                response.render("login", { errorMsg : "Direccion de correo electrónico y/o contraseña no válidos" });
+                response.render("login", { errorMsg : "Dirección de correo electrónico y/o contraseña no válidos" });
             }
         });
     },
+
     // Ruta: POST /loginout/logoutUser
     logoutUser: function(request, response){
         request.session.destroy();
         response.redirect("/loginout/login");
-    },
-
-    // Ruta: para cogerla imagen del user /userImage
-    userImage: function(request, response){
-        daoUsers.getUserImageName(response.locals.userEmail, function(error, img){
-            if(error){
-                console.log("========================== ERROR ==========================", error.message);
-            } else{
-                response.redirect(`/imagen/${img}`);
-            }
-        });
     }
 }

@@ -33,13 +33,10 @@ class DAOQuestions{
                     } else{
                         var questionID = result.insertId;
                         if(data.tags.length > 0){
-                            // INSERCIONES MULTIPLES: https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
                             let queryStr = "INSERT INTO tags (question,tagName) VALUES ?;", params = [];
                             for(var i = 0; i < data.tags.length; i++){
                                 params.push([ questionID, data.tags[i] ]);
                             }
-                            queryStr = queryStr.slice(0, -1);
-                            console.log(queryStr, params);
                             connection.query(queryStr, [ params ], function(error){
                                 connection.release();
                                 if(error){
