@@ -4,7 +4,7 @@ TUTORIA:
     - Controlar errores de JS como undefined.XXXXX pq se jode toda la app
     - Los likes/dislikes los tenemos como a[href] y para las rutas tiene que ser con router.get() ==> esta bien o ponerlo como post()?
     - Likes y dislikes de una repsuesta estan en el router de preguntas ==> esta bien?
-    - En las tablas tenemos que la FK es el email del usuario, cambiar por el ID?? (para el perfil por ejemplo tenemos que sacar 1º el email a partir del ID y luego sacar los datos)
+    - Validar formulario de register con express validator?
     - En los EJS cuando renderizamos una plantilla con un errorMsg, como hacer para cambiar la URL a la de la vista original? (si inicias mal la sesion te redirige a la ruta del <form>)
     - response.end() siempre que se haga un response.render()?
     - En el trigger de UPDATE_QUESTIONS_SCORE si antes dislike y ahora like, se le puede volver a otorgar una medalla a la misma pregunta?
