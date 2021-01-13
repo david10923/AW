@@ -9,12 +9,10 @@ module.exports = {
     getAllUsers : function(request, response){
         dao.readAllUsers(function(error, allUsers){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("users", { users: allUsers, title: 'Usuarios' });
-                response.end();
             }
         });
     },
@@ -23,12 +21,10 @@ module.exports = {
     findByFilter: function(request, response){
         dao.findByFilter(`%${request.query.filtro}%`, function(error, users){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("users", { users: users, title: `Usuarios filtrados por ["${request.query.filtro}"]` });
-                response.end();
             }
         });
     },
@@ -37,12 +33,10 @@ module.exports = {
     findByID: function(request, response){
         dao.findByID(request.params.id, function(error, data){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("profile", { user: data.user, medals: data.medals });
-                response.end();
             }
         });
     }

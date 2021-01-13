@@ -268,23 +268,22 @@ class DAOQuestions{
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        // console.log(results);
                         let sql = '', queryParams = [];
                         if(results[0].filas === 0){ // insertar
                             sql = "INSERT INTO questions_score(question,user,type) VALUES(?,?,?);";
                             queryParams.push(params.question, params.user, params.type);
-                        } else{ // actualizar, diferenciar el tipo y eso se encarga el trigger
-                            sql = "UPDATE questions_score SET type=? WHERE question=? AND user=?;";
-                            queryParams.push(params.type, params.question, params.user);
+                            connection.query(sql, queryParams, function(error, results){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
+                                    callback(null);
+                                }
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
                         }
-
-                        connection.query(sql, queryParams, function(error, results){
-                            if(error){
-                                callback(new Error("Error de acceso a la base de datos"));
-                            } else{
-                                callback(null);
-                            }
-                        });
                     }
                 });
             }

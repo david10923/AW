@@ -33,7 +33,7 @@
                 <% users.forEach(function (user){ %>
                     <div class="user-info">
                         <a href="/usuarios/perfil/<%= user.userid %>"><img src="/imagen/<%= user.img %>" alt="profile image" class="profile-img"></a>
-                        <span class="username to-ellipsis"><%= user.username %></span>
+                        <span class="username"><%= user.username %></span>
                         <span><%= user.rep %></span>
                     </div>
                 <% }); %>

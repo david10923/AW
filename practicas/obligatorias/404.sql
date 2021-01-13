@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-12-2020 a las 19:58:11
+-- Tiempo de generación: 13-01-2021 a las 20:23:44
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -31,10 +31,10 @@ CREATE TABLE `answers` (
   `ID` int(11) NOT NULL,
   `user` varchar(100) NOT NULL,
   `question` int(11) NOT NULL,
-  `body` varchar(100) NOT NULL,
+  `body` varchar(3000) NOT NULL,
   `nLikes` int(11) NOT NULL DEFAULT 0,
   `nDislikes` int(11) NOT NULL DEFAULT 0,
-  `date` date NOT NULL DEFAULT current_timestamp()
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -42,11 +42,8 @@ CREATE TABLE `answers` (
 --
 
 INSERT INTO `answers` (`ID`, `user`, `question`, `body`, `nLikes`, `nDislikes`, `date`) VALUES
-(1, 'info@ucm.es', 2, 'Respouesta de rpueba del body tal cual xd', 0, 0, '2020-12-27'),
-(2, 'a@ucm.es', 2, 'body de al answer', 0, 0, '2020-12-27'),
-(5, 'a@ucm.es', 1, 'asdasdasd123123', 0, 0, '2020-12-27'),
-(6, 'a@ucm.es', 2, 'otra respuesta mas de a@ucm.es', 0, 0, '2020-12-28'),
-(8, 'info@ucm.es', 14, 'Buenos videos pa', 1, 0, '2020-12-29');
+(1, 'lucas@404.es', 1, 'La propiedad position sirve para posicionar un elemento dentro de la página. Sin embargo, dependiendo de cual sea la propiedad que usemos, el elemento tomará una referencia u otra para posicionarse respecto a ella.\r\n\r\nLos posibles valores que puede adoptar la propiedad position son: static | relative | absolute | fixed | inherit | initial.\r\n', 0, 0, '2021-01-13 20:18:07'),
+(2, 'emy@404.es', 2, 'La pseudoclase :nth-child() selecciona los hermanos que cumplan cierta condición definida en la fórmula an + b. a y b deben ser números enteros, n es un contador. El grupo an representa un ciclo, cada cuantos elementos se repite; b indica desde donde empezamos a contar.', 0, 0, '2021-01-13 20:19:29');
 
 -- --------------------------------------------------------
 
@@ -59,13 +56,6 @@ CREATE TABLE `answers_score` (
   `user` varchar(100) NOT NULL,
   `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `answers_score`
---
-
-INSERT INTO `answers_score` (`IdAnswer`, `user`, `type`) VALUES
-(8, 'info@ucm.es', 1);
 
 --
 -- Disparadores `answers_score`
@@ -228,19 +218,6 @@ CREATE TABLE `medals_user` (
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `medals_user`
---
-
-INSERT INTO `medals_user` (`IdUser`, `MedalType`, `MedalName`, `date`) VALUES
-('csegundo@ucm.es', 'Bronze', 'Estudiante', '2020-12-29 15:21:10'),
-('csegundo@ucm.es', 'Bronze', 'Estudiante', '2020-12-29 15:22:40'),
-('a@ucm.es', 'Bronze', 'Estudiante', '2020-12-29 17:11:18'),
-('b@ucm.es', 'Bronze', 'Estudiante', '2020-12-29 17:19:04'),
-('info@ucm.es', 'Bronze', 'Pregunta Popular', '2020-12-29 17:19:54'),
-('b@ucm.es', 'Bronze', 'Estudiante', '2020-12-29 17:19:59'),
-('info@ucm.es', 'Bronze', 'Pregunta Popular', '2020-12-29 18:18:33');
-
 -- --------------------------------------------------------
 
 --
@@ -263,14 +240,11 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`ID`, `user`, `title`, `body`, `date`, `visits`, `nLikes`, `nDislikes`) VALUES
-(1, 'csegundo@ucm.es', 'Pregunta de prueba', 'Cuerpo de la pregunta de prueba', '2020-12-08 11:38:57', 1, 1, 0),
-(2, 'info@ucm.es', '¿para que sirve el padding?', 'No se para que sirve el padddinq ya que me confundo con el margin', '2020-12-10 10:48:36', 0, 0, 0),
-(4, 'info@ucm.es', '¿Cómo funciona express?', 'No se importar modulos', '2020-12-12 18:49:14', 1, 0, 0),
-(5, 'csegundo@ucm.es', 'title', 'bodyy', '2020-12-26 11:18:06', 2, 0, 1),
-(10, 'a@ucm.es', 'TITULO DE PRUEBA DE CREACION', 'asda sd123 va sd', '2020-12-26 19:48:49', 0, 0, 0),
-(11, 'a@ucm.es', 'nueva xd', 'asdasd asd asd asas ds', '2020-12-26 19:57:14', 0, 0, 0),
-(13, 'a@ucm.es', 'assssssssss jajaja', 'bodyyyyyy de locos', '2020-12-29 18:10:02', 1, 0, 1),
-(14, 'b@ucm.es', 'Pregunta de Verdejo', '¿Que son los hashmaps xd?', '2020-12-29 18:17:30', 2, 1, 1);
+(1, 'nico@404.es', '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed?', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.', '2021-01-13 20:11:05', 0, 0, 0),
+(2, 'roberto@404.es', '¿Cómo funciona exactamente nth-child?', 'No acabo de comprender muy bien que hace exactamente y qué usos prácticos puede tener.', '2021-01-13 20:18:42', 0, 0, 0),
+(3, 'sfg@404.es', 'Diferencias entre == y === (comparaciones en JavaScript)', 'Siempre he visto que en JavaScript hay:\r\n\r\nasignaciones =\r\ncomparaciones == y ===\r\nCreo entender que == hace algo parecido a comparar el valor de la variable y el === también compara el tipo (como un equals de java).\r\n', '2021-01-13 20:20:07', 0, 0, 0),
+(4, 'marta@404.es', 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', '2021-01-13 20:21:00', 0, 0, 0),
+(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -283,17 +257,6 @@ CREATE TABLE `questions_score` (
   `user` varchar(100) NOT NULL,
   `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `questions_score`
---
-
-INSERT INTO `questions_score` (`question`, `user`, `type`) VALUES
-(1, 'a@ucm.es', 1),
-(5, 'a@ucm.es', 0),
-(13, 'a@ucm.es', 0),
-(14, 'a@ucm.es', 1),
-(14, 'info@ucm.es', 0);
 
 --
 -- Disparadores `questions_score`
@@ -442,6 +405,18 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int(11) UNSIGNED NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tags`
 --
 
@@ -455,9 +430,14 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`question`, `tagName`) VALUES
-(1, 'AW'),
-(1, 'NODE'),
-(4, 'AW');
+(1, 'css'),
+(1, 'css3'),
+(2, 'css'),
+(2, 'html'),
+(3, 'JavaScript'),
+(4, 'nodejs'),
+(5, 'mysql'),
+(5, 'sql');
 
 -- --------------------------------------------------------
 
@@ -480,12 +460,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `profileImg`, `date`, `TotalScore`) VALUES
-(1, 'csegundo@ucm.es', 'Carlitos', '123', '/resources/images/default.png', '2020-12-10 18:38:26', 9),
-(2, 'davidf14@ucm.es', 'david10923', '123', '/resources/images/default.png', '2020-12-10 18:44:45', 1),
-(3, 'info2@ucm.es', 'Casa de estudiantes 2', '123', '/resources/images/default.png', '2020-12-15 18:51:50', 1),
-(4, 'info@ucm.es', 'Info Estudiantes', '123', '/resources/images/default.png', '2020-12-10 18:44:22', 1),
-(5, 'a@ucm.es', 'Casa estudiantes', '123', '/resources/images/default.png', '2020-12-26 12:14:20', 1),
-(6, 'b@ucm.es', 'Verdejo', '123', '/resources/images/default.png', '2020-12-29 18:16:56', 19);
+(1, 'nico@404.es', 'Nico', '1234', 'f800e51a263d98490833b119974d2188', '2021-01-13 20:06:50', 1),
+(2, 'roberto@404.es', 'Roberto', '1234', 'b76c7bd454bfc05b903df95608189351', '2021-01-13 20:07:39', 1),
+(3, 'sfg@404.es', 'SFG', '1234', '46b1317c4f6553d2d881de96226542fb', '2021-01-13 20:08:07', 1),
+(4, 'marta@404.es', 'Marta', '1234', 'b7218850ecebaa3bd3033fdfd58326cb', '2021-01-13 20:08:34', 1),
+(5, 'lucas@404.es', 'Lucas', '1234', 'default', '2021-01-13 20:08:56', 1),
+(6, 'emy@404.es', 'Emy', '1234', 'fbb25d800da04a43f9dde9d54f053337', '2021-01-13 20:09:30', 1);
 
 -- --------------------------------------------------------
 
@@ -497,19 +477,6 @@ CREATE TABLE `visits` (
   `question` int(11) NOT NULL,
   `user` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `visits`
---
-
-INSERT INTO `visits` (`question`, `user`) VALUES
-(1, 'a@ucm.es'),
-(4, 'info@ucm.es'),
-(5, 'a@ucm.es'),
-(5, 'info@ucm.es'),
-(13, 'a@ucm.es'),
-(14, 'a@ucm.es'),
-(14, 'info@ucm.es');
 
 --
 -- Disparadores `visits`
@@ -583,6 +550,12 @@ ALTER TABLE `questions_score`
   ADD KEY `user` (`user`);
 
 --
+-- Indices de la tabla `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- Indices de la tabla `tags`
 --
 ALTER TABLE `tags`
@@ -610,13 +583,13 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT de la tabla `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

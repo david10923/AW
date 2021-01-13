@@ -8,15 +8,12 @@ let daoUsers        = new DAOUsers(pool);
 module.exports = {
     // Ruta: /loginout/registro
     getRegisterRedirect: function(request, response){
-        response.status(200);
         response.render("register", { errorMsg : null });
     },
 
     // Ruta: /loginout/login
     getLoginRedirect: function(request, response){
-        response.status(200);
         response.render("login", { errorMsg : null });
-        //response.end();
     },
 
     // Ruta: POST a la bbdd del register
@@ -34,23 +31,18 @@ module.exports = {
     
         if(data.password === data.password_c){
             if(data.username === '' || data.email === '' || data.password === '' || data.password_c === ''){
-                response.status(200);
                 response.render("register", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
             } else{
                 daoUsers.createUser(data, function (error) {
                     if (error) {
-                        response.status(200);
+                        response.status(500);
                         response.render("error_500");
-                        response.end();
                     } else {
-                        response.status(200);
                         response.redirect("/loginout/login");
                     }
                 });
             }
         } else{
-            response.status(200);
-            // response.redirect("/loginout/registro");
             response.render("register", { errorMsg : 'Las contraseñas no coinciden.' });
         }
     },
@@ -59,9 +51,8 @@ module.exports = {
     loginUser: function(request, response){
         daoUsers.isUserCorrect(request.body.email, request.body.password, function(error, user){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
-                response.end();
             } else if(user !== null){
                 request.session.currentName     = user.username;
                 request.session.currentEmail    = user.email;
@@ -69,7 +60,6 @@ module.exports = {
                 request.session.currentImg      = user.profileImg;
                 response.redirect("/index");
             } else{
-                response.status(200);
                 response.render("login", { errorMsg : "Dirección de correo electrónico y/o contraseña no válidos" });
             }
         });

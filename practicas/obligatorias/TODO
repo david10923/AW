@@ -1,11 +1,6 @@
-TUTORIA:
-    - Module exports de los middlewares comunes
-    - Cuando cargamos paginas de errores antes de hacer el render, en el status ponemos 200 o el error que corresponda
-    - Controlar errores de JS como undefined.XXXXX pq se jode toda la app
-    - Los likes/dislikes los tenemos como a[href] y para las rutas tiene que ser con router.get() ==> esta bien o ponerlo como post()?
-    - Likes y dislikes de una repsuesta estan en el router de preguntas ==> esta bien?
-    - Validar formulario de register con express validator?
-    - En los EJS cuando renderizamos una plantilla con un errorMsg, como hacer para cambiar la URL a la de la vista original? (si inicias mal la sesion te redirige a la ruta del <form>)
-    - response.end() siempre que se haga un response.render()?
-    - En el trigger de UPDATE_QUESTIONS_SCORE si antes dislike y ahora like, se le puede volver a otorgar una medalla a la misma pregunta?
-    - Igual para answers
+PREGUNTAR:
+    - Darse like/dislike asimismo
+
+POSIBLES PREGUNTAS DE EXAMEN:
+    - Img en pregunta
+    - Express validator

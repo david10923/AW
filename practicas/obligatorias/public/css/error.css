@@ -1,3 +1,5 @@
+/* Para las paginas de errror (404 y 500) */
+
 .error{
     display: flex;
     flex-direction: column;

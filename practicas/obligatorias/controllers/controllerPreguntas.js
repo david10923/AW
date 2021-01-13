@@ -9,12 +9,10 @@ module.exports = {
     getAllQuestions : function(request, response){
         dao.readAllQuestion(function(error, data){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("questions", { questions: data.questions, total: data.totalQuestions, title: 'Todas las preguntas' });
-                response.end();
             }
         });
     },
@@ -23,44 +21,40 @@ module.exports = {
     findByFilter: function(request, response){
         dao.findByFilter(`%${request.query.busqueda}%`, function(error, data){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("questions", { questions: data.questions, total: data.totalQuestions, title: `Resultados de la búsqueda "${request.query.busqueda}"` });
-                response.end();
             }
         });
     },
 
     // Ruta: /preguntas/etiquetas/:label
     findByTag: function(request, response){
-        // console.log('=================', request.originalUrl);
         dao.filterQuestionByTag(request.params.label, function(error, data){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("questions", { questions: data.questions, total: data.totalQuestions, title: `Preguntas con la etiqueta [${request.params.label}]` });
-                response.end();
             }
         });
     },
 
     // Ruta: /preguntas/formular
     formulate: function(request, response){
-        // console.log('=================', request.originalUrl);
-        response.status(200);
         response.render("formulate", { errorMsg : null });
-        response.end();
     },
 
     // Ruta: POST /preguntas/createQuestion del FORM para crear la pregunta
     formulateQuestion: function(request, response){
-        let labels = request.body.labels || '';
-        // labels = labels !== '' ?  labels.split("@") : [];
-        labels = labels.split('@').filter(tag => tag != '');
+        let labels = request.body.labels || '', _aux = [];
+        // labels = labels.split('@').filter(tag => tag != '' && !_aux.includes(tag));
+        labels = labels.split('@').filter(function(tag){
+            var check = tag != '' && !_aux.includes(tag);
+            _aux.push(tag);
+            return check;
+        });
 
         let params = {
             email   : request.session.currentEmail,
@@ -70,17 +64,13 @@ module.exports = {
         };
 
         if(params.title === "" || params.body === ""){
-            response.status(200);
-            // response.redirect("/preguntas/formular");
             response.render("formulate", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
         } else{
             dao.createQuestion(params, function(error){
                 if(error){
-                    console.log(error.message);
-                    response.status(200);
+                    response.status(500);
                     response.render("error_500");
                 } else{
-                    response.status(200);
                     response.redirect("/preguntas");
                 }
             });
@@ -91,12 +81,10 @@ module.exports = {
     getQuestion: function (request, response){
         dao.filterQuestionByID({ question : request.params.id, user : request.session.currentEmail }, function(error, qData){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("detailedQuestion", { question: qData.question, answers: qData.answers });
-                response.end();
             }
         });
     },
@@ -111,10 +99,9 @@ module.exports = {
         console.log(params);
         dao.postAnswer(params, function(error){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.redirect("/preguntas");
             }
         });
@@ -130,10 +117,9 @@ module.exports = {
         };
         dao.scoreQuestion(params, function(error){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.redirect(`/preguntas/${request.params.id}`);
             }
         });
@@ -143,12 +129,10 @@ module.exports = {
     noAnswers: function(request, response){
         dao.noAnswers(function(error, data){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.render("questions", { questions: data.questions, total: data.questions.length, title: "Preguntas sin responder" });
-                response.end();
             }
         });
     },
@@ -164,10 +148,9 @@ module.exports = {
         
         dao.scoreAnswer(params, function(error){
             if(error){
-                response.status(200);
+                response.status(500);
                 response.render("error_500");
             } else{
-                response.status(200);
                 response.redirect(`/preguntas/${request.params.idQ}`);
             }
         });

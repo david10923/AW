@@ -1,5 +1,6 @@
 "use strict";
 
+const middlewares       = require('../middlewares');
 const express           = require('express');
 const loginRouter       = express.Router();
 const controller        = require('../controllers/controllerLogin');
@@ -11,26 +12,6 @@ const multerFactory     = multer({ dest : path.join(__dirname, "../uploads") });
 // middleware
 loginRouter.use(bodyParser.urlencoded({ extended: false }));
 
-function checkSession(request, response, next){
-    if (request.session.currentName !== undefined && request.session.currentEmail !== undefined && request.session.currentID !== undefined && request.session.currentImg !== undefined) {
-        response.locals.userName    = request.session.currentName;
-        response.locals.userEmail   = request.session.currentEmail;
-        response.locals.userID      = request.session.currentID;
-        response.locals.userImg     = request.session.currentImg;
-        next();
-    } else {
-        response.redirect("/loginout/login");
-    }
-}
-
-function middlewareNotFoundError(request, response, next){
-    response.status(200);
-    response.render("error_404");
-}
-function middlewareServerError(error, request, response, next){
-    response.status(200);
-    response.render("error_500");
-}
 
 // Vistas
 loginRouter.get("/registro", controller.getRegisterRedirect);
@@ -39,10 +20,10 @@ loginRouter.get("/login", controller.getLoginRedirect);
 // Forms/acciones de las vistas
 loginRouter.post("/registrarUsuario", multerFactory.single("img"), controller.registerUser);
 loginRouter.post("/loginUser", controller.loginUser);
-loginRouter.get("/logoutUser", checkSession, controller.logoutUser);
+loginRouter.get("/logoutUser", middlewares.checkSession, controller.logoutUser);
 
 
-loginRouter.use(middlewareNotFoundError); // middleware ERROR 404
-loginRouter.use(middlewareServerError); // middleware ERROR 500
+loginRouter.use(middlewares.middlewareNotFoundError); // middleware ERROR 404
+loginRouter.use(middlewares.middlewareServerError); // middleware ERROR 500
 
 module.exports = loginRouter;
