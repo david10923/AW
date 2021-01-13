@@ -228,11 +228,11 @@ class DAOQuestions{
                                 callback(new Error("Error de acceso a la base de datos"));
                             } else{
                                 let total = results.length;
-                                // console.log(results);
                                 let q = results[total - 3][0];
                                 q.tags = [];
                                 q.date = moment(q.date).format('YYYY-MM-DD HH:mm:ss');
                                 results[total - 2].forEach(function(tag){ q.tags.push(tag.tagName); });
+                                results[total - 1].forEach(function(answer){ answer.date = moment(answer.date).format('YYYY-MM-DD HH:mm:ss'); });
                                 callback(null, { question: q, answers: results[total - 1] });
                             }
                         });
@@ -346,19 +346,18 @@ class DAOQuestions{
                         if(results[0].filas === 0){ // insertar
                             sql = "INSERT INTO answers_score(IdAnswer,user,type) VALUES(?,?,?);";
                             queryParams.push(params.answer, params.user, params.type);
-                            // console.log("PPPPPPPPPPPPPPPPPPPP", queryParams);
-                        } else{ // actualizar, diferenciar el tipo y eso se encarga el trigger
-                            sql = "UPDATE answers_score SET type=? WHERE IdAnswer=? AND user=?;";
-                            queryParams.push(params.type, params.answer, params.user);
+                            connection.query(sql, queryParams, function(error, results){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
+                                    callback(null);
+                                }
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
                         }
-
-                        connection.query(sql, queryParams, function(error, results){
-                            if(error){
-                                callback(new Error("Error de acceso a la base de datos"));
-                            } else{
-                                callback(null);
-                            }
-                        });
                     }
                 });
             }

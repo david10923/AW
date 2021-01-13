@@ -20,7 +20,7 @@ questionsRouter.post("/formulateQuestion", controller.formulateQuestion);
 questionsRouter.post("/publicarRespuesta/:id", controller.postAnswer);
 questionsRouter.get("/like/:id", controller.scoreQuestion);
 questionsRouter.get("/dislike/:id", controller.scoreQuestion);
-questionsRouter.get("/descargar/sinreponder", controller.noAnswers);
+questionsRouter.get("/descargar/sinresponder", controller.noAnswers);
 questionsRouter.get("/respuestas/like/:idQ/:idA", controller.scoreAnswer);
 questionsRouter.get("/respuestas/dislike/:idQ/:idA", controller.scoreAnswer);
 
