@@ -13,7 +13,8 @@ class DAOUsers{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                data.profileImg = data.profileImg || 'default';
+                // data.profileImg = data.profileImg || 'default';
+                data.profileImg = data.profileImg || `defecto${Math.floor(Math.random() * 3) + 1}.png`;
                 connection.query("INSERT INTO `users`(`email`, `username`, `password`, `profileImg`) VALUES (?, ?, ?, ?)", [ data.email, data.username, data.password, data.profileImg ], function(error, result){
                     connection.release();
                     if(error){
