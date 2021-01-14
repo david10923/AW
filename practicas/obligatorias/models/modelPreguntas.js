@@ -264,38 +264,26 @@ class DAOQuestions{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1= '',sql2= '';
-                sql1= "SELECT user as User FROM questions q WHERE q.ID =?";                
-                connection.query(sql1, [ params.question ], function(error, results){
+                connection.query("SELECT COUNT(*) as filas FROM questions_score q WHERE q.question=? AND q.user=?", [ params.question, params.user ], function(error, results){
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        sql2 = "SELECT COUNT(*) as filas FROM questions_score q WHERE q.question=? AND q.user=?";
-                       let User = results[0].User;
-                        connection.query(sql2, [ params.question, results[0].User], function(error, results){
-                            if(error){
-                                callback(new Error("Error de acceso a la base de datos"));
-                            }else{
-                                let sql = '', queryParams = [];
-                                if(results[0].filas === 0){ // insertar
-                                    sql = "INSERT INTO questions_score(question,user,type) VALUES(?,?,?);";
-                                    queryParams.push(params.question, User, params.type);
-                                    connection.query(sql, queryParams, function(error, results){
-                                        connection.release();
-                                        if(error){
-                                            callback(new Error("Error de acceso a la base de datos"));
-                                        } else{
-                                            callback(null);
-                                        }
-                                    });
-                                }
-                                else{
-                                    connection.release();
+                        let sql = '', queryParams = [];
+                        if(results[0].filas === 0){ // insertar
+                            sql = "INSERT INTO questions_score(question,user,type) VALUES(?,?,?);";
+                            queryParams.push(params.question, params.user, params.type);
+                            connection.query(sql, queryParams, function(error, results){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
                                     callback(null);
                                 }
-                            }
-
-                        });           
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
+                        }
                     }
                 });
             }
@@ -349,40 +337,26 @@ class DAOQuestions{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1= '',sql2= '';
-                sql1= "SELECT user as User FROM answers a WHERE a.ID =?";
-                connection.query(sql1, [ params.answer ], function(error, results){
+                connection.query("SELECT COUNT(*) as filas FROM answers_score a WHERE a.IdAnswer =? AND a.user=?", [ params.answer, params.currentUser ], function(error, results){
                     if(error){
                         callback(new Error("Error de acceso a la base de datos"));
                     } else{
-                        let User = results[0].User;
-                        console.log(User);
-                        sql2= "SELECT COUNT(*) as filas FROM answers_score a WHERE a.IdAnswer =? AND a.user=?";
-                        connection.query(sql2,[ params.answer ,User ],function(error,results){
-                            if(error){
-                                callback(new Error("Error de acceso a la base de datos"));
-                            }
-                            else{
-                                let sql = '', queryParams = [];
-                                if(results[0].filas === 0){ // insertar
-                                    sql = "INSERT INTO answers_score(IdAnswer,user,type) VALUES(?,?,?);";
-                                    queryParams.push(params.answer, params.user, params.type);
-                                    connection.query(sql, queryParams, function(error, results){
-                                         connection.release();
-                                        if(error){
-                                            callback(new Error("Error de acceso a la base de datos"));
-                                        } else{
-                                            callback(null);
-                                        }
-
-                                    });
-                                }else{
-                                    connection.release();
+                        let sql = '', queryParams = [];
+                        if(results[0].filas === 0){ // insertar
+                            sql = "INSERT INTO answers_score(IdAnswer,user,type) VALUES(?,?,?);";
+                            queryParams.push(params.answer, params.currentUser, params.type);
+                            connection.query(sql, queryParams, function(error, results){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
                                     callback(null);
                                 }
-                                
-                            }
-                        });
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
+                        }
                     }
                 });
             }

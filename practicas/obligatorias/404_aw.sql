@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2021 a las 20:23:44
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 7.4.13
+-- Tiempo de generación: 14-01-2021 a las 17:52:17
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,48 +61,7 @@ CREATE TABLE `answers_score` (
 -- Disparadores `answers_score`
 --
 DELIMITER $$
-CREATE TRIGGER `updateAnswersScoreInsert` AFTER INSERT ON `answers_score` FOR EACH ROW BEGIN
-	DECLARE userOrigin varchar(100);
-    DECLARE questionOrigin varchar(100);
-    
-    SELECT a.question INTO questionOrigin
-    FROM answers a
-    WHERE a.ID = NEW.IdAnswer;
-    
-    SELECT q.user INTO userOrigin
-    FROM questions q
-    WHERE q.ID=questionOrigin;
-    
-IF NEW.type = 1 THEN
-	UPDATE answers
-    SET answers.nLikes = answers.nLikes+1
-    WHERE answers.ID = NEW.IdAnswer;
-        
-    UPDATE users
-    SET users.TotalScore = users.TotalScore +10
-    WHERE users.email = userOrigin;
-ELSE 
-        UPDATE answers
-        SET answers.nDislikes=answers.nDislikes+1
-        WHERE answers.ID = NEW.IdAnswer;
-         
-        UPDATE users
-        SET users.TotalScore = users.TotalScore-12
-        WHERE users.email = userOrigin;
-END IF;
-    IF (SELECT users.TotalScore
-        FROM users
-        WHERE users.email = userOrigin) <1 THEN
-        
-          UPDATE users
-          SET users.TotalScore =1
-          WHERE users.email = userOrigin;
-    END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `updateAnswersScoreUpdate` AFTER UPDATE ON `answers_score` FOR EACH ROW BEGIN
+CREATE TRIGGER `UpdateAnswers` AFTER UPDATE ON `answers_score` FOR EACH ROW BEGIN
 	DECLARE userOrigin varchar(100);
     DECLARE questionOrigin varchar(100);
     
@@ -204,6 +163,64 @@ END IF;
 END
 $$
 DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `updateAnswersScoreInsert` AFTER INSERT ON `answers_score` FOR EACH ROW BEGIN
+	DECLARE userOrigin varchar(100);
+
+    SELECT a.user INTO userOrigin
+    FROM answers a
+    WHERE a.ID=NEW.IdAnswer;
+
+    -- Sumamos like o dislike a la respuesta
+    IF NEW.type = 1 THEN
+        UPDATE answers
+        SET answers.nLikes = answers.nLikes+1
+        WHERE answers.ID = NEW.IdAnswer;
+            
+        UPDATE users
+        SET users.TotalScore = users.TotalScore +10
+        WHERE users.email = userOrigin;
+    ELSE 
+        UPDATE answers
+        SET answers.nDislikes=answers.nDislikes+1
+        WHERE answers.ID = NEW.IdAnswer;
+        
+        UPDATE users
+        SET users.TotalScore = users.TotalScore-2
+        WHERE users.email = userOrigin;
+    END IF;
+
+    IF NEW.Type = 1 THEN 
+        -- Ortorgamos las medallas correspondientes
+        IF (SELECT answers.nLikes
+            FROM answers
+            WHERE answers.ID = NEW.IdAnswer) = 2 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin ,"Bronze","Respuesta interesante");
+
+        ELSEIF (SELECT answers.nLikes
+            FROM answers
+            WHERE answers.ID = NEW.IdAnswer) = 4 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin,"Silver","Buena respuesta");
+
+        ELSEIF (SELECT answers.nLikes
+            FROM answers
+            WHERE answers.ID = NEW.IdAnswer) = 6 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin,"Gold","Excelente respuesta");
+
+        END IF;
+    END IF;
+
+    -- Si reputacion negativa entonces igualar a 1
+    IF (SELECT users.TotalScore
+        FROM users
+        WHERE users.email = userOrigin) <1 THEN
+          UPDATE users
+          SET users.TotalScore =1
+          WHERE users.email = userOrigin;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -269,28 +286,53 @@ CREATE TRIGGER `updateQuestionScoreInsert` AFTER INSERT ON `questions_score` FOR
     FROM questions q
     WHERE q.ID = NEW.question;
     
-	IF NEW.type = 1 THEN
+    -- Sumar voto (like/dislike)
+    IF NEW.Type = 1 THEN 
         UPDATE questions
         SET questions.nLikes = questions.nLikes+1
         WHERE questions.id = NEW.question;
-        
-        INSERT INTO `medals_user`(`IdUser`, `MedalType`, `MedalName`) VALUES (userOrigin,"Bronze","Estudiante");
-        
+
         UPDATE users
         SET users.TotalScore = users.TotalScore +10
         WHERE users.email = userOrigin;
-    ELSE 
+    ELSE
         UPDATE questions
         SET questions.nDislikes=questions.nDislikes+1
         WHERE questions.id = NEW.question;
-         
+
         UPDATE users
         SET users.TotalScore = users.TotalScore-2
         WHERE users.email = userOrigin;
-END IF;
+    END IF;
+
+    IF NEW.Type = 1 THEN 
+        -- Como estamos en questions_score, ver el numero de likes que tiene para otorgar medallas
+        IF (SELECT questions.nLikes
+            FROM questions
+            WHERE questions.ID = NEW.question) = 1 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin ,"Bronze","Estudiante");
+
+        ELSEIF (SELECT questions.nLikes
+            FROM questions
+            WHERE questions.ID = NEW.question) = 2 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin ,"Bronze","Pregunta interesante");
+
+        ELSEIF (SELECT questions.nLikes
+            FROM questions
+            WHERE questions.ID = NEW.question) = 4 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin ,"Silver","Buena pregunta");
+
+        ELSEIF (SELECT questions.nLikes
+            FROM questions
+            WHERE questions.ID = NEW.question) = 6 THEN
+            INSERT INTO medals_user(IdUser, MedalType, MedalName) VALUES(userOrigin ,"Gold","Excelente pregunta");
+        END IF;
+    END IF;
+
+    -- Si reputacion negativa ponerle 1
     IF (SELECT users.TotalScore
         FROM users
-        WHERE users.email = NEW.user) <1 THEN
+        WHERE users.email = userOrigin) <1 THEN
 			UPDATE users
 			SET users.TotalScore =1
 			WHERE users.email = userOrigin;
@@ -299,7 +341,7 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `updateQuestionScoreUpdate` AFTER UPDATE ON `questions_score` FOR EACH ROW BEGIN
+CREATE TRIGGER `updateQuestions` AFTER UPDATE ON `questions_score` FOR EACH ROW BEGIN
 	DECLARE userOrigin varchar(100);
     
     SELECT q.user INTO userOrigin
@@ -483,6 +525,12 @@ CREATE TABLE `visits` (
 --
 DELIMITER $$
 CREATE TRIGGER `totalVisits` AFTER INSERT ON `visits` FOR EACH ROW BEGIN 
+    DECLARE userOrigin varchar(100);    
+    
+    SELECT q.user INTO userOrigin
+    FROM questions q
+    WHERE q.ID=NEW.question;
+
     UPDATE questions
     SET questions.visits=questions.visits + 1
     WHERE questions.ID = NEW.question;
@@ -492,18 +540,15 @@ CREATE TRIGGER `totalVisits` AFTER INSERT ON `visits` FOR EACH ROW BEGIN
           IF(SELECT questions.visits
             FROM questions
               WHERE questions.ID = NEW.question) =2 THEN 
-                  INSERT INTO medals_user(IdUser,MedalType, MedalName)
-                VALUES(NEW.user ,"Bronze","Pregunta Popular");
+                  INSERT INTO medals_user(IdUser,MedalType, MedalName) VALUES(userOrigin ,"Bronze","Pregunta Popular");
              ELSEIF (SELECT questions.visits
             FROM questions
               WHERE questions.ID = NEW.question)=4 THEN 
-                INSERT INTO medals_user(IdUser,MedalType, MedalName) 
-                VALUES(NEW.user ,"Silver","Pregunta Destacada");
+                INSERT INTO medals_user(IdUser,MedalType, MedalName) VALUES(userOrigin ,"Silver","Pregunta Destacada");
             ELSEIF (SELECT questions.visits
             FROM questions
               WHERE questions.ID = NEW.question)=6 THEN 
-                INSERT INTO medals_user(IdUser,MedalType, MedalName) 
-                VALUES(NEW.user ,"Gold","Pregunta famosa");
+                INSERT INTO medals_user(IdUser,MedalType, MedalName) VALUES(userOrigin ,"Gold","Pregunta famosa");
            END IF;
 
 END

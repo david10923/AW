@@ -113,7 +113,7 @@ module.exports = {
         params = {
             type        : like,
             question    : request.params.id,
-           //user        : request.session.currentEmail
+            user        : request.session.currentEmail
         };
         dao.scoreQuestion(params, function(error){
             if(error){
@@ -143,7 +143,7 @@ module.exports = {
         params = {
             type        : like,
             answer      : request.params.idA,
-            //user        : request.session.currentEmail
+            currentUser : request.session.currentEmail // usuario de la sesion que da like/dislike
         };
         
         dao.scoreAnswer(params, function(error){
