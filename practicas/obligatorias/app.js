@@ -15,10 +15,10 @@ const mysqlSession      = require('express-mysql-session');
 const config            = require('./config');
 const MySQLStore        = mysqlSession(session);
 const sessionStore      = new MySQLStore({
-    host        : config.host,
-    user        : config.user,
-    password    : config.password,
-    database    : config.database
+    host        : config.mysqlConfig.host,
+    user        : config.mysqlConfig.user,
+    password    : config.mysqlConfig.password,
+    database    : config.mysqlConfig.database
 });
 const middlewareSession = session({
     saveUninitialized   : false,
@@ -62,11 +62,11 @@ app.get("/imagen/:id", middlewares.checkSession, function(request, response){
     response.sendFile(path.join(__dirname, "./uploads", request.params.id));
 });
 
-app.listen(3000, function(error) {
+app.listen(config.port, function(error) {
     if (error) {
         console.error("No se pudo inicializar el servidor: " + error.message);
     } else {
-        console.log("Servidor arrancado en el puerto 3000");
+        console.log(`Servidor arrancado en el puerto ${config.port}`);
     }
 });
 

@@ -3,10 +3,10 @@
 const config    = require('./config');
 const mysql     = require ('mysql');
 const pool      = mysql.createPool({
-    host    : config.host,
-    user    : config.user,
-    password: config.password,
-    database: config.database,
+    host        : config.mysqlConfig.host,
+    user        : config.mysqlConfig.user,
+    password    : config.mysqlConfig.password,
+    database    : config.mysqlConfig.database,
     multipleStatements: true
 });
 
