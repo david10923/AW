@@ -245,7 +245,7 @@ CREATE TABLE `questions` (
   `ID` int(11) NOT NULL,
   `user` varchar(100) NOT NULL,
   `title` varchar(1000) NOT NULL,
-  `body` varchar(1000) NOT NULL,
+  `body` varchar(3000) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `visits` int(11) NOT NULL DEFAULT 0,
   `nLikes` int(11) NOT NULL DEFAULT 0,
