@@ -4,7 +4,7 @@ const path          = require('path');
 const pool          = require("../database");
 const DAOUsers      = require('../models/modelUsuarios');
 let daoUsers        = new DAOUsers(pool);
-
+// probando la nueva config
 module.exports = {
     // Ruta: /loginout/registro
     getRegisterRedirect: function(request, response){
