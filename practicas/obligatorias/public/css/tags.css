@@ -1,0 +1,58 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.main .title{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.main .search-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.main .search-form input{
+    width: 25%;
+    margin: 0 5px 0 0;
+}
+
+/* GRID SYSTEM */
+.main .grid-tags{
+    width: 100%;
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.main .grid-tags .tag{
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #525252;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.main .grid-tags .tag .name{
+    font-size: 10px;
+    font-weight: bold;
+    color: #35495e;
+    background-color: #66b0ff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.main .grid-tags .tag .description{
+    font-size: 12px;
+}
+.main .grid-tags .tag .questions{
+    text-align: right;
+    color: #d5d5d5;
+}

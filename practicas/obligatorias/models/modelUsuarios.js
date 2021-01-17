@@ -28,23 +28,6 @@ class DAOUsers{
 
     }
 
-    /*readUser(email, callback){
-        this.pool.getConnection(function(error, connection){
-            if(error){
-                callback(new Error("Error de conexion a la base de datos"));
-            } else{
-                connection.query("SELECT username, profileImg as img, date FROM users WHERE email=?", [ email ], function(error, result){
-                    connection.realease();
-                    if(error){
-                        callback(new Error("Error de acceso a la base de datos"));
-                    } else{
-                        callback(false, result);
-                    }
-                });
-            }
-        });
-    }*/
-
     readAllUsers(callback){
         this.pool.getConnection(function(error, connection){
             if(error){

@@ -10,6 +10,7 @@ const staticFiles       = path.join(__dirname, "public");
 const usersRouter       = require("./routers/routerUsuarios");
 const questionsRouter   = require('./routers/routerPreguntas');
 const loginoutRouter    = require('./routers/routerLogin.js');
+const tagsRouter        = require('./routers/routerTags');
 const session           = require('express-session');
 const mysqlSession      = require('express-mysql-session');
 const config            = require('./config');
@@ -47,6 +48,7 @@ app.use(middlewareSession); // middleware de session
 app.use('/usuarios', usersRouter);
 app.use('/preguntas', questionsRouter);
 app.use('/loginout', loginoutRouter);
+app.use('/tags', tagsRouter);
 
 
 // MANEJADORES DE RUTAS PRINCIPALES
