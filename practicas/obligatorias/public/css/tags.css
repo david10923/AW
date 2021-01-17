@@ -1,0 +1,38 @@
+
+.content-body .tag-content {
+    text-align: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.content-body .tag-content {
+    text-align: center;
+}
+.content-body .content-search{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.content-body .content-search .search .form-field {
+    width: 20%;
+}
+.content-body .tagFilter{
+    display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.content-body .infoTags{
+    display: grid;
+    border: 2px solid yellow;
+    grid-template-columns: 33% 33% 33%;    
+    column-gap: 10px;
+    row-gap: 15px;    
+    justify-content: center;
+    align-items: center;
+}
+
+.content-body .infoTags .tagView{
+    border: 1px solid white;
+    box-shadow: 2px 2px 10px rgb(221, 223, 135);
+}
