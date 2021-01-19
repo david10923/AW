@@ -2,7 +2,7 @@
 
 const middlewares       = require('../middlewares');
 const express           = require('express');
-const tagsRouter   = express.Router();
+const tagsRouter        = express.Router();
 const controller        = require('../controllers/cotrollerTags');
 const bodyParser        = require('body-parser');
 

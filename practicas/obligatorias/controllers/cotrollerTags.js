@@ -8,13 +8,11 @@ module.exports = {
     // Ruta: /preguntas/
     getAllTags : function(request, response){
         dao.readAllTags(function(error, data){
-            if(error){
-                console.log("=====>",error);
+            if(error){                
                 response.status(500);
                 response.render("error_500");
             } else{
-                console.log(data);
-                response.render("tags");
+                response.render("tags",{ tags: data});
             }
         });
     },

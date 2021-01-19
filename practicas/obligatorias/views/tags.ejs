@@ -36,8 +36,14 @@
         </div>
 
         <div class="infoTags">
+           <% console.log(`Estos son los tags ${tags}`) %>;
             <div class="tagView">
-                
+                <%tags.forEach(tag =>{ %>
+                    <a href ="/preguntas/etiquetas/<%= tag %>"><span class= "label"><%= tag %></span></a>
+                  
+
+
+                <% }); %>
             </div>
             <div>
                 
