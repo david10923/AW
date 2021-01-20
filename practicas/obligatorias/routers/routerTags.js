@@ -12,6 +12,9 @@ tagsRouter.use(middlewares.checkSession);
 
 // Vistas y forms/acciones de las vistas
 tagsRouter.get("/",controller.getAllTags);// para coger todas las etiquetas de la vista
+tagsRouter.get("/popular",controller.getPopular);
+tagsRouter.get("/nuevo",controller.getNew)
+tagsRouter.get("/nombre")
 
 
 

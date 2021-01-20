@@ -10,7 +10,7 @@
     <link rel="stylesheet" media="screen" href="/css/utils.css">
     <link rel="stylesheet" media="screen" href="/css/tags.css">
     <link rel="icon" href="/resources/images/logo_64.png">
-    <title>Tags | 404AW</title>
+    <title>Nuevo | 404AW</title>
 </head>
 <body>
     <%- include('header') %>
@@ -36,11 +36,13 @@
         </div>
 
         <div class="infoTags">
+            <%console.log(tags)%>
            <%tags.forEach(function(tag){ %>                
                 <div class="tagView mb-10">
                     <a href ="/preguntas/etiquetas/<%= tag.name %>"><span class= "label"><%= tag.name %></span></a>
                     <span class = "mt-10">Esto es la descripcion de la etiqueta como no hay campo en la base de datos pues lo pongo a mano</span>
-                    <span class= "questionNumber"><%=tag.number %> preguntas</span>
+                    <span class ="mb-10 mt-10">Etiqueta de la pregunta <%=tag.questionID %></span>
+                    <span><%= tag.date%></span>
                 </div>
 
 

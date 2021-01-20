@@ -15,6 +15,7 @@ module.exports = {
 
     middlewareNotFoundError: function(request, response, next){
         response.status(404);
+        console.log("=====>",error);
         response.render("error_404");
     },
     
