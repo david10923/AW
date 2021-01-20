@@ -94,7 +94,7 @@ module.exports = {
         let params = {
             question    : request.params.id,
             text        : request.body.a_body,
-           // user        : request.session.currentEmail
+            user        : request.session.currentEmail
         };
         console.log(params);
         dao.postAnswer(params, function(error){
@@ -154,5 +154,5 @@ module.exports = {
                 response.redirect(`/preguntas/${request.params.idQ}`);
             }
         });
-    },
+    }
 }
