@@ -5,6 +5,7 @@ const express           = require('express');
 const questionsRouter   = express.Router();
 const controller        = require('../controllers/controllerPreguntas');
 const bodyParser        = require('body-parser');
+const multer            = require('multer');
 
 // middleware
 questionsRouter.use(bodyParser.urlencoded({ extended: false }));
@@ -16,7 +17,7 @@ questionsRouter.get("/etiquetas/:label", controller.findByTag);
 questionsRouter.get("/formular", controller.formulate);
 questionsRouter.get("/buscar", controller.findByFilter);
 questionsRouter.get("/:id", controller.getQuestion);
-questionsRouter.post("/formulateQuestion", controller.formulateQuestion);
+questionsRouter.post("/formulateQuestion",controller.formulateQuestion);
 questionsRouter.post("/publicarRespuesta/:id", controller.postAnswer);
 questionsRouter.get("/like/:id", controller.scoreQuestion);
 questionsRouter.get("/dislike/:id", controller.scoreQuestion);

@@ -16,7 +16,7 @@ loginRouter.use(bodyParser.urlencoded({ extended: false }));
 // Vistas
 loginRouter.get("/registro", controller.getRegisterRedirect);
 loginRouter.get("/login", controller.getLoginRedirect);
-
+ 
 // Forms/acciones de las vistas
 loginRouter.post("/registrarUsuario", multerFactory.single("img"), controller.registerUser);
 loginRouter.post("/loginUser", controller.loginUser);

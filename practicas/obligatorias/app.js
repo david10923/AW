@@ -48,7 +48,7 @@ app.use(middlewareSession); // middleware de session
 app.use('/usuarios', usersRouter);
 app.use('/preguntas', questionsRouter);
 app.use('/loginout', loginoutRouter);
-app.use('/tags',tagRouter);
+ app.use('/tags',tagRouter);
 
 
 // MANEJADORES DE RUTAS PRINCIPALES

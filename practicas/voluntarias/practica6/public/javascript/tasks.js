@@ -1,9 +1,11 @@
 "use strict"
+const mysql         = require("mysql");
+const pool          = mysql.createPool(config.mysqlConfig);
+const daoT = new DAOTasks(pool);
 
 
 let valorTareastags ='';
-
-
+let valorTarea='';
 
 function annadirTag(){
     let valor = $("#add-tag-input").prop("value").trim();
@@ -18,7 +20,22 @@ function annadirTag(){
 
 function annadirTareasCompletadas(){
     
-    
+    if(valorTarea !== ""){// si hay tarea lo metes a la bd
+    let newTask = Utils.createTask(valorTareastags);
+    let data    = {
+        text    : newTask.text,
+        tags    : newTask.tags,
+        done    : false
+    };
+
+    daoT.insertTask(response.locals.userEmail, data, function(error){
+        if(error){
+            console.log(error.message);
+        } else{
+            response.redirect("/tasks");
+        }
+    });
+    }
 }
 
 
@@ -27,9 +44,9 @@ $(function(){
 
     $("#add-task-input").change(function(){
 
-        let valor = $(this).prop("value").trim();// coges el valor del input
-        valorTareastags +=valor;
-        let elem = $(`<span id ="spanInfo">${valor}</span>`);
+        valorTarea = $(this).prop("value").trim();// coges el valor del input
+        valorTareastags +=valorTarea;
+        let elem = $(`<span id ="spanInfo">${valorTarea}</span>`);
         $("#task-description").append(elem);
 
     });
