@@ -3,6 +3,7 @@
 const DAOQuestions  = require('../models/modelPreguntas'); // DAOQuestions
 const pool          = require("../database");
 let dao             = new DAOQuestions(pool);
+const middlewares       = require('../middlewares');
 
 module.exports = {
     // Ruta: /preguntas/
@@ -62,7 +63,7 @@ module.exports = {
             body    : request.body.body,
             tags    : labels
         };
-
+        
         if(params.title === "" || params.body === ""){
             response.render("formulate", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
         } else{
@@ -155,4 +156,17 @@ module.exports = {
             }
         });
     },
+
+
+    getQuestionToModify :function(request, response){
+        //llamar al dao         
+        dao.modifyQuestion({ question : request.params.id, user : request.session.currentEmail }, function(error, qData){
+            if(error){
+                next(middlewares.middlewareServerError);
+            } else{                
+                console.log(qData);
+                response.render("modifyQuestion", { question: qData });
+            }
+        });
+    }
 }

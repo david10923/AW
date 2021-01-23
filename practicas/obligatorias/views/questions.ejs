@@ -38,6 +38,12 @@
                             <span class="date">Formulada el <%= question.date %></span>
                             <a href="/usuarios/perfil/<%= question.userID %>"><img src="/imagen/<%= question.userImg %>" alt="foto de perfil" class="user-img"></a>
                             <span class="username-ask"><%= question.username %></span>
+
+                            <% if( userName ==  question.username ){ %>
+                                <form action="/preguntas/modificarPregunta/<%= question.ID%>" method ="POST">
+                                    <button class="btn btn-primary mb-20" type="submit">Modificar tu pregunta<i class="fa fa-check-square-o"></i></button>
+                                </form>
+                            <%} %>
                         </div>
                     </div>
                 <% }); %>

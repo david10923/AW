@@ -314,6 +314,7 @@ class DAOQuestions{
                             }
                             questions[question.ID] = question;
                         });
+                    
                         results[1].forEach(function(tag){
                             if(questions[tag.question]){
                                 questions[tag.question].tags.push(tag.tagName);
@@ -363,6 +364,40 @@ class DAOQuestions{
         });
     }
     
+
+    modifyQuestion(params, callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{
+                let sql='',sql1='';
+                sql  ="SELECT q.ID as qID, q.title as title, q.body as body, q.date, q.visits, q.nLikes, q.nDislikes, u.ID as qUserID, u.profileImg, u.username FROM questions q JOIN users u WHERE q.user=u.email AND q.ID=?;";
+                sql1 = "SELECT t.tagName FROM tags t WHERE t.question=?;";
+                connection.query(sql+sql1,[params.question,params.question],function(error,results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }else{  
+                       
+                       let question ={};
+                      
+                        question.title = results[0][0].title;
+                        question.body = results[0][0].body;     
+                        question.tags ="";                         
+                        
+                        
+                        results[1].forEach(tag=>{
+                            question.tags += "@"+`${tag.tagName}`;
+                        });
+
+                        callback(null,question);
+                    }
+                });
+            }
+        });
+       
+
+    }
 }
 
 module.exports = DAOQuestions;
