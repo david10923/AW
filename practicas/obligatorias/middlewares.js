@@ -21,5 +21,10 @@ module.exports = {
     middlewareServerError: function(error, request, response, next){
         response.status(500);
         response.render("error_500");
+    },
+
+    middlewareEditQuestion: function(error, request, response, next){
+        response.status(401);
+        response.render("error_401");
     }
 }

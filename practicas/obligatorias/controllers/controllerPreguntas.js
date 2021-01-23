@@ -3,6 +3,7 @@
 const DAOQuestions  = require('../models/modelPreguntas'); // DAOQuestions
 const pool          = require("../database");
 let dao             = new DAOQuestions(pool);
+const middlewares   = require('../middlewares');
 
 module.exports = {
     // Ruta: /preguntas/
@@ -155,4 +156,51 @@ module.exports = {
             }
         });
     },
+
+
+    // Ruta: /preguntas/editar/:id para editar una pregunta
+    editQuestion: function(request, response, next){
+        dao.getEditData(request.params.id, request.session.currentEmail, function(error, data, authorized){
+            if(error){
+                // NOTA: no funciona bien ==> salta el error 401 en vez de el error 500
+                next(middlewares.middlewareServerError);
+            } else{
+                if(authorized){
+                    response.render("editQuestion", { question : data, errorMsg : null });
+                } else{
+                    next(middlewares.middlewareEditQuestion);
+                }
+            }
+        });
+    },
+
+    // NOTA: para validar los campos no es necesario repetir codigo, se puede crear una funcion en este modulo que la valide y no exportar la funcion
+    editQuestionPost: function(request, response, next){        
+        let labels = request.body.labels || '', _aux = [];
+        labels = labels.split('@').filter(function(tag){
+            var check = tag != '' && !_aux.includes(tag);
+            _aux.push(tag);
+            return check;
+        });
+
+        let params = {
+            id      : request.body.question,
+            email   : request.session.currentEmail,
+            title   : request.body.title,
+            body    : request.body.body,
+            tags    : labels
+        };
+
+        if(params.title === "" || params.body === ""){
+            response.render("formulate", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
+        } else{
+            dao.editQuestionPost(params, function(error){
+                if(error){
+                    next();
+                } else{
+                    response.redirect("/preguntas");
+                }
+            });
+        }
+    }
 }

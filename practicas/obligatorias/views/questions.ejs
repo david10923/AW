@@ -39,6 +39,11 @@
                             <a href="/usuarios/perfil/<%= question.userID %>"><img src="/imagen/<%= question.userImg %>" alt="foto de perfil" class="user-img"></a>
                             <span class="username-ask"><%= question.username %></span>
                         </div>
+                        <% if(question.qUserID == userID){ %>
+                            <div class="edit-question">
+                                <a class="btn btn-primary" href="/preguntas/editar/<%= question.qUserID %>">Editar <i class="fa fa-pencil"></i></a>
+                            </div>
+                        <% } %>
                     </div>
                 <% }); %>
             </div>

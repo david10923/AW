@@ -62,7 +62,7 @@ class DAOQuestions{
             if(error){
                 callback(new Error("Error de conexion a la base de datos"));
             } else{
-                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email;";
+                let sql1 = "SELECT q.ID, q.user, q.title, q.body, q.date, u.username, u.id as qUserID, u.profileImg as userImg, u.id as userID FROM questions q JOIN users u ON q.user=u.email WHERE q.user=u.email;";
                 let sql2 = "SELECT t.tagName, t.question FROM tags t JOIN questions q WHERE q.ID=t.question;";
                 let sql = sql1 + sql2;
                 connection.query(sql, function(error, results, fields){
@@ -357,6 +357,75 @@ class DAOQuestions{
                             connection.release();
                             callback(null);
                         }
+                    }
+                });
+            }
+        });
+    }
+
+    // Obtiene ID de la pregunta y devuelve title, body y tags a la vista para la vista de editar pregunta
+    getEditData(question, user, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                connection.query("SELECT count(*) as perms FROM questions WHERE user=? AND ID=?;", [ user, question ], function(error, result){
+                    if(error){
+                        connection.release();
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        // la pregunta es del usuario y tiene permisos
+                        if(result[0].perms === 1){
+                            let sql1 = "SELECT q.ID, q.title, q.body FROM questions q WHERE q.ID=?;";
+                            let sql2 = "SELECT t.tagName as name FROM tags t WHERE t.question=?;";
+                            // let sql3 = "SELECT t.tagName, q.title, q.body FROM tags t JOIN questions q WHERE t.question=? AND q.ID=?;";
+                            connection.query(sql1 + sql2, [ question, question ], function(error, results){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos"));
+                                } else{
+                                    // NOTA: hago 2 consultas y no un JOIN pq sino por cada tag me devuelve title y body y estariamos pillando datos que luego no usaremos
+                                    let lQuestion = {
+                                        id      : results[0][0].ID,
+                                        title   : results[0][0].title,
+                                        body    : results[0][0].body,
+                                        tags    : ''
+                                    };
+                                    results[1].forEach(function(tag){
+                                        lQuestion.tags += `@${tag.name}`;
+                                    });
+                                    callback(null, lQuestion, true);
+                                }
+                            });
+                        } else{
+                            connection.release();
+                            callback(null, null, null);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // Update a la bbdd
+    editQuestionPost(params, callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                let sql1 = `UPDATE questions SET title=?, body=? WHERE user=?;`,
+                    sql2 = `DELETE FROM tags WHERE question=?;`,
+                    sql3 = `INSERT INTO tags (question,tagName) VALUES ?;`;
+                let localTags = [];
+                params.tags.forEach(function(tag){
+                    localTags.push([ params.id, tag ]);
+                });
+                connection.query(sql1 + sql2 + sql3, [ params.title, params.body, params.email, params.id, localTags ], function(error, results){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(null);
                     }
                 });
             }

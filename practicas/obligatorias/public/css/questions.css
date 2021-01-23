@@ -34,6 +34,12 @@
 
 
 /* QUESTION INFO */
+.questions-content .questions .question .edit-question{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .questions-content .questions .question .question-info{
     width: 75%;
 }
@@ -77,6 +83,7 @@
 .answers .reply .user-info .date{
     color: #fff;
     font-size: 12px;
+    text-align: center;
 }
 .questions-content .questions .question .question-user .user-img,
 .question-asked .user-info .user-profile .user-img,
