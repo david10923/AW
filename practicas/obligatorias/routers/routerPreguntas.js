@@ -26,6 +26,8 @@ questionsRouter.get("/respuestas/like/:idQ/:idA", controller.scoreAnswer);
 questionsRouter.get("/respuestas/dislike/:idQ/:idA", controller.scoreAnswer);
 
 questionsRouter.post("/modificarPregunta/:id",controller.getQuestionToModify);
+questionsRouter.post("/updateQuestion/:id",controller.updateQuestion);
+
 
 questionsRouter.use(middlewares.middlewareNotFoundError); // middleware ERROR 404
 questionsRouter.use(middlewares.middlewareServerError); // middleware ERROR 500

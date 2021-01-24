@@ -64,6 +64,7 @@ module.exports = {
             tags    : labels
         };
         
+        
         if(params.title === "" || params.body === ""){
             response.render("formulate", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
         } else{
@@ -164,9 +165,40 @@ module.exports = {
             if(error){
                 next(middlewares.middlewareServerError);
             } else{                
-                console.log(qData);
                 response.render("modifyQuestion", { question: qData });
             }
         });
+    },
+
+    updateQuestion : function(request,response){
+        
+        let labels = request.body.labels || '', _aux = [];
+        // labels = labels.split('@').filter(tag => tag != '' && !_aux.includes(tag));
+        labels = labels.split('@').filter(function(tag){
+            var check = tag != '' && !_aux.includes(tag);
+            _aux.push(tag);
+            return check;
+        });
+
+        let params = {
+            title   : request.body.title,
+            body    : request.body.body,
+            tags    : labels,
+            id      : request.params.id
+        };
+        
+        if(params.title === "" || params.body === ""){
+            response.render("modifyQuestion", { errorMsg : 'Rellena todos los campos obligatorios marcados con *' });
+        } else{
+            dao.updateQuestion(params, function(error){
+                if(error){
+                    console.log("==>>>>",error);
+                    response.status(500);
+                    response.render("error_500");
+                } else{
+                    response.redirect("/preguntas");
+                }
+            });
+        }
     }
 }

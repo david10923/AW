@@ -9,6 +9,7 @@ let valorTag='',tags='';
 
 
 $(function(){    
+    
 
     $("#add-tag-input").change(function(){
         valorTag = $(this).val().trim();// coges el valor del tag

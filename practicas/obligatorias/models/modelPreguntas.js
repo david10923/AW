@@ -381,10 +381,10 @@ class DAOQuestions{
                        
                        let question ={};
                       
+                        question.id = results[0][0].qID;
                         question.title = results[0][0].title;
                         question.body = results[0][0].body;     
-                        question.tags ="";                         
-                        
+                        question.tags ="";   
                         
                         results[1].forEach(tag=>{
                             question.tags += "@"+`${tag.tagName}`;
@@ -396,6 +396,49 @@ class DAOQuestions{
             }
         });
        
+
+    }
+
+
+    updateQuestion(data,callback){
+
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));               
+            }else{
+                let sql= '', sql1='';
+                sql= "DELETE FROM tags WHERE question = ?";
+                sql1= "UPDATE questions SET title = ?, body = ? WHERE ID  = ? ";
+                console.log(data);
+                connection.query(sql+sql1,[data.id,data.title,data.body,data.id],function(error,result){
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }else{
+                        var questionID = result.insertId;
+                        if(data.tags.length > 0){
+                            let queryStr = "INSERT INTO tags (question,tagName) VALUES ?;", params = [];
+                            for(var i = 0; i < data.tags.length; i++){
+                                params.push([ questionID, data.tags[i] ]);
+                            }
+                            connection.query(queryStr, [ params ], function(error){
+                                connection.release();
+                                if(error){
+                                    callback(new Error("Error de acceso a la base de datos tags"));
+                                } else{
+                                    callback(null);
+                                }
+                            });
+                        } else{
+                            connection.release();
+                            callback(null);
+                        }
+                    }
+                });
+            }
+        });
+       
+
+
 
     }
 }
