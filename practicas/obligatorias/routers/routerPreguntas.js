@@ -25,12 +25,11 @@ questionsRouter.get("/respuestas/like/:idQ/:idA", controller.scoreAnswer);
 questionsRouter.get("/respuestas/dislike/:idQ/:idA", controller.scoreAnswer);
 
 // Para estudiar: editar preguntas
-questionsRouter.get("/editar/:id", controller.editQuestion);
+questionsRouter.get("/editar/:id", middlewares.middlewareEditQuestion, controller.editQuestion);
 questionsRouter.post("/editQuestion", controller.editQuestionPost);
 
 
 questionsRouter.use(middlewares.middlewareNotFoundError); // middleware ERROR 404
-questionsRouter.use(middlewares.middlewareEditQuestion); // middleware ERROR 401
 questionsRouter.use(middlewares.middlewareServerError); // middleware ERROR 500
 
 module.exports = questionsRouter;

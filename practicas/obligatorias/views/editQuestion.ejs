@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/js/editQuestion.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
@@ -17,10 +19,11 @@
 
     <div class="content-body">
         <div class="main-question">
-            <span class="title">Formular una pregunta</span>
+            <span class="title">Editar una pregunta</span>
             <div class="question-info">
                 <form action="/preguntas/editQuestion" method="POST">
                     <input type="hidden" name="question" value="<%= question.id %>">
+                    <input type="hidden" name="labels" value="">
 
                     <span class="form-title mt-15 mb-0">Titulo*</span>
                     <span class="form-title explanation">Sé especifico e imagina que estás haciendo la pregunta a otra persona</span>
@@ -32,7 +35,12 @@
     
                     <span class="form-title mt-15 mb-0">Etiquetas</span>
                     <span class="form-title explanation">Añade hasta 5 etiquetas para describir sobre qué trata tu pregunta</span>          
-                    <input type="text" class="form-field" name="labels" placeholder="Por ejemplo: @node@express" pattern="^(@[A-Za-z0-9]+){0,5}$" value="<%= question.tags %>">
+                    <input type="text" class="form-field add-tag-action" placeholder="Escribe aquí la etiqueta" value="">
+                    <div class="tags">
+                        <% question.tags.forEach(function(tag){ %>
+                            <span class="tag"><%= tag %></span>
+                        <% }); %>
+                    </div>
                     <div class="btns-question_actions">
                         <button type="submit" class="btn btn-primary mt-15">Editar pregunta <i class="fa fa-pencil"></i></button>
                     </div>

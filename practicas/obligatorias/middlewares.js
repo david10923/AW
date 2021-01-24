@@ -1,5 +1,9 @@
 "use strict"
 
+const DAOQuestions  = require('./models/modelPreguntas'); // DAOQuestions
+const pool          = require("./database");
+let dao             = new DAOQuestions(pool);
+
 module.exports = {
     checkSession: function(request, response, next){
         if (request.session.currentName !== undefined && request.session.currentEmail  !== undefined && request.session.currentID !== undefined && request.session.currentImg !== undefined) {
@@ -13,7 +17,7 @@ module.exports = {
         }
     },
 
-    middlewareNotFoundError: function(request, response, next){
+    middlewareNotFoundError: function(request, response){
         response.status(404);
         response.render("error_404");
     },
@@ -23,8 +27,18 @@ module.exports = {
         response.render("error_500");
     },
 
-    middlewareEditQuestion: function(error, request, response, next){
-        response.status(401);
-        response.render("error_401");
+    middlewareEditQuestion: function(request, response, next){
+        dao.checkEditPerms(request.params.id, request.session.currentEmail, function(error, perms){
+            if(error){
+                next(error);
+            } else{
+                if(perms){
+                    next();
+                } else{
+                    response.status(401);
+                    response.render("error_401");
+                }
+            }
+        });
     }
 }

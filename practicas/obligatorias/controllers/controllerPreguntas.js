@@ -160,16 +160,11 @@ module.exports = {
 
     // Ruta: /preguntas/editar/:id para editar una pregunta
     editQuestion: function(request, response, next){
-        dao.getEditData(request.params.id, request.session.currentEmail, function(error, data, authorized){
+        dao.getEditData(request.params.id, request.session.currentEmail, function(error, data){
             if(error){
-                // NOTA: no funciona bien ==> salta el error 401 en vez de el error 500
-                next(middlewares.middlewareServerError);
+                next(error);
             } else{
-                if(authorized){
-                    response.render("editQuestion", { question : data, errorMsg : null });
-                } else{
-                    next(middlewares.middlewareEditQuestion);
-                }
+                response.render("editQuestion", { question : data, errorMsg : null });
             }
         });
     },
