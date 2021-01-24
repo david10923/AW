@@ -1,5 +1,6 @@
 "use strict"
 
+const { response } = require('express');
 const moment = require('moment'); // Formatear fechas
 
 class DAOUsers{
@@ -163,6 +164,34 @@ class DAOUsers{
                 });
             }
         });
+    }
+
+    checkUserPermits(params,callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{
+                let sql = "SELECT u.id as userId,u.email as email FROM users u JOIN questions q WHERE q.user= u.email AND q.ID = ?;"
+                connection.query(sql,[params.questionId],function(error,results){
+                connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }else{
+
+                        let ok = true;
+
+                        if(results[0].email !== params.userName){
+                            ok = false;
+                        }
+                        
+                        callback(null,ok);
+
+                    }   
+                });
+            }
+        });
+       
+
     }
 }
 

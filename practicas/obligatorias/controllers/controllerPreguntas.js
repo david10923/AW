@@ -163,7 +163,7 @@ module.exports = {
         //llamar al dao         
         dao.modifyQuestion({ question : request.params.id, user : request.session.currentEmail }, function(error, qData){
             if(error){
-                next(middlewares.middlewareServerError);
+                next(error);
             } else{                
                 response.render("modifyQuestion", { question: qData });
             }
@@ -192,9 +192,7 @@ module.exports = {
         } else{
             dao.updateQuestion(params, function(error){
                 if(error){
-                    console.log("==>>>>",error);
-                    response.status(500);
-                    response.render("error_500");
+                   next(error);
                 } else{
                     response.redirect("/preguntas");
                 }

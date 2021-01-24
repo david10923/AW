@@ -25,8 +25,8 @@ questionsRouter.get("/descargar/sinresponder", controller.noAnswers);
 questionsRouter.get("/respuestas/like/:idQ/:idA", controller.scoreAnswer);
 questionsRouter.get("/respuestas/dislike/:idQ/:idA", controller.scoreAnswer);
 
-questionsRouter.post("/modificarPregunta/:id",controller.getQuestionToModify);
-questionsRouter.post("/updateQuestion/:id",controller.updateQuestion);
+questionsRouter.post("/modificarPregunta/:id",middlewares.middlewareCheckStatus,controller.getQuestionToModify);
+questionsRouter.post("/updateQuestion/:id",middlewares.middlewareCheckStatus,controller.updateQuestion);
 
 
 questionsRouter.use(middlewares.middlewareNotFoundError); // middleware ERROR 404
