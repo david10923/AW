@@ -9,6 +9,8 @@
     <link rel="stylesheet" media="screen" href="/css/index.css">
     <link rel="stylesheet" media="screen" href="/css/utils.css">
     <link rel="stylesheet" media= "screen" href="/css/mensajes.css">    
+      
+
     <link rel="icon" href="/resources/images/logo_64.png">
     <title>Página principal | 404AW</title>
 </head>
@@ -16,12 +18,20 @@
     <%- include('header') %>
 
     <div class="content-body">
-        <div class= "memsajes-info">
+        <div class= "mensajes-info">
             <span>Mensajes recibidos</span>
+            <!-- MUESTRO TODOS LOS MENSAJES -->                    
+            <% usuarios.forEach(usuario =>{ %>
+                <div class ="userInfo">
+                    <span class="separator"> <a href="/usuarios/perfil/<%= usuario.userid %>"><img src="/imagen/<%= usuario.Img %>" alt="profile image" class="profile-img"></a></span>
+                    <span class="separator"><%= usuario.usuarioOrigen%></span class="separator"><span class="separator"><%= usuario.body %></span><span class="separator"><%= usuario.Date %></span>
+                    <a class="btn btn-primary" href="/mensajes/borrar/">Borrar</a>
+                </div>   
+            <% });%>
+            <a class="btn btn-primary mt-10" href="/mensajes/crearMensaje">Enviar Mensaje</a>
         </div>
 
-        <!-- MUESTRO TODOS LOS MENSAJES -->
-
+        
 
         
     </div>

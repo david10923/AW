@@ -1,0 +1,28 @@
+.content-body .mensajes-info .userInfo .inputClass{
+    width: 75%;
+    margin: 10px;
+    border-radius: 5px;
+    border : 1px solid white;
+}
+
+
+form{
+    width: 75%;
+    margin :auto;
+
+}
+
+.content-body .mensajes-info .userInfo{
+    margin :10px auto ;
+}
+
+.content-body .mensajes-info .userInfo .dotYellow{
+    color:yellow;
+    padding: 20px;
+}
+
+.content-body .mensajes-info .userInfo .dotRed{
+    color:red;
+    padding: 20px;
+}
+}

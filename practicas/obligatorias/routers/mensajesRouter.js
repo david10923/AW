@@ -14,7 +14,12 @@ mensajesRouter.use(bodyParser.urlencoded({ extended: false }));
 
 mensajesRouter.use(middlewares.checkSession);
 // Vistas
-mensajesRouter.get("/", controller.getAllMessages);
+mensajesRouter.get("/crearMensaje",controller.readuserMensajes);
+mensajesRouter.post("/enviar",controller.enviarMensaje);
+mensajesRouter.get("/:user", controller.getAllMessages);
+
+//mensajesRouter.get("/borrar/:idOrigen/:idDestino");
+
 
 
 

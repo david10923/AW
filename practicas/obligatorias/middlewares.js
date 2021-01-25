@@ -48,6 +48,7 @@ module.exports = {
     
     middlewareServerError: function(error, request, response, next){
         response.status(500);
+        console.log("==============>",error);
         response.render("error_500");
     }
 }

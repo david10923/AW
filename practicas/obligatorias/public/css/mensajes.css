@@ -1,7 +1,40 @@
 
-.content-body .memsajes-info{
+.content-body .mensajes-info{
     display :flex;
     flex-direction: column;
     width: 75%;
-    margin: auto;
+    margin: 0 auto;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+/* .content-body .mensajes-content{
+    display:flex; 
+    flex-direction: column;
+    justify-content: center;
+    width: 75%;
+    margin: 0 auto;
+} */
+
+
+.content-body .mensajes-info .userInfo {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.content-body .mensajes-info .userInfo .separator{
+    /* padding: 5px; */
+    margin: 10px;
+}
+
+img{
+    width: 50px;
+    border-radius: 50%;
 }
