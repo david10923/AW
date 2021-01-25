@@ -1,0 +1,88 @@
+/* PAGINA DE MENSAJES */
+/* ENVIO DE MENSAJES */
+.inbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+/* TITLE */
+.inbox .page-title{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+
+/* MESSAGES */
+.inbox .friends{
+    width: 100%;
+}
+.inbox .messages .message,
+.inbox .friends .friend{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.inbox .messages .message{
+    margin: 5px 0;
+}
+
+.inbox .friends .friend{
+    width: 100%;
+}
+
+.inbox .friends .friend form{
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+.inbox .friends .friend form textarea{
+    height: 100px;
+    margin-right: 10px;
+}
+
+.inbox .messages .message .user,
+.inbox .friends .friend .user{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inbox .messages .message .user .user-img,
+.inbox .friends .friend .user .user-img{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.inbox .messages .message .body-message{
+    margin: 0 5px;
+    width: 70%;
+}
+
+.inbox .messages .message .date{
+    margin-right: 5px;
+    text-align: center;
+    color: rgb(186, 186, 186);
+}
+
+
+/* BUTTONS */
+.inbox .actions{
+    margin-top: 10px;
+}
+
+.inbox .status{
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+.inbox .status.online{ background-color: #1d9100; }
+.inbox .status.offline{ background-color: #af0000; }

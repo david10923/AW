@@ -147,6 +147,24 @@ class DAOUsers{
             }
         });
     }
+
+    getOnlineUsers(callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexión a la base de datos"));
+            }
+            else{
+                connection.query("SELECT data FROM sessions", function(error, result){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        callback(null, result.length - 1); // onlineUsers = 404_aw.sessions.length - 1 (todos menos yo)
+                    }
+                });
+            }
+        });
+    }
 }
 
 module.exports = DAOUsers;

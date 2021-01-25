@@ -5,11 +5,13 @@
             <a class="btn btn-primary" href="/preguntas/descargar/sinresponder">Sin responder <i class="fa fa-flag"></i></a>
             <a class="btn btn-primary" href="/usuarios">Usuarios <i class="fa fa-users"></i></a>
             <a class="btn btn-primary" href="/tags">Etiquetas <i class="fa fa-tags"></i></a>
+            <a class="btn btn-primary" href="/mensajes">Mensajes <i class="fa fa-envelope"></i></a>
         </div>
         <a href="/index"><img src="/resources/images/logo_512.png" alt="404" class="logo"></a>
         <div class="header-element profile-info">
             <a href="/usuarios/perfil/<%= userID %>"><img src="/imagen/<%= userImg %>" alt="Perfil" class="profile-img"></a>
             <span class="username"><%= userName %></span>
+            <span class="online-friends"><%= onlineUsers %> amigo(s) <span class="status online"></span></span>
             <a class="btn btn-primary" href="/loginout/logoutUser">Cerrar Sesión <i class="fa fa-sign-out"></i></a>
         </div>
     </div>

@@ -80,11 +80,17 @@ header #header{
 #header .header-element .username{
     text-align: center;
     color: #fff;
-    margin: 2px;
+    margin-top: 2px;
+}
+
+#header .header-element .online-friends{
+    text-align: center;
+    color: #8c8c8c;
+    margin-bottom: 5px;
 }
 
 .content-body{
-    padding-top: 180px;
+    padding-top: 210px;
 }
 
 .content-search .search form{
@@ -109,3 +115,14 @@ header #header{
     box-shadow: 0px 0px 7px 0px #fff;
     cursor: pointer;
 }
+
+/* STATUS DE LOS USUARIOS */
+.status{
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+.status.online{ background-color: #1d9100; }
+.status.offline{ background-color: #af0000; }

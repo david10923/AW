@@ -11,6 +11,7 @@ const usersRouter       = require("./routers/routerUsuarios");
 const questionsRouter   = require('./routers/routerPreguntas');
 const loginoutRouter    = require('./routers/routerLogin.js');
 const tagsRouter        = require('./routers/routerTags');
+const messagesRouter    = require('./routers/routerMessages');
 const session           = require('express-session');
 const mysqlSession      = require('express-mysql-session');
 const config            = require('./config');
@@ -49,6 +50,7 @@ app.use('/usuarios', usersRouter);
 app.use('/preguntas', questionsRouter);
 app.use('/loginout', loginoutRouter);
 app.use('/tags', tagsRouter);
+app.use('/mensajes', messagesRouter);
 
 
 // MANEJADORES DE RUTAS PRINCIPALES

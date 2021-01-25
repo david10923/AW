@@ -1,5 +1,6 @@
 "use strict"
 
+const utils         = require('./utils');
 const DAOQuestions  = require('./models/modelPreguntas'); // DAOQuestions
 const pool          = require("./database");
 let dao             = new DAOQuestions(pool);
@@ -11,7 +12,11 @@ module.exports = {
             response.locals.userEmail   = request.session.currentEmail;
             response.locals.userID      = request.session.currentID;
             response.locals.userImg     = request.session.currentImg;
-            next();
+            utils.getUsersOnline(function(nUsers){
+                response.locals.onlineUsers = nUsers;
+                next();
+            });
+            // next();
         } else {
             response.redirect("/loginout/login");
         }
