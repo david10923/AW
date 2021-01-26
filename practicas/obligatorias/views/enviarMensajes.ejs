@@ -20,15 +20,16 @@
         <div class= "mensajes-info">
             <span>Enviar Mensajes</span>
             <!-- MUESTRO TODOS LOS MENSAJES -->                    
-            <!-- <% usuarios.forEach(usuario =>{ %>
+            <% usuarios.forEach(usuario =>{ %>
                 <form action="/mensajes/enviar" method="POST">
                     <div class ="userInfo">
-                        <span class="separator"> <a href="/usuarios/perfil/<%= usuario.UserOrigin %>"><img src="/imagen/<%= usuario.profileImg %>" alt="profile image" class="profile-img"></a></span>
-                        <span class="separator" name ="usuarioDestino"><%= usuario.UserOrigin  %></span class="separator">
-                        <% if(sesion.includes(<%= usuario.UserOrigin %>)){ %>
-                            <span class= "dotYellow">.</span>
-                        <%} else{ %>
-                            <span class= "dotRed">.</span>
+                        <a href="/usuarios/perfil/<%= usuario.UserOrigin %>"><img src="/imagen/<%= usuario.profileImg %>" alt="profile image" class="profile-img"></a>
+                        <span class="separator"><%= usuario.UserOrigin %></span class="separator">
+                        <input type="hidden" name ="usuarioDestino" value="<%= usuario.UserOrigin %>">
+                        <% if(info.includes( usuario.UserOrigin )){ %>
+                            <span class= "dotYellow"></span>
+                        <% } else{ %>
+                            <span class= "dotRed"></span>
                             
                         <% } %>
                         <input type="text" class ="inputClass" name ="mensaje" placeholder="Escribe el mensaje que quieres mandar al usuario">
@@ -37,7 +38,7 @@
 
                 </form>
                 
-            <% });%> -->
+            <% });%>
         </div>
     </div>
     

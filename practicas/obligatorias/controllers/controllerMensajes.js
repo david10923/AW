@@ -39,14 +39,13 @@ module.exports ={
        
         let info= {
             usuarioOrigen   :request.session.currentEmail,
-            usuarioDestino  :request.usuarioDestino,
+            usuarioDestino  :request.body.usuarioDestino,
             mensaje         :request.body.mensaje
         };
         daoMensajes.enviarMensaje(info,function(error, data){
             if(error){
                next(error);
-            } else{
-                //response.render("enviarMensajes", {usuarios : data});  
+            } else{                
                 response.redirect("/mensajes/crearMensaje")
             }
         });

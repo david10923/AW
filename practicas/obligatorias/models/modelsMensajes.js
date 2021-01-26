@@ -48,12 +48,12 @@ class DAOMensajes{
                         let data={},aux={};
                         data.usuarios = results[0];
                         data.session =[];
+
                         results[1].forEach(session=>{
                             aux = JSON.parse(session.data);
                             if(!data.session.includes(aux.currentEmail)){
                                 data.session.push(aux.currentEmail);
-                            }
-                           
+                            }                           
                         });
                         callback(null,data);
                     }   

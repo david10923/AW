@@ -23,7 +23,7 @@
             <!-- MUESTRO TODOS LOS MENSAJES -->                    
             <% usuarios.forEach(usuario =>{ %>
                 <div class ="userInfo">
-                    <span class="separator"> <a href="/usuarios/perfil/<%= usuario.userid %>"><img src="/imagen/<%= usuario.Img %>" alt="profile image" class="profile-img"></a></span>
+                    <a href="/usuarios/perfil/<%= usuario.userid %>"><img src="/imagen/<%= usuario.Img %>" alt="profile image" class="profile-img"></a>
                     <span class="separator"><%= usuario.usuarioOrigen%></span class="separator"><span class="separator"><%= usuario.body %></span><span class="separator"><%= usuario.Date %></span>
                     <a class="btn btn-primary" href="/mensajes/borrar/">Borrar</a>
                 </div>   
