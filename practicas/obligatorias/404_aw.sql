@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 17:52:17
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 26-01-2021 a las 17:34:52
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,9 @@ CREATE TABLE `answers` (
 
 INSERT INTO `answers` (`ID`, `user`, `question`, `body`, `nLikes`, `nDislikes`, `date`) VALUES
 (1, 'lucas@404.es', 1, 'La propiedad position sirve para posicionar un elemento dentro de la página. Sin embargo, dependiendo de cual sea la propiedad que usemos, el elemento tomará una referencia u otra para posicionarse respecto a ella.\r\n\r\nLos posibles valores que puede adoptar la propiedad position son: static | relative | absolute | fixed | inherit | initial.\r\n', 0, 0, '2021-01-13 20:18:07'),
-(2, 'emy@404.es', 2, 'La pseudoclase :nth-child() selecciona los hermanos que cumplan cierta condición definida en la fórmula an + b. a y b deben ser números enteros, n es un contador. El grupo an representa un ciclo, cada cuantos elementos se repite; b indica desde donde empezamos a contar.', 0, 0, '2021-01-13 20:19:29');
+(2, 'emy@404.es', 2, 'La pseudoclase :nth-child() selecciona los hermanos que cumplan cierta condición definida en la fórmula an + b. a y b deben ser números enteros, n es un contador. El grupo an representa un ciclo, cada cuantos elementos se repite; b indica desde donde empezamos a contar.', 0, 0, '2021-01-13 20:19:29'),
+(3, 'nico@404.es', 6, 'asd', 1, 0, '2021-01-20 20:21:32'),
+(4, 'nico@404.es', 6, '12312sss', 0, 1, '2021-01-20 20:22:47');
 
 -- --------------------------------------------------------
 
@@ -56,6 +58,14 @@ CREATE TABLE `answers_score` (
   `user` varchar(100) NOT NULL,
   `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `answers_score`
+--
+
+INSERT INTO `answers_score` (`IdAnswer`, `user`, `type`) VALUES
+(3, 'sfg@404.es', 1),
+(4, 'sfg@404.es', 0);
 
 --
 -- Disparadores `answers_score`
@@ -235,6 +245,39 @@ CREATE TABLE `medals_user` (
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `medals_user`
+--
+
+INSERT INTO `medals_user` (`IdUser`, `MedalType`, `MedalName`, `date`) VALUES
+('a@a.es', 'Bronze', 'Estudiante', '2021-01-20 18:58:11'),
+('a@a.es', 'Bronze', 'Pregunta Popular', '2021-01-20 18:58:46'),
+('a@a.es', 'Bronze', 'Pregunta interesante', '2021-01-20 18:58:50');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `messages`
+--
+
+CREATE TABLE `messages` (
+  `ID` int(11) NOT NULL,
+  `emisor` int(11) NOT NULL,
+  `receptor` int(11) NOT NULL,
+  `message` varchar(5000) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `messages`
+--
+
+INSERT INTO `messages` (`ID`, `emisor`, `receptor`, `message`, `date`) VALUES
+(1, 7, 1, 'Hola Nico soy Alvaro xd', '2021-01-25 17:04:37'),
+(3, 1, 7, 'Hola Alvaro soy Nico pero no el pequeño Nicolas xddd', '2021-01-25 17:21:28'),
+(4, 7, 1, 'hola nico estas online', '2021-01-25 17:32:30'),
+(5, 1, 7, 'si, estoy online flipao que pasa', '2021-01-25 17:32:46');
+
 -- --------------------------------------------------------
 
 --
@@ -257,11 +300,12 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`ID`, `user`, `title`, `body`, `date`, `visits`, `nLikes`, `nDislikes`) VALUES
-(1, 'nico@404.es', '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed?', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.', '2021-01-13 20:11:05', 0, 0, 0),
+(1, 'nico@404.es', '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed? No lo se xdd', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.\r\nEditado aqui lo que sea.', '2021-01-13 20:11:05', 1, 0, 0),
 (2, 'roberto@404.es', '¿Cómo funciona exactamente nth-child?', 'No acabo de comprender muy bien que hace exactamente y qué usos prácticos puede tener.', '2021-01-13 20:18:42', 0, 0, 0),
 (3, 'sfg@404.es', 'Diferencias entre == y === (comparaciones en JavaScript)', 'Siempre he visto que en JavaScript hay:\r\n\r\nasignaciones =\r\ncomparaciones == y ===\r\nCreo entender que == hace algo parecido a comparar el valor de la variable y el === también compara el tipo (como un equals de java).\r\n', '2021-01-13 20:20:07', 0, 0, 0),
 (4, 'marta@404.es', 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', '2021-01-13 20:21:00', 0, 0, 0),
-(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0);
+(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0),
+(6, 'a@a.es', 'Pregunta de año nuevo editada', 'asdasdas asd ss. Body editado ahora jeje.', '2021-01-20 19:57:40', 3, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -274,6 +318,14 @@ CREATE TABLE `questions_score` (
   `user` varchar(100) NOT NULL,
   `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `questions_score`
+--
+
+INSERT INTO `questions_score` (`question`, `user`, `type`) VALUES
+(6, 'a@a.es', 1),
+(6, 'nico@404.es', 1);
 
 --
 -- Disparadores `questions_score`
@@ -447,18 +499,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sessions`
---
-
-CREATE TABLE `sessions` (
-  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) UNSIGNED NOT NULL,
-  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tags`
 --
 
@@ -474,12 +514,16 @@ CREATE TABLE `tags` (
 INSERT INTO `tags` (`question`, `tagName`) VALUES
 (1, 'css'),
 (1, 'css3'),
+(1, 'newTag'),
 (2, 'css'),
 (2, 'html'),
 (3, 'JavaScript'),
 (4, 'nodejs'),
 (5, 'mysql'),
-(5, 'sql');
+(5, 'sql'),
+(6, 'asd'),
+(6, 'aw'),
+(6, 'tag');
 
 -- --------------------------------------------------------
 
@@ -502,12 +546,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `profileImg`, `date`, `TotalScore`) VALUES
-(1, 'nico@404.es', 'Nico', '1234', 'f800e51a263d98490833b119974d2188', '2021-01-13 20:06:50', 1),
+(1, 'nico@404.es', 'Nico', '1234', 'f800e51a263d98490833b119974d2188', '2021-01-13 20:06:50', 9),
 (2, 'roberto@404.es', 'Roberto', '1234', 'b76c7bd454bfc05b903df95608189351', '2021-01-13 20:07:39', 1),
 (3, 'sfg@404.es', 'SFG', '1234', '46b1317c4f6553d2d881de96226542fb', '2021-01-13 20:08:07', 1),
 (4, 'marta@404.es', 'Marta', '1234', 'b7218850ecebaa3bd3033fdfd58326cb', '2021-01-13 20:08:34', 1),
-(5, 'lucas@404.es', 'Lucas', '1234', 'default', '2021-01-13 20:08:56', 1),
-(6, 'emy@404.es', 'Emy', '1234', 'fbb25d800da04a43f9dde9d54f053337', '2021-01-13 20:09:30', 1);
+(5, 'lucas@404.es', 'Lucas', '1234', 'defecto1.png', '2021-01-13 20:08:56', 1),
+(6, 'emy@404.es', 'Emy', '1234', 'fbb25d800da04a43f9dde9d54f053337', '2021-01-13 20:09:30', 1),
+(7, 'a@a.es', 'Alvaro', '123', 'defecto3.png', '2021-01-20 19:53:22', 21);
 
 -- --------------------------------------------------------
 
@@ -519,6 +564,16 @@ CREATE TABLE `visits` (
   `question` int(11) NOT NULL,
   `user` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `visits`
+--
+
+INSERT INTO `visits` (`question`, `user`) VALUES
+(1, 'nico@404.es'),
+(6, 'a@a.es'),
+(6, 'nico@404.es'),
+(6, 'sfg@404.es');
 
 --
 -- Disparadores `visits`
@@ -581,6 +636,14 @@ ALTER TABLE `medals_user`
   ADD KEY `IdUser` (`IdUser`);
 
 --
+-- Indices de la tabla `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `emisor` (`emisor`),
+  ADD KEY `receptor` (`receptor`);
+
+--
 -- Indices de la tabla `questions`
 --
 ALTER TABLE `questions`
@@ -593,12 +656,6 @@ ALTER TABLE `questions`
 ALTER TABLE `questions_score`
   ADD PRIMARY KEY (`question`,`user`) USING BTREE,
   ADD KEY `user` (`user`);
-
---
--- Indices de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`);
 
 --
 -- Indices de la tabla `tags`
@@ -628,19 +685,25 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT de la tabla `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -666,6 +729,13 @@ ALTER TABLE `answers_score`
 ALTER TABLE `medals_user`
   ADD CONSTRAINT `medals_user_ibfk_1` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `medals_user_ibfk_2` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`);
+
+--
+-- Filtros para la tabla `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`emisor`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receptor`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `questions`
