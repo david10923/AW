@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 17:52:17
+-- Tiempo de generación: 26-01-2021 a las 17:36:01
 -- Versión del servidor: 10.4.16-MariaDB
 -- Versión de PHP: 7.4.12
 
@@ -238,6 +238,30 @@ CREATE TABLE `medals_user` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `mensajes`
+--
+
+CREATE TABLE `mensajes` (
+  `id` int(11) NOT NULL,
+  `UserOrigin` varchar(100) NOT NULL,
+  `UserDest` varchar(100) NOT NULL,
+  `Body` varchar(2000) NOT NULL,
+  `Date` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `UserOrigin`, `UserDest`, `Body`, `Date`) VALUES
+(1, 'nico@404.es', 'roberto@404.es', 'tengo algo importante que contarte', '2021-01-25'),
+(2, 'sfg@404.es', 'roberto@404.es', 'quiero que me respoondas', '2021-01-25'),
+(3, 'marta@404.es', 'roberto@404.es', 'necesito decirte esto', '2021-01-25'),
+(4, 'roberto@404.es', 'nico@404.es', 'No se que ponerte nico', '2021-01-25');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `questions`
 --
 
@@ -245,7 +269,7 @@ CREATE TABLE `questions` (
   `ID` int(11) NOT NULL,
   `user` varchar(100) NOT NULL,
   `title` varchar(1000) NOT NULL,
-  `body` varchar(3000) NOT NULL,
+  `body` varchar(1000) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `visits` int(11) NOT NULL DEFAULT 0,
   `nLikes` int(11) NOT NULL DEFAULT 0,
@@ -257,11 +281,14 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`ID`, `user`, `title`, `body`, `date`, `visits`, `nLikes`, `nDislikes`) VALUES
-(1, 'nico@404.es', '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed?', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.', '2021-01-13 20:11:05', 0, 0, 0),
+(1, 'nico@404.es', '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed?', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.', '2021-01-13 20:11:05', 1, 0, 0),
 (2, 'roberto@404.es', '¿Cómo funciona exactamente nth-child?', 'No acabo de comprender muy bien que hace exactamente y qué usos prácticos puede tener.', '2021-01-13 20:18:42', 0, 0, 0),
 (3, 'sfg@404.es', 'Diferencias entre == y === (comparaciones en JavaScript)', 'Siempre he visto que en JavaScript hay:\r\n\r\nasignaciones =\r\ncomparaciones == y ===\r\nCreo entender que == hace algo parecido a comparar el valor de la variable y el === también compara el tipo (como un equals de java).\r\n', '2021-01-13 20:20:07', 0, 0, 0),
-(4, 'marta@404.es', 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', '2021-01-13 20:21:00', 0, 0, 0),
-(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0);
+(4, 'marta@404.es', 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', '2021-01-13 20:21:00', 1, 0, 0),
+(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 1, 0, 0),
+(6, 'nico@404.es', 'Cambio de titulo', 'Cambio de body', '2021-01-23 18:45:03', 1, 0, 0),
+(7, 'nico@404.es', 'asd', 'asd', '2021-01-23 19:08:20', 1, 0, 0),
+(8, 'nico@404.es', 'No se que poner en el titulo ', 'No se que poner en el cuerpo ', '2021-01-23 19:11:38', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -456,6 +483,17 @@ CREATE TABLE `sessions` (
   `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('ScXDEIxHfCWv5aYMqjvs2NyWHdmLYS4F', 1611681470, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentName\":\"Nico\",\"currentEmail\":\"nico@404.es\",\"currentID\":1,\"currentImg\":\"f800e51a263d98490833b119974d2188\"}'),
+('XiD1MHCOFQ2_fdy2Z53hnyd1Q42eM0CE', 1611681041, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentName\":\"Roberto\",\"currentEmail\":\"roberto@404.es\",\"currentID\":2,\"currentImg\":\"b76c7bd454bfc05b903df95608189351\"}'),
+('Y-lZ3Qnt6cZjPfjWTLLnfNumafivj6oK', 1611598196, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentName\":\"Nico\",\"currentEmail\":\"nico@404.es\",\"currentID\":1,\"currentImg\":\"f800e51a263d98490833b119974d2188\"}'),
+('qXMKHDYGlBO40Y4Iru6g0x835LR9XiNp', 1611679527, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentName\":\"Roberto\",\"currentEmail\":\"roberto@404.es\",\"currentID\":2,\"currentImg\":\"b76c7bd454bfc05b903df95608189351\"}'),
+('wMX5t-9ftX1Tro1MstLBAnT6sPuajMbW', 1611662703, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentName\":\"Roberto\",\"currentEmail\":\"roberto@404.es\",\"currentID\":2,\"currentImg\":\"b76c7bd454bfc05b903df95608189351\"}');
+
 -- --------------------------------------------------------
 
 --
@@ -479,7 +517,10 @@ INSERT INTO `tags` (`question`, `tagName`) VALUES
 (3, 'JavaScript'),
 (4, 'nodejs'),
 (5, 'mysql'),
-(5, 'sql');
+(5, 'sql'),
+(6, 'as'),
+(8, 'aw'),
+(8, 'examen');
 
 -- --------------------------------------------------------
 
@@ -519,6 +560,18 @@ CREATE TABLE `visits` (
   `question` int(11) NOT NULL,
   `user` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `visits`
+--
+
+INSERT INTO `visits` (`question`, `user`) VALUES
+(1, 'nico@404.es'),
+(4, 'nico@404.es'),
+(5, 'nico@404.es'),
+(6, 'nico@404.es'),
+(7, 'nico@404.es'),
+(8, 'nico@404.es');
 
 --
 -- Disparadores `visits`
@@ -581,6 +634,13 @@ ALTER TABLE `medals_user`
   ADD KEY `IdUser` (`IdUser`);
 
 --
+-- Indices de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `UserOrigin` (`UserOrigin`);
+
+--
 -- Indices de la tabla `questions`
 --
 ALTER TABLE `questions`
@@ -631,10 +691,16 @@ ALTER TABLE `answers`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -666,6 +732,12 @@ ALTER TABLE `answers_score`
 ALTER TABLE `medals_user`
   ADD CONSTRAINT `medals_user_ibfk_1` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `medals_user_ibfk_2` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`);
+
+--
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `UserOrigin` FOREIGN KEY (`UserOrigin`) REFERENCES `users` (`email`);
 
 --
 -- Filtros para la tabla `questions`
