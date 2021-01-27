@@ -1,0 +1,81 @@
+/* CSS PARA MODULO DE MENSAJES */
+/* NOTA: USO EL MISMO CSS PARA ENVIAR Y RECIBIR YA QUE SON PAGINAS PARECIDAS */
+.inbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+/* TITULO DE PAGINA */
+.inbox .page-title{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* MENSAJES */
+.inbox .users{
+    width: 100%;
+}
+
+.inbox .messages .message,
+.inbox .users .system-user{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.inbox .messages .message{
+    margin: 5px 0;
+}
+
+.inbox .users .system-user{
+    width: 100%;
+    margin: 5px 0;
+}
+
+.inbox .users .system-user form{
+    width: 85%;
+    display: flex;
+    align-items: center;
+}
+
+.inbox .users .system-user form textarea{
+    height: 60px;
+    margin-right: 5px;
+    width: 85%;
+}
+
+.inbox .messages .message .user,
+.inbox .users .system-user .user{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inbox .messages .message .user .user-img,
+.inbox .users .system-user .user .user-img{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.inbox .messages .message .body-message{
+    margin: 0 5px;
+    width: 70%;
+}
+
+.inbox .messages .message .date{
+    margin-right: 5px;
+    text-align: center;
+    color: #BABABA;
+}
+
+/* BOTON INFERIOR */
+.inbox .actions{
+    margin-top: 10px;
+}

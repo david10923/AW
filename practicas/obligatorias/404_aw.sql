@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 17:52:17
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 27-01-2021 a las 14:40:08
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -238,6 +238,29 @@ CREATE TABLE `medals_user` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `messages`
+--
+
+CREATE TABLE `messages` (
+  `ID` int(11) NOT NULL,
+  `emisor` int(11) NOT NULL,
+  `receptor` int(11) NOT NULL,
+  `message` varchar(5000) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `messages`
+--
+
+INSERT INTO `messages` (`ID`, `emisor`, `receptor`, `message`, `date`) VALUES
+(13, 1, 3, 'Hola SFG que tal estas', '2021-01-27 13:37:46'),
+(14, 3, 1, 'que tal nico jeje', '2021-01-27 13:39:10'),
+(15, 3, 2, 'hola rober soy sfg que tal', '2021-01-27 13:39:25');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `questions`
 --
 
@@ -447,18 +470,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sessions`
---
-
-CREATE TABLE `sessions` (
-  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) UNSIGNED NOT NULL,
-  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tags`
 --
 
@@ -581,6 +592,14 @@ ALTER TABLE `medals_user`
   ADD KEY `IdUser` (`IdUser`);
 
 --
+-- Indices de la tabla `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `emisor` (`emisor`),
+  ADD KEY `receptor` (`receptor`);
+
+--
 -- Indices de la tabla `questions`
 --
 ALTER TABLE `questions`
@@ -593,12 +612,6 @@ ALTER TABLE `questions`
 ALTER TABLE `questions_score`
   ADD PRIMARY KEY (`question`,`user`) USING BTREE,
   ADD KEY `user` (`user`);
-
---
--- Indices de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`);
 
 --
 -- Indices de la tabla `tags`
@@ -629,6 +642,12 @@ ALTER TABLE `visits`
 --
 ALTER TABLE `answers`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `questions`
@@ -666,6 +685,13 @@ ALTER TABLE `answers_score`
 ALTER TABLE `medals_user`
   ADD CONSTRAINT `medals_user_ibfk_1` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`),
   ADD CONSTRAINT `medals_user_ibfk_2` FOREIGN KEY (`IdUser`) REFERENCES `users` (`email`);
+
+--
+-- Filtros para la tabla `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`emisor`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receptor`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `questions`

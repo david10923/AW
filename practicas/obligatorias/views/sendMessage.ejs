@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <link rel="stylesheet" media="screen" href="/css/index.css">
+    <link rel="stylesheet" media="screen" href="/css/utils.css">
+    <link rel="stylesheet" media="screen" href="/css/messages.css">
+    <link rel="icon" href="/resources/images/logo_64.png">
+    <title>Enviar mensaje | 404AW</title>
+</head>
+<body>
+    <%- include('header') %>
+
+    <div class="content-body">
+        <div class="inbox">
+            <span class="page-title">Enviar mensajes a usuarios</span>
+            <div class="users">
+                <% users.forEach(function(user){ %>
+                    <div class="system-user">
+                        <div class="user">
+                            <a href="/usuarios/perfil/<%= user.id %>"><img src="/imagen/<%= user.img %>" alt="user-img" class="user-img"></a>
+                            <span class="username"><%= user.username %></span>
+                        </div>
+                        <form action="/mensajes/postMessage/<%= user.id %>" method="POST">
+                            <textarea name="message" class="form-field" placeholder="Escribe aquí el mensaje que quieras enviar a <%= user.username %>..." maxlength="5000"></textarea>
+                            <button type="submit" class="btn btn-primary">Enviar <i class="fa fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

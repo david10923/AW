@@ -1,0 +1,21 @@
+Para ambos apartados:
+- Router para este nuevo modulo que está sobre "/mensajes"
+- Controller para las llamadas al modelo
+- DAOMessages para el acceso a la bbdd
+
+1.- Crear tabla en la bbdd que contenga
+    * tanto ID del usuario que envia y reciba el mensaje
+    * mensaje
+    * fecha (timestamp para fecha + hora)
+    * ID auto incremental necesario para identificar los mensajes, ya que un usuario puede crear mas de 1 mensaje incluso a la misma persona
+
+2.- No ha sido necesario crear middlewares para esta implementacion, con el de mirar la sesion es suficiente
+NOTA: lo correcto seria tener un middleware para el borrado de mensajes para controlar que un usuario solo pueda borrar sus mensajes
+
+3.- En app.js debemos especificar que todas las subrutas contenidas en el router de mensajes estan montadas sobre "/mensajes/..."
+
+4.- Crear 2 nuevas vistas (.ejs) con su CSS (un css para ambas ya que las paginas son parecidas y se repetia codigo)
+
+5.- El manejo de fechas se ha hecho con moment
+
+6.- Se valida que el mensaje no es vacio en el Controller, antes de mandarlo a la bbdd
