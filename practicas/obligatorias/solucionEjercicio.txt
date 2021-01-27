@@ -1,0 +1,15 @@
+-En la vista de formular una pregunta añado el script que tendra la implementacion de lo indicado en la practica.
+-Dentro de public añado un nueva carpeta llamada javaScript que tendra un fichero con la implementacion indicada.
+
+Dentro del controllerPreguntas modifico la fuincion formulata para que mediantte la funcion indicada saque todos los tags de la base de datos.
+Dentro de la vista de formulata hago un forEach recorriendo todas las etiquetas para mostrarlas
+
+Dentro del js
+    *con el $(function() ){} espero a que se cargue el DOM
+    *con $(".etiquetas").on("click") cuando el user pinche en una etiqueta se
+    ejecutara el siguiente codigo 
+    * despues guardo en una variable valorTag el contenido de esa etiqueta 
+    * en tag me guardo el valor que ya tenia ese input para posteriormente 
+        comprobar que no esta ese tag ya en el input, si no esta lo añado al 
+        input cambiando el valor de su campo mediante la sentencia 
+        $("#add-tag-input").prop("value",tags);

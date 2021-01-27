@@ -42,8 +42,17 @@ module.exports = {
     },
 
     // Ruta: /preguntas/formular
-    formulate: function(request, response){
-        response.render("formulate", { errorMsg : null });
+    formulate: function(request, response,next){
+        dao.getAllTags(function(error, data){
+            if(error){
+               next(error);
+            } else{
+                // le tengo que pasar todas las etiquetas tambien
+                response.render("formulate", { tags :data ,errorMsg : null });
+            }
+
+        });
+       
     },
 
     // Ruta: POST /preguntas/createQuestion del FORM para crear la pregunta

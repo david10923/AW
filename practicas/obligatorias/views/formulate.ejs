@@ -10,6 +10,9 @@
     <link rel="stylesheet" media="screen" href="/css/index.css">
     <link rel="stylesheet" media="screen" href="/css/formulate.css">
     <link rel="icon" href="/resources/images/logo_64.png">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/javascript/script.js"></script>
+
     <title>Crear una pregunta | 404AW</title>
 </head>
 <body>
@@ -30,7 +33,14 @@
     
                     <span class="form-title mt-15 mb-0">Etiquetas</span>
                     <span class="form-title explanation">Añade hasta 5 etiquetas para describir sobre qué trata tu pregunta</span>          
-                    <input type="text" class="form-field" name="labels" placeholder="Por ejemplo: @node@express" pattern="^(@[A-Za-z0-9]+){0,5}$">
+                    <input type="text" class="form-field" id="add-tag-input" name="labels" placeholder="Por ejemplo: @node@express" pattern="^(@[A-Za-z0-9]+){0,5}$">
+                    <!-- AÑADO AQUI LA INFORMACION RELATIVA A TODAS LAS ETIQUETAS -->
+                    
+                    <% tags.forEach(tag =>{ %>
+                        <span class="etiquetas"><%= tag.tagName %></span>
+                    <%})%>
+
+
                     <div class="btns-question_actions">
                         <button type="submit" class="btn btn-primary mt-15">Publica tu pregunta <i class="fa fa-check-square-o"></i></button>
                     </div>

@@ -362,6 +362,26 @@ class DAOQuestions{
             }
         });
     }
+
+    getAllTags(callback){
+        this.pool.getConnection(function(error,connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            }else{
+                let sql ="SELECT distinct(tagName) FROM tags ORDER BY tagName ASC;"
+                connection.query(sql,function(error,results){
+                connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    }else{
+                        callback(null,results);
+                    }   
+                });
+            }
+        });
+       
+
+    }
     
 }
 
