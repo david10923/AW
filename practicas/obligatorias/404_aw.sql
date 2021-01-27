@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 17:52:17
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 27-01-2021 a las 15:41:44
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -261,7 +261,12 @@ INSERT INTO `questions` (`ID`, `user`, `title`, `body`, `date`, `visits`, `nLike
 (2, 'roberto@404.es', '¿Cómo funciona exactamente nth-child?', 'No acabo de comprender muy bien que hace exactamente y qué usos prácticos puede tener.', '2021-01-13 20:18:42', 0, 0, 0),
 (3, 'sfg@404.es', 'Diferencias entre == y === (comparaciones en JavaScript)', 'Siempre he visto que en JavaScript hay:\r\n\r\nasignaciones =\r\ncomparaciones == y ===\r\nCreo entender que == hace algo parecido a comparar el valor de la variable y el === también compara el tipo (como un equals de java).\r\n', '2021-01-13 20:20:07', 0, 0, 0),
 (4, 'marta@404.es', 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', '2021-01-13 20:21:00', 0, 0, 0),
-(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0);
+(5, 'lucas@404.es', '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', '2021-01-13 20:21:40', 0, 0, 0),
+(6, 'nico@404.es', 'Nueva preguntilla', 'Cuerpo de la pregunta', '2021-01-27 15:24:13', 1, 0, 0),
+(7, 'nico@404.es', 'otra mas', 'nueva prueba', '2021-01-27 15:24:57', 0, 0, 0),
+(8, 'nico@404.es', 'mas mas', 'massss mas preguntas', '2021-01-27 15:25:50', 0, 0, 0),
+(9, 'nico@404.es', 'final', 'antres de subir cosas aqui xd', '2021-01-27 15:40:37', 0, 0, 0),
+(10, 'nico@404.es', 'nuevaaaaaaa', 'asdasdasd a sd', '2021-01-27 15:41:07', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -447,18 +452,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sessions`
---
-
-CREATE TABLE `sessions` (
-  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) UNSIGNED NOT NULL,
-  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tags`
 --
 
@@ -477,9 +470,27 @@ INSERT INTO `tags` (`question`, `tagName`) VALUES
 (2, 'css'),
 (2, 'html'),
 (3, 'JavaScript'),
+(4, 'AW'),
 (4, 'nodejs'),
+(4, 'zz'),
 (5, 'mysql'),
-(5, 'sql');
+(5, 'sql'),
+(6, 'AW'),
+(6, 'html'),
+(6, 'nuevo'),
+(7, 'abc'),
+(7, 'AW'),
+(7, 'azure'),
+(7, 'nuevo'),
+(8, 'abc'),
+(8, 'azure'),
+(8, 'zz'),
+(9, 'abc'),
+(9, 'css'),
+(9, 'css3'),
+(10, 'cumple'),
+(10, 'examen'),
+(10, 'junio');
 
 -- --------------------------------------------------------
 
@@ -519,6 +530,13 @@ CREATE TABLE `visits` (
   `question` int(11) NOT NULL,
   `user` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `visits`
+--
+
+INSERT INTO `visits` (`question`, `user`) VALUES
+(6, 'nico@404.es');
 
 --
 -- Disparadores `visits`
@@ -595,12 +613,6 @@ ALTER TABLE `questions_score`
   ADD KEY `user` (`user`);
 
 --
--- Indices de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`);
-
---
 -- Indices de la tabla `tags`
 --
 ALTER TABLE `tags`
@@ -634,7 +646,7 @@ ALTER TABLE `answers`
 -- AUTO_INCREMENT de la tabla `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

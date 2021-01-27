@@ -1,0 +1,12 @@
+Para implementar este ejercicio se ha realizado:
+    * En el controller antes se renderizaba la plantilla .ejs sin datos, ahora antes de hacer este render se llama al DAO a una funcion que unicamente obtiene todos los tags del sistema
+    (tags sin repeticiones y ordenados alfabeticamente)
+    * En la plantilla se añaden los tags
+    * Se crea un fichero .js que contenga codigo para implementar las funciones del ejercicio
+
+Para jQuery:
+    * Para añadir los tags al input de las labels se controla el click buscando cada tag por su clase que la identifica dentro de la plantilla
+    * Antes de añadir se comprueba que no esté metida ya la etiqueta
+    * Detectando el cambio el input labels podemos ver cuando quita tags (por si quita alguna que pueda añadirlo despues)
+
+NOTA: se ponen los eventos change, click... y no on(event) pues no vamos a tener elementos que se añadan dinamicamente por lo que nos da igual para este ejercicio

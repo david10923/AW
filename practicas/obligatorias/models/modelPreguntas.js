@@ -362,6 +362,28 @@ class DAOQuestions{
             }
         });
     }
+
+    // PARA LA NUEVA IMPLEMENTACION: OBTENER TODOS LOS TAGS
+    getAllTags(callback){
+        this.pool.getConnection(function(error, connection){
+            if(error){
+                callback(new Error("Error de conexion a la base de datos"));
+            } else{
+                connection.query("SELECT DISTINCT(tagName) as name FROM `tags` GROUP BY tagName ORDER BY tagName ASC;", function(error, data){
+                    connection.release();
+                    if(error){
+                        callback(new Error("Error de acceso a la base de datos"));
+                    } else{
+                        let tags = [];
+                        data.forEach(function(tag){
+                            tags.push(tag.name);
+                        });
+                        callback(null, tags);
+                    }
+                });
+            }
+        });
+    }
     
 }
 
