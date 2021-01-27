@@ -14,6 +14,8 @@ const session           = require('express-session');
 const mysqlSession      = require('express-mysql-session');
 const config            = require('./config');
 const MySQLStore        = mysqlSession(session);
+const mensajesRouter    = require('./routers//mensajesRouter.js');
+
 const sessionStore      = new MySQLStore({
     host        : config.mysqlConfig.host,
     user        : config.mysqlConfig.user,
@@ -47,7 +49,7 @@ app.use(middlewareSession); // middleware de session
 app.use('/usuarios', usersRouter);
 app.use('/preguntas', questionsRouter);
 app.use('/loginout', loginoutRouter);
-
+app.use('/mensajes',mensajesRouter);
 
 // MANEJADORES DE RUTAS PRINCIPALES
 app.get("/", (request, response) => {
