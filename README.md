@@ -1,5 +1,5 @@
 # AW 
-WEB 404
+WEB 404.
 El objetivo de esta práctica es desarrollar la aplicación web 404 de preguntas y respuestas dirigida
 especialmente a programadores de aplicaciones web. Se podría decir que es una versión muy simplificada
 de “stack overflow” con una diferencia importante , en 404 no es posible consultar preguntas y respuestas
